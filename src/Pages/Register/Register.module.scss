@@ -1,0 +1,143 @@
+.wrapper {
+    display: flex;
+    width  : var(--with-global);
+    padding: 20px 15px 80px;
+}
+
+.instructions {
+    flex           : 1;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    width          : 100%;
+    height         : 100%;
+
+    .instructions-img {
+        width : 100%;
+        height: 100%;
+    }
+}
+
+.register {
+    flex: 1;
+
+    .form-register {
+        width  : 462px;
+        padding: 0 16px;
+    }
+
+    .heading {
+        width    : 100%;
+        font-size: 3rem;
+        padding  : 16px 0;
+        margin   : 0;
+    }
+
+    .register-item {
+        position      : relative;
+        display       : flex;
+        flex-direction: column;
+        width         : 100%;
+        margin-bottom : 16px;
+
+        .register-item-label {
+            font-size: 1.6rem;
+        }
+
+        .register-item-input {
+            font-size    : 1.5rem;
+            border       : 1px solid #EBEBEB;
+            border-radius: 8px;
+            height       : 48px;
+            padding      : 8px 8px 8px 16px;
+
+        }
+
+        .register-item-input:focus-visible {
+            outline: unset;
+        }
+
+        .register-item-input:focus {
+            border-color: #0066cc !important;
+        }
+
+        .register-item-icon {
+            padding  : 3px 12px;
+            position : absolute;
+            color    : #606060;
+            font-size: 2.4rem;
+            top      : 38%;
+            right    : 15px;
+            cursor   : pointer;
+        }
+    }
+
+    .register-male {
+        display        : flex;
+        justify-content: flex-start;
+        align-items    : center;
+        width          : 100%;
+        margin-bottom  : 22px;
+
+        .register-male-title-block {
+            width: 93px;
+
+            .register-male-title {
+                font-size: 1.6rem;
+            }
+
+        }
+
+        .register-male-input-block {
+            display     : flex;
+            align-items : center;
+            margin-right: 20px;
+
+            .register-male-input {
+                width       : 20px;
+                height      : 20px;
+                margin-right: 5px;
+            }
+
+            .register-male-label {
+                font-size: 1.6rem;
+                cursor   : pointer;
+            }
+        }
+    }
+
+    .btnSubmit {
+        font-size    : 1.6rem;
+        color        : #fff;
+        width        : 100%;
+        min-height   : 48px;
+        background   : #0066CC;
+        border-radius: 8px;
+        border       : none;
+    }
+
+    .btnSubmit:hover {
+        opacity: 0.9;
+    }
+
+    .login {
+        display    : flex;
+        align-items: center;
+        margin-top : 15px;
+
+        .login-question {
+            color         : #1D1D1F;
+            font-size     : 1.5rem;
+            font-weight   : 400;
+            text-transform: capitalize;
+            margin-right  : 10px;
+        }
+
+        .login-link {
+            font-size      : 1.5rem;
+            font-weight    : 400;
+            text-decoration: none;
+            text-transform : capitalize;
+        }
+    }
+}

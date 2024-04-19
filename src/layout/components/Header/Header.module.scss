@@ -1,0 +1,248 @@
+:root {
+    --text-color: #d2d2d7
+}
+
+.wrapper {
+    z-index            : 99;
+    position           : fixed;
+    top                : 0;
+    right              : 0;
+    left               : 0;
+    display            : flex;
+    align-items        : center;
+    justify-content    : center;
+    height             : var(--height-header);
+    // background-color: #515154;
+    background-color   : #161616;
+}
+
+.navbar {
+    display        : flex;
+    justify-content: space-between;
+    width          : var(--with-global);
+    height         : 100%;
+}
+
+// logo
+.navbar-item-logo {
+    max-width  : 173px;
+    height     : 100%;
+    display    : flex;
+    align-items: center;
+
+    .logo-link {
+        width      : 100%;
+        height     : 100%;
+        display    : flex;
+        align-items: center;
+
+        .logo {
+            width  : 100%;
+            height : 80%;
+            display: block;
+            opacity: 1;
+            cursor : pointer;
+        }
+    }
+}
+
+// menu category
+.navbar-item-menu {
+    display    : flex;
+    align-items: center;
+
+    .menu-category {
+        position       : relative;
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+        height         : 100%;
+
+        .menu-category-link {
+            font-size      : 1.5rem;
+            text-transform : uppercase;
+            color          : var(--text-color);
+            width          : 100%;
+            height         : 100%;
+            padding        : 0 16px;
+            display        : flex;
+            align-items    : center;
+            justify-content: center;
+            text-decoration: none;
+            cursor         : pointer;
+
+            .menu-category-icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        .menu-category-link-absolute {
+            display         : flex;
+            display         : none;
+            position        : relative;
+            position        : absolute;
+            flex-direction  : column;
+            align-items     : center;
+            justify-content : center;
+            top             : 100%;
+            left            : 0;
+            width           : 245px;
+            margin-top      : 10px;
+            background-color: #515154;
+
+            .menu-category-link-absolute-a {
+                font-size      : 1.5rem;
+                color          : var(--text-color);
+                width          : 100%;
+                height         : 100%;
+                padding        : 12px 16px;
+                text-decoration: none;
+                cursor         : pointer;
+                border-bottom  : 1px solid #5c5c5c;
+            }
+
+        }
+
+        .menu-category-link-absolute::after {
+            content      : "";
+            position     : absolute;
+            bottom       : 100%;
+            left         : 5px;
+            border-right : 10px solid transparent;
+            border-left  : 10px solid transparent;
+            border-bottom: 10px solid #515154;
+        }
+
+        .menu-category-link-absolute::before {
+            content : "";
+            position: absolute;
+            bottom  : 98%;
+            left    : 0;
+            width   : 100%;
+            height  : 20px;
+        }
+
+        .menu-category-link-absolute-a:hover {
+            color: var(--primary);
+        }
+
+    }
+
+    .menu-category:hover {
+        background-color: #3d3d3d;
+    }
+
+    .menu-category:hover .menu-category-link {
+        color: var(--primary);
+    }
+
+    .menu-category:hover .menu-category-link-absolute {
+        display: flex;
+    }
+}
+
+// Social
+.navbar-item-social {
+    display: flex;
+
+    .social-category {
+        display    : flex;
+        align-items: center;
+        cursor     : pointer;
+
+        .social-category-user {
+            height  : 100%;
+            width   : 100%;
+            position: relative;
+        }
+
+        .social-category-user:hover .subnav-user {
+            display: flex;
+        }
+
+        .social-category-link {
+            position       : relative;
+            padding        : 0 15px;
+            height         : 100%;
+            display        : flex;
+            align-items    : center;
+            color          : var(--text-color);
+            font-size      : 2.3rem;
+            text-decoration: none;
+
+            .car-quantity {
+                position        : absolute;
+                display         : flex;
+                align-items     : center;
+                justify-content : center;
+                top             : 15px;
+                right           : 11px;
+                color           : #000;
+                font-size       : 1.2rem;
+                font-weight     : 300;
+                height          : 15px;
+                width           : 15px;
+                border-radius   : 50%;
+                background-color: #fff;
+            }
+        }
+
+        .tel-link {
+            font-size: 1.5rem;
+        }
+
+        .subnav-user {
+            position        : absolute;
+            top             : 86%;
+            display         : flex;
+            display         : none;
+            right           : 0;
+            width           : 248px;
+            padding         : 8px 0;
+            flex-direction  : column;
+            border-radius   : 8px;
+            background-color: #fff;
+            box-shadow      : 0px 16px 32px 1px rgba(0, 0, 0, 0.15);
+
+            .subnav-user-link {
+                cursor         : pointer;
+                display        : flex;
+                align-items    : center;
+                justify-content: flex-start;
+                height         : 45px;
+                margin         : 0 32px;
+                font-size      : 1.4rem;
+                color          : #1d1d1f;
+                text-decoration: none;
+                border-bottom  : 1px solid #D2D2D7;
+            }
+
+            .subnav-user-link:hover {
+                color: var(--primary);
+            }
+        }
+
+        .subnav-user::after {
+            content      : "";
+            position     : absolute;
+            bottom       : 100%;
+            right        : 17px;
+            border-right : 10px solid transparent;
+            border-left  : 10px solid transparent;
+            border-bottom: 10px solid #fff;
+        }
+
+        .subnav-user::before {
+            content : "";
+            position: absolute;
+            bottom  : 95%;
+            right   : 0;
+            width   : 30%;
+            height  : 15px;
+        }
+    }
+
+    .social-category:hover .social-category-link {
+        color: var(--primary);
+    }
+}

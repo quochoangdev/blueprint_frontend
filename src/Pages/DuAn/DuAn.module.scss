@@ -1,0 +1,212 @@
+.wrapper {
+    width     : var(--with-global);
+    display   : flex;
+    min-height: 200px;
+}
+
+.inner-left {
+    flex   : 1;
+    padding: 16px;
+
+    .bl-filter {
+        padding: 24px;
+        border : 1px solid #E9ECF4;
+
+        .heading {
+            display        : flex;
+            justify-content: space-between;
+            margin-bottom  : 24px;
+
+            .heading-left {
+                font-size  : 1.6rem;
+                font-weight: 600;
+            }
+
+            .heading-right {
+                color      : var(--primary);
+                font-size  : 1.4rem;
+                font-weight: 500;
+            }
+        }
+
+        .hr-border {
+            border       : 1px dashed #bdbdbe;
+            background   : transparent;
+            margin-bottom: 24px;
+        }
+
+        .content {
+            display       : flex;
+            flex-direction: column;
+
+            .title {
+                font-size    : 1.6rem;
+                font-weight  : 600;
+                margin-bottom: 6px;
+            }
+
+            .list-check-home {
+                padding: 0;
+
+                .list-item {
+                    display    : flex;
+                    align-items: center;
+                    padding    : 8px 0;
+                    cursor     : pointer;
+
+
+                    .check {
+                        width       : 18px;
+                        height      : 18px;
+                        margin-right: 6px;
+                        cursor      : pointer;
+                    }
+
+                    .name {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .list-number-floor {
+                display  : flex;
+                flex-wrap: wrap;
+                padding  : 0;
+
+                .list-item {
+                    display        : flex;
+                    align-items    : center;
+                    justify-content: center;
+                    padding        : 8px 0;
+                    margin-right   : 12px;
+                    cursor         : pointer;
+
+                    .bl-number {
+                        z-index         : 1;
+                        position        : relative;
+                        display         : flex;
+                        align-items     : center;
+                        justify-content : center;
+                        background-color: #E9ECF4;
+                        width           : 40px;
+                        height          : 32px;
+                        font-size       : 1.2rem;
+                        font-weight     : 500;
+                        cursor          : pointer;
+
+                        .check {
+                            position : absolute;
+                            left     : 0;
+                            top      : 50%;
+                            transform: translateY(-50%);
+                            display  : none;
+                            cursor   : pointer;
+                        }
+
+                    }
+
+                    .active {
+                        color           : #fff;
+                        background-color: #000 !important;
+                    }
+                }
+            }
+
+            .list-bed-room {
+                display  : flex;
+                flex-wrap: wrap;
+                padding  : 0;
+
+                .list-item {
+                    display        : flex;
+                    align-items    : center;
+                    justify-content: center;
+                    padding        : 8px 0;
+                    margin-right   : 12px;
+                    cursor         : pointer;
+
+                    .bl-number {
+                        z-index         : 1;
+                        position        : relative;
+                        display         : flex;
+                        align-items     : center;
+                        justify-content : center;
+                        background-color: #E9ECF4;
+                        width           : 40px;
+                        height          : 32px;
+                        font-size       : 1.2rem;
+                        font-weight     : 500;
+                        cursor          : pointer;
+
+                        .check {
+                            position : absolute;
+                            left     : 0;
+                            top      : 50%;
+                            transform: translateY(-50%);
+                            display  : none;
+                            cursor   : pointer;
+                        }
+
+                    }
+
+                    .active {
+                        color           : #fff;
+                        background-color: #000 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.inner-right {
+    flex   : 3;
+    padding: 16px;
+
+    .heading {
+        display            : flex;
+        // overflow-x: scroll;
+        border-bottom-color: #dbdbdb;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        padding-top        : 24px;
+        margin-bottom      : 24px;
+
+        .heading-item {
+            font-size          : 1.6rem;
+            padding            : 7px 0px;
+            margin-right       : 28px;
+            cursor             : pointer;
+            border-bottom-color: transparent;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+        }
+
+        .heading-item:hover {
+            border-bottom-color: #485fc7;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+        }
+    }
+
+    .product-list {
+        width    : 100%;
+        display  : flex;
+        flex-wrap: wrap;
+        gap      : 2rem;
+    }
+}
+
+// pagination
+.page {
+    display        : flex;
+    justify-content: flex-end;
+    margin-top     : 20px;
+    height         : 36px;
+
+    .hello {
+        --bs-pagination-padding-x: 1rem;
+        --bs-pagination-padding-y: 0.35rem;
+        --bs-pagination-font-size: 1.6rem;
+    }
+}

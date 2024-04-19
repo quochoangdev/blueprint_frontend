@@ -1,0 +1,197 @@
+.wrapper {
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+
+.footer {
+    width         : 100%;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+
+.information {
+    width           : 100%;
+    display         : flex;
+    flex-direction  : column;
+    align-items     : center;
+    background-color: #1d1d1f;
+
+    //  footer upper
+    .footer-upper {
+        display         : flex;
+        width           : var(--with-global);
+        padding         : 64px 0 21px 0;
+        // border-bottom: 1px solid #515154;
+        border-bottom   : 1px solid var(--primary);
+    }
+
+    .upper-follow-us {
+        width: 344px;
+
+        .follow-us-logo {
+            width      : 100%;
+            max-height : 80px;
+            display    : flex;
+            align-items: center;
+
+            .logo-link {
+                width      : 100%;
+                height     : 100%;
+                display    : flex;
+                align-items: center;
+
+                .logo {
+                    width  : calc(35px * 1.4);
+                    height : calc(55px * 1.4);
+                    display: block;
+                    opacity: 1;
+                    cursor : pointer;
+                }
+            }
+        }
+
+        .topic-block {
+            font-size  : 1.5rem;
+            color      : #D2D2D7;
+            text-align : justify;
+            margin     : 10px 0;
+            padding    : 8px 0;
+            font-weight: 400;
+            line-height: 2.4rem;
+        }
+
+        .social {
+            display    : flex;
+            align-items: center;
+            height     : 56px;
+
+            .social-facebook,
+            .social-youtube,
+            .social-zalo {
+                display        : flex;
+                align-items    : center;
+                justify-content: center;
+                width          : 50px;
+                height         : 50px;
+                border-radius  : 50%;
+                border         : solid 2px #515154;
+            }
+
+            .social-facebook {
+                font-size: 1.8rem;
+                color    : #3969b3;
+            }
+
+
+
+            .social-youtube {
+                font-size: 2rem;
+                color    : #c22421;
+                margin   : 0 10px;
+            }
+
+
+            .social-zalo {
+                font-size: 3.2rem;
+                color    : #3969b3;
+            }
+
+            .social-facebook:hover,
+            .social-youtube:hover,
+            .social-zalo:hover {
+                opacity         : 0.8;
+                border          : solid 2px var(--primary);
+                background-color: var(--primary);
+            }
+        }
+    }
+
+    .upper-information {
+        flex        : 1;
+        padding-left: 60px;
+    }
+
+    .upper-customer-service {
+        flex        : 1;
+        padding-left: 60px;
+    }
+
+    .upper-my-account {
+        flex        : 1;
+        padding-left: 60px;
+
+        .list-item-location {
+            font-size   : 1.3rem;
+            color       : #86868b;
+            line-height : 28px;
+            padding-left: 15px;
+        }
+
+        .list-item-tel {
+            color: #0066cc;
+        }
+    }
+
+    .title {
+        text-decoration: none;
+        font-size      : 1.6rem;
+        color          : var(--primary);
+        font-weight    : 400;
+        margin-bottom  : 15px;
+    }
+
+    .list {
+        display       : flex;
+        flex-direction: column;
+
+        .list-item {
+            text-decoration: none;
+            font-size      : 1.3rem;
+            color          : #86868b;
+            line-height    : 28px;
+        }
+
+        .list-item:hover {
+            text-decoration: underline;
+        }
+    }
+
+    //  footer lower
+    .footer-lower {
+        display        : flex;
+        justify-content: space-between;
+        width          : var(--with-global);
+        min-height     : 112px;
+        padding        : 20px 0px 32px 0px;
+
+        .disclaimer {
+            flex       : 1;
+            font-size  : 1.3rem;
+            color      : #515154;
+            line-height: 2rem;
+
+            hr {
+                border: none;
+                margin: 0;
+            }
+        }
+
+        .confirm {
+            flex           : 1;
+            display        : flex;
+            justify-content: flex-end;
+
+            .confirm-link {
+                width  : 140px;
+                display: block;
+
+                .confirm-image {
+                    width: 100%;
+
+                }
+            }
+        }
+    }
+}

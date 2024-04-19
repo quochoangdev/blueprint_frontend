@@ -1,0 +1,14 @@
+.footing {
+    .page {
+        display        : flex;
+        justify-content: flex-end;
+        margin-top     : 20px;
+        height         : 36px;
+
+        .hello {
+            --bs-pagination-padding-x: 1rem;
+            --bs-pagination-padding-y: 0.35rem;
+            --bs-pagination-font-size: 1.6rem;
+        }
+    }
+}

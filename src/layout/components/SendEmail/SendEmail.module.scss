@@ -1,0 +1,123 @@
+.footer-new-letter-bg {
+    display         : flex;
+    justify-content : center;
+    width           : 100%;
+    background-color: var(--background-primary);
+
+    .footer-new-letter {
+        width          : var(--with-global);
+        min-height     : 200px;
+        padding        : 50px 0;
+        display        : flex;
+        flex-direction : column;
+        justify-content: center;
+        align-items    : center;
+
+        .heading-letter {
+            position   : relative;
+            color      : var(--primary);
+            font-size  : 3rem;
+            font-weight: 600;
+            line-height: 36px;
+        }
+
+        .heading-letter::before {
+            position        : absolute;
+            content         : "";
+            bottom          : -10px;
+            left            : 50%;
+            transform       : translateX(-50%);
+            width           : 150px;
+            height          : 1px;
+            background-color: var(--primary);
+        }
+
+        .send-email {
+            margin-top    : 20px;
+            width         : 100%;
+            display       : flex;
+            flex-direction: column;
+            align-items   : flex-start;
+
+            .email-letter {
+                display       : flex;
+                flex-direction: column;
+                width         : 595px;
+                margin-bottom : 20px;
+
+                .email-letter-title {
+                    font-size    : 1.5rem;
+                    color        : #333;
+                    font-weight  : 500;
+                    margin-bottom: 5px;
+                    cursor       : pointer;
+                }
+
+                .email-letter-input {
+                    width           : 100%;
+                    border          : 1px solid #f3f3f3;
+                    line-height     : 38px;
+                    padding         : 0 10px;
+                    border-radius   : 0;
+                    background-color: #f3f3f3;
+                }
+
+                .email-letter-input:focus-visible {
+                    outline: unset;
+                }
+
+                .budget-content {
+                    display: flex;
+
+                    .budget-block {
+                        display     : flex;
+                        align-items : center;
+                        margin-right: 15px;
+
+                        .budget-input {
+                            margin-right: 4px;
+                        }
+
+                        .budget-title {
+                            color    : #333;
+                            font-size: 1.4rem;
+                            cursor   : pointer;
+                        }
+                    }
+                }
+
+                .input-area {
+                    resize: none;
+                }
+            }
+
+            .email-letter-register {
+                font-size       : 1.4rem;
+                display         : flex;
+                align-items     : center;
+                color           : #fff;
+                height          : 42px;
+                padding         : 0 15px;
+                font-weight     : 500;
+                border          : 1px solid var(--primary);
+                background-color: var(--primary);
+
+                .email-letter-register-icon {
+                    margin-left: 3px;
+                    font-size  : 1.7rem;
+                }
+
+
+            }
+
+            .email-letter-register:focus-visible {
+                // outline: none;
+            }
+
+            .email-letter-register:hover {
+                box-shadow: 4px 4px 2px 0px #cdcdcd;
+            }
+        }
+
+    }
+}

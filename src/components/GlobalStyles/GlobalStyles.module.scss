@@ -1,0 +1,59 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --with-global        : 1200px;
+    --primary            : #ffba00;
+    --background-primary : #fff;
+    --text-color         : #fff;
+    --height-header      : 64px;
+    --border-radius-admin: 15px;
+
+    // Default layout
+    // --default-layout-header-height    : 60px;
+    // --default-layout-width            : 1150px;
+    // --default-layout-horizontal-spacer: 24px;
+}
+
+html {
+    font-size      : 62.5%;
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    scroll-behavior: smooth
+}
+
+* {
+    margin    : 0;
+    padding   : 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family   : 'Bai Jamjuree', sans-serif;
+    font-size     : 1.6rem;
+    line-height   : 1.5;
+    text-rendering: optimizeSpeed;
+    overflow-y    : overlay;
+}
+
+html::-webkit-scrollbar {
+    width          : 10px;
+    scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius   : 10px;
+    background-color: rgba(22, 24, 35, 0.1);
+    cursor          : pointer;
+}
+
+html::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(22, 24, 35, 0.3);
+}

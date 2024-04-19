@@ -1,0 +1,98 @@
+.wrapper {
+    display: flex;
+    width  : var(--with-global);
+    padding: 40px 15px 80px;
+}
+
+.instructions {
+    flex           : 1;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    width          : 100%;
+    height         : 100%;
+
+    .instructions-img {
+        width : 100%;
+        height: 100%;
+    }
+}
+
+.login {
+    flex: 1;
+
+    .form-login {
+        width  : 462px;
+        padding: 0 16px;
+    }
+
+    .heading {
+        width    : 100%;
+        font-size: 3rem;
+        padding  : 16px 0;
+        margin   : 0;
+    }
+
+    .login-item {
+        display       : flex;
+        flex-direction: column;
+        width         : 100%;
+        margin-bottom : 16px;
+
+        .login-item-label {
+            font-size: 1.6rem;
+        }
+
+        .login-item-input {
+            font-size    : 1.5rem;
+            border       : 1px solid #EBEBEB;
+            border-radius: 8px;
+            height       : 48px;
+            padding      : 8px 8px 8px 16px;
+
+        }
+
+        .login-item-input:focus-visible {
+            outline: unset;
+        }
+
+        .login-item-input:focus {
+            border-color: #0066cc !important;
+        }
+    }
+
+    .btnSubmit {
+        font-size    : 1.6rem;
+        color        : #fff;
+        width        : 100%;
+        min-height   : 48px;
+        background   : #0066CC;
+        border-radius: 8px;
+        border       : none;
+    }
+
+    .btnSubmit:hover {
+        opacity: 0.9;
+    }
+
+    .register {
+        display    : flex;
+        align-items: center;
+        margin-top : 15px;
+
+        .register-question {
+            color         : #1D1D1F;
+            font-size     : 1.5rem;
+            font-weight   : 400;
+            text-transform: capitalize;
+            margin-right  : 10px;
+        }
+
+        .register-link {
+            font-size      : 1.5rem;
+            font-weight    : 400;
+            text-decoration: none;
+            text-transform : capitalize;
+        }
+    }
+}

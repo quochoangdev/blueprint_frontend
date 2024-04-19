@@ -1,0 +1,169 @@
+.contact-form {
+    padding: 24px;
+    border : 1px solid #E9ECF4;
+
+    .title {
+        font-size    : 1.8rem;
+        font-weight  : 500;
+        margin-bottom: 20px;
+    }
+
+    .block-input {
+        display       : flex;
+        flex-direction: column;
+        margin-bottom : 10px;
+        cursor        : pointer;
+
+        .bl-label {
+            font-size    : 1.4rem;
+            color        : #000;
+            margin-bottom: 4px;
+            cursor       : pointer;
+        }
+
+        .bl-input {
+            font-size: 1.6rem;
+            height   : 40px;
+            padding  : 7px 11px;
+            border   : solid 1px #212e50;
+        }
+
+        .bl-input:focus-visible {
+            outline   : none;
+            box-shadow: 0 0 0 0.125em rgba(72, 95, 199, .25);
+        }
+    }
+
+    .two-select {
+        display        : flex;
+        justify-content: space-between;
+        margin-bottom  : 10px;
+
+        .block-select {
+            flex: 1;
+
+            .bl-label {
+                font-size    : 1.4rem;
+                color        : #000;
+                margin-bottom: 4px;
+                cursor       : pointer;
+            }
+
+            .bl-down {
+                position: relative;
+
+                .bl-select {
+                    height            : 40px;
+                    width             : 100%;
+                    padding           : 7px 40px 7px 11px;
+                    -webkit-appearance: none;
+                }
+
+                .bl-icon {
+                    position : absolute;
+                    top      : 50%;
+                    transform: translateY(-50%);
+                    right    : 14%;
+                    font-size: 1.3rem;
+                }
+
+                .bl-select:focus-visible {
+                    outline   : none;
+                    box-shadow: 0 0 0 0.125em rgba(72, 95, 199, .25);
+                }
+            }
+        }
+
+        .mr-12 {
+            margin-right: 12px;
+        }
+    }
+
+    .sum-price {
+        display        : flex;
+        justify-content: space-between;
+        align-items    : center;
+        padding-top    : 16px;
+        margin-bottom  : 12px;
+
+        .sum {
+            font-size: 1.6rem;
+            color    : #000;
+        }
+
+        .price {
+            font-size  : 1.8rem;
+            font-weight: 500;
+            color      : var(--primary);
+        }
+    }
+
+    .note {
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        font-size      : 1.2rem;
+        color          : #000;
+        margin-bottom  : 8px;
+    }
+
+    .two-btn {
+        display: flex;
+
+        .fl-1 {
+            flex       : 1;
+            font-size  : 1.4rem;
+            font-weight: 600;
+            padding    : 9px 10px;
+        }
+
+        .mr-6 {
+            margin-right: 6px;
+        }
+    }
+
+    .btn {
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+        text-decoration: none;
+        font-size      : 1.6rem;
+        font-weight    : 600;
+        width          : 100%;
+        height         : 48px;
+        padding        : 9px 20px;
+        margin-bottom  : 8px;
+        cursor         : pointer;
+    }
+
+    .cl-primary {
+        color           : #fff;
+        // background: linear-gradient(0deg, var(--primary), #f97c22);
+        border          : none;
+        background-color: var(--primary);
+    }
+
+    .cl-primary:hover {
+        // background: var(--primary);
+        box-shadow: 4px 4px 2px 0px #cdcdcd;
+    }
+
+    .cl-white {
+        display         : flex;
+        align-items     : center;
+        justify-content : center;
+        color           : #000;
+        background-color: #fff;
+        border          : solid 1px #dbdbdb;
+
+        .icon {
+            font-size   : 1.8rem;
+            margin-right: 6px;
+        }
+    }
+
+    .cl-white:hover {
+        border    : solid 1px #b5b5b5;
+        box-shadow: 4px 4px 2px 0px #cdcdcd;
+    }
+}
