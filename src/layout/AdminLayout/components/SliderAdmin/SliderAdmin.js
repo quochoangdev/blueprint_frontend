@@ -44,7 +44,7 @@ const SliderAdmin = () => {
     <div className={cx("wrapper")}>
       <Link className={cx("heading")} to={`/${config.routes.homeAdmin}`}>
         <MdDashboard className={cx("heading-icon")} />
-        <span>QHoangiT</span>
+        <span>QuocHoangDev</span>
       </Link>
       <div className={cx("list")}>
         <Link
