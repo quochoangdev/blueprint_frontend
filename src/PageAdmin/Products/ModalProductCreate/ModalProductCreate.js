@@ -13,81 +13,40 @@ const cx = classNames.bind(styles);
 const ModalProductCreate = (props) => {
   const [data, setData] = useState({
     title: "",
-    description: "",
+    price: "",
+    version: "",
+    quantity: "",
     imageAvatar: "",
     imageDetail: "",
-    price: "",
-    numberOfFloors: "",
-    width: "",
-    length: "",
-    roomNumber: "",
-    facade: "",
-    productCode: "",
-    categoryId: "",
+    colors: "",
+    percentDiscount: "",
+    categoriesId: "",
   });
   const [categoryData, setCategoryData] = useState([]);
 
   const validInputDefault = {
     title: true,
-    description: true,
+    price: true,
+    version: true,
+    quantity: true,
     imageAvatar: true,
     imageDetail: true,
-    price: true,
-    numberOfFloors: true,
-    width: true,
-    length: true,
-    roomNumber: true,
-    facade: true,
-    productCode: true,
-    categoryId: true,
+    colors: true,
+    percentDiscount: true,
+    categoriesId: true,
   };
   const [validInputs, setValidInputs] = useState(validInputDefault);
 
   const isCheckInputs = () => {
-    if (!data.title) {
-      toast("Please Enter Title");
-      return false;
-    }
-    if (!data.imageAvatar) {
-      toast("Please Enter Image Avatar");
-      return false;
-    }
-    if (!data.imageDetail) {
-      toast("Please Enter Image Detail");
-      return false;
-    }
-    if (!data.price) {
-      toast("Please Enter Price");
-      return false;
-    }
-    if (!data.numberOfFloors) {
-      toast("Please Enter Number of floors");
-      return false;
-    }
-    if (!data.width) {
-      toast("Please Enter Width");
-      return false;
-    }
-    if (!data.length) {
-      toast("Please Enter Length");
-      return false;
-    }
-    if (!data.roomNumber) {
-      toast("Please Enter Room Number");
-      return false;
-    }
-    if (!data.facade) {
-      toast("Please Enter Facade");
-      return false;
-    }
-    if (!data.productCode) {
-      toast("Please Enter Product Code");
-      return false;
-    }
-    if (!data.categoryId) {
-      toast("Please Enter Last CategoryId");
-      return false;
-    }
+    if (!data.title) { toast("Please Enter Title"); return false; }
+    if (!data.price) { toast("Please Enter Price"); return false; }
+    if (!data.version) { toast("Please Enter Version"); return false; }
+    if (!data.quantity) { toast("Please Enter Quantity"); return false; }
+    if (!data.imageAvatar) { toast("Please Enter Image Avatar"); return false; }
+    if (!data.imageDetail) { toast("Please Enter Image Detail"); return false; }
+    if (!data.colors) { toast("Please Enter Color"); return false; }
+    if (!data.percentDiscount) { toast("Please Enter PercentDiscount"); return false; }
+    if (!data.categoriesId) { toast("Please Enter Last CategoriesId"); return false; }
     return true;
   };
 
@@ -144,16 +103,14 @@ const ModalProductCreate = (props) => {
     setValidInputs(validInputDefault);
     let arr = [
       "title",
+      "price",
+      "version",
+      "quantity",
       "imageAvatar",
       "imageDetail",
-      "price",
-      "numberOfFloors",
-      "width",
-      "length",
-      "roomNumber",
-      "facade",
-      "productCode",
-      "categoryId",
+      "colors",
+      "percentDiscount",
+      "categoriesId",
     ];
     let check = true;
     // eslint-disable-next-line array-callback-return
@@ -172,7 +129,7 @@ const ModalProductCreate = (props) => {
     return true;
   };
 
-  // Get Groups
+  // Get Category
   useEffect(() => {
     getCategory();
   }, []);
@@ -221,7 +178,7 @@ const ModalProductCreate = (props) => {
             roomNumber: "",
             facade: "",
             productCode: "",
-            categoryId: "",
+            categoriesId: "",
           };
         });
       } else {
@@ -229,7 +186,6 @@ const ModalProductCreate = (props) => {
       }
     }
   };
-  console.log(data);
   return (
     <>
       <Modal
@@ -246,11 +202,11 @@ const ModalProductCreate = (props) => {
         </Modal.Header>
         <Modal.Body>
           <form className={cx("form-wrapper")}>
-            {/* title and  description*/}
+            {/* title and  price*/}
             <div className={cx("two-row")}>
               <div className={cx("bl-input")}>
                 <label>
-                  Tiêu đề (<span className={cx("valid-start")}>*</span>)
+                  Title (<span className={cx("valid-start")}>*</span>)
                 </label>
                 <div className={cx("bl-icon")}>
                   <input
@@ -260,22 +216,63 @@ const ModalProductCreate = (props) => {
                     onChange={handleOnChange}
                     onFocus={handleOnFocus}
                   />
-                  {!validInputs.title && <MdErrorOutline className={cx("icon")} />}
+                  {!validInputs.title && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
                 </div>
               </div>
               <div className={cx("bl-input")}>
                 <label>
-                  Mô tả (<span className={cx("valid-start")}>*</span>)
+                  Price (<span className={cx("valid-start")}>*</span>)
                 </label>
                 <div className={cx("bl-icon")}>
                   <input
-                    className={cx(validInputs.description ? "" : `is-valid`)}
+                    className={cx(validInputs.price ? "" : `is-valid`)}
                     type="text"
-                    name="description"
+                    name="price"
                     onChange={handleOnChange}
                     onFocus={handleOnFocus}
                   />
-                  {!validInputs.description && <MdErrorOutline className={cx("icon")} />}
+                  {!validInputs.price && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* version and  categories*/}
+            <div className={cx("two-row")}>
+              <div className={cx("bl-input")}>
+                <label>
+                  Version (<span className={cx("valid-start")}>*</span>)
+                </label>
+                <div className={cx("bl-icon")}>
+                  <input
+                    className={cx(validInputs.version ? "" : `is-valid`)}
+                    type="text"
+                    name="version"
+                    onChange={handleOnChange}
+                    onFocus={handleOnFocus}
+                  />
+                  {!validInputs.version && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
+                </div>
+              </div>
+              <div className={cx("bl-input")}>
+                <label>
+                  Categories (<span className={cx("valid-start")}>*</span>)
+                </label>
+                <div className={cx("bl-icon")}>
+                  <input
+                    className={cx(validInputs.categoriesId ? "" : `is-valid`)}
+                    type="text"
+                    name="categoriesId"
+                    onChange={handleOnChange}
+                    onFocus={handleOnFocus}
+                  />
+                  {!validInputs.categoriesId && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
                 </div>
               </div>
             </div>
@@ -295,7 +292,9 @@ const ModalProductCreate = (props) => {
                     onChange={handleImageAvatar}
                     onFocus={handleOnFocus}
                   />
-                  {!validInputs.imageAvatar && <MdErrorOutline className={cx("icon")} />}
+                  {!validInputs.imageAvatar && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
                 </div>
               </div>
               <div className={cx("bl-input")}>
@@ -312,167 +311,84 @@ const ModalProductCreate = (props) => {
                     onChange={handleImageDetail}
                     onFocus={handleOnFocus}
                   />
-                  {!validInputs.imageDetail && <MdErrorOutline className={cx("icon")} />}
+                  {!validInputs.imageDetail && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
                 </div>
               </div>
             </div>
-            {/* Price and Facade */}
+            {/* colors and percentDiscount */}
             <div className={cx("two-row")}>
               <div className={cx("bl-input")}>
                 <label>
-                  Giá (<span className={cx("valid-start")}>*</span>)
+                  Color (<span className={cx("valid-start")}>*</span>)
                 </label>
                 <div className={cx("bl-icon")}>
                   <input
-                    className={cx(validInputs.price ? "" : `is-valid`)}
+                    className={cx(validInputs.colors ? "" : `is-valid`)}
                     type="text"
-                    name="price"
+                    name="colors"
                     onChange={handleOnChange}
                     onFocus={handleOnFocus}
                   />
-                  {!validInputs.price && <MdErrorOutline className={cx("icon")} />}
+                  {!validInputs.colors && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
                 </div>
               </div>
               <div className={cx("bl-input")}>
                 <label>
-                  Mặt tiền (<span className={cx("valid-start")}>*</span>)
+                  PercentDiscount (<span className={cx("valid-start")}>*</span>)
                 </label>
                 <div className={cx("bl-icon")}>
                   <input
-                    className={cx(validInputs.facade ? "" : `is-valid`)}
+                    className={cx(
+                      validInputs.percentDiscount ? "" : `is-valid`
+                    )}
                     type="text"
-                    name="facade"
+                    name="percentDiscount"
                     onChange={handleOnChange}
                     onFocus={handleOnFocus}
                   />
-                  {!validInputs.facade && <MdErrorOutline className={cx("icon")} />}
+                  {!validInputs.percentDiscount && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
                 </div>
               </div>
             </div>
-            {/* Width and Length */}
+            {/* quantities */}
             <div className={cx("two-row")}>
               <div className={cx("bl-input")}>
                 <label>
-                  Chiều rộng (<span className={cx("valid-start")}>*</span>)
+                  Quantity (<span className={cx("valid-start")}>*</span>)
                 </label>
                 <div className={cx("bl-icon")}>
                   <input
-                    className={cx(validInputs.width ? "" : `is-valid`)}
+                    className={cx(validInputs.quantity ? "" : `is-valid`)}
                     type="text"
-                    name="width"
+                    name="quantity"
                     onChange={handleOnChange}
                     onFocus={handleOnFocus}
                   />
-                  {!validInputs.width && <MdErrorOutline className={cx("icon")} />}
+                  {!validInputs.quantity && (
+                    <MdErrorOutline className={cx("icon")} />
+                  )}
                 </div>
-              </div>
-              <div className={cx("bl-input")}>
-                <label>
-                  Chiều dài (<span className={cx("valid-start")}>*</span>)
-                </label>
-                <div className={cx("bl-icon")}>
-                  <input
-                    className={cx(validInputs.length ? "" : `is-valid`)}
-                    type="text"
-                    name="length"
-                    onChange={handleOnChange}
-                    onFocus={handleOnFocus}
-                  />
-                  {!validInputs.length && <MdErrorOutline className={cx("icon")} />}
-                </div>
-              </div>
-            </div>
-            {/* RoomNumber and NumberOfFloors */}
-            <div className={cx("two-row")}>
-              <div className={cx("bl-select")}>
-                <label>
-                  Số phòng (<span className={cx("valid-start")}>*</span>)
-                </label>
-                <select
-                  className={cx(validInputs.roomNumber ? "" : `is-valid`)}
-                  name="roomNumber"
-                  value={data?.roomNumber}
-                  onChange={handleOnChange}
-                  onFocus={handleOnFocus}
-                >
-                  <option value={`1`}>1</option>
-                  <option value={`2`}>2</option>
-                  <option value={`3`}>3</option>
-                  <option value={`4`}>4</option>
-                  <option value={`5`}>5</option>
-                  <option value={`6`}>6</option>
-                  <option value={`7`}>7</option>
-                  <option value={`8`}>8</option>
-                </select>
-              </div>
-              <div className={cx("bl-select")}>
-                <label>
-                  Số tầng (<span className={cx("valid-start")}>*</span>)
-                </label>
-                <select
-                  className={cx(validInputs.numberOfFloors ? "" : `is-valid`)}
-                  name="numberOfFloors"
-                  value={data?.numberOfFloors}
-                  onChange={handleOnChange}
-                  onFocus={handleOnFocus}
-                >
-                  <option value={`1`}>1</option>
-                  <option value={`2`}>2</option>
-                  <option value={`3`}>3</option>
-                  <option value={`4`}>4</option>
-                  <option value={`5`}>5</option>
-                  <option value={`6`}>6</option>
-                  <option value={`7`}>7</option>
-                  <option value={`8`}>8</option>
-                </select>
-              </div>
-            </div>
-            {/* ProductCode and CategoryId */}
-            <div className={cx("two-row")}>
-              <div className={cx("bl-input")}>
-                <label>
-                  Mã sản phẩm (<span className={cx("valid-start")}>*</span>)
-                </label>
-                <div className={cx("bl-icon")}>
-                  <input
-                    className={cx(validInputs.productCode ? "" : `is-valid`)}
-                    type="text"
-                    name="productCode"
-                    onChange={handleOnChange}
-                    onFocus={handleOnFocus}
-                  />
-                  {!validInputs.productCode && <MdErrorOutline className={cx("icon")} />}
-                </div>
-              </div>
-              <div className={cx("bl-select")}>
-                <label>
-                  Category (<span className={cx("valid-start")}>*</span>)
-                </label>
-                <select
-                  className={cx(validInputs.categoryId ? "" : `is-valid`)}
-                  name="categoryId"
-                  value={data?.categoryId}
-                  onChange={handleOnChange}
-                  onFocus={handleOnFocus}
-                >
-                  {categoryData.length > 0 &&
-                    categoryData.map((item, index) => {
-                      return (
-                        <option key={`categoryId-${index}`} value={item.id}>
-                          {item.name}
-                        </option>
-                      );
-                    })}
-                </select>
               </div>
             </div>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <button className={cx("btn", "secondary")} onClick={props.handleClose}>
+          <button
+            className={cx("btn", "secondary")}
+            onClick={props.handleClose}
+          >
             Close
           </button>
-          <button className={cx("btn", "primary")} onClick={() => handleConfirmUser()}>
+          <button
+            className={cx("btn", "primary")}
+            onClick={() => handleConfirmUser()}
+          >
             Save
           </button>
         </Modal.Footer>
