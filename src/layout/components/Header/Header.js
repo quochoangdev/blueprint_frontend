@@ -16,7 +16,6 @@ import BaoGia from "./BaoGia";
 import DuAn from "./DuAn";
 import { readHeart, readJWT } from "../../../services/userService";
 
-//
 const cx = classNames.bind(styles);
 export const ToggleSearchFullscreenContext = createContext(null);
 
@@ -40,13 +39,11 @@ const Header = () => {
     setCookie(resJWT?.DT?.jwt);
   };
 
-  // handle search fullscreen
   const handleSearchFullscreen = (e) => {
     e.preventDefault();
     setBlockSearchFullscreen((pre) => !pre);
   };
 
-  // handle close
   const handleClose = () => {
     setBlockSearchFullscreen((pre) => !pre);
   };
@@ -69,39 +66,55 @@ const Header = () => {
         {/* logo */}
         <div className={cx("navbar-item-logo")}>
           <Link className={cx("logo-link")} to="/">
-            <img
-              className={cx("logo")}
-              src="https://res.cloudinary.com/daofedrqe/image/upload/v1707379342/wanfit_apple_imageAvt/mhf6siicj77fofhuvfcm.png"
-              alt="logo"
-            />
+            <div className={cx("logo")}>QHDev</div>
           </Link>
         </div>
         {/* menu category */}
         <div className={cx("navbar-item-menu")}>
           <HeaderItem name={"TRANG CHỦ"} linkUrl={""} />
-          <DuAn name={"Dự án"} linkUrl={"du-an"} icon={<MdKeyboardArrowDown />} />
+          <DuAn
+            name={"Dự án"}
+            linkUrl={"du-an"}
+            icon={<MdKeyboardArrowDown />}
+          />
           <HeaderItem name={"DỊCH VỤ"} linkUrl={"dich-vu"} />
-          <BaoGia name={"Báo giá"} linkUrl={"bao-gia"} icon={<MdKeyboardArrowDown />} />
+          <BaoGia
+            name={"Báo giá"}
+            linkUrl={"bao-gia"}
+            icon={<MdKeyboardArrowDown />}
+          />
           <HeaderItem name={"Phản hồi"} linkUrl={"phan-hoi"} />
           <HeaderItem name={"Tuyển dụng"} linkUrl={"tuyen-dung"} />
         </div>
         {/* social */}
         <div className={cx("navbar-item-social")}>
           <div className={cx("social-category")}>
-            <a href="tel:0971955144" className={cx("social-category-link", "tel-link")}>
+            <a
+              href="tel:0971955144"
+              className={cx("social-category-link", "tel-link")}
+            >
               Tel: 0971955144
             </a>
           </div>
           <div className={cx("social-category")}>
-            <Link to="/" className={cx("social-category-link")} onClick={handleSearchFullscreen}>
+            <Link
+              to="/"
+              className={cx("social-category-link")}
+              onClick={handleSearchFullscreen}
+            >
               <FiSearch />
             </Link>
           </div>
           <div className={cx("social-category")}>
-            <Link to={`/${config.routes.heart}`} className={cx("social-category-link")}>
+            <Link
+              to={`/${config.routes.heart}`}
+              className={cx("social-category-link")}
+            >
               <FaRegHeart />
               {!!dataUsers === true && !!cookie === true ? (
-                <div className={cx("car-quantity")}>{productData && productData?.length}</div>
+                <div className={cx("car-quantity")}>
+                  {productData && productData?.length}
+                </div>
               ) : (
                 <></>
               )}
@@ -119,7 +132,10 @@ const Header = () => {
         </div>
         {/* search fullscreen */}
         <ToggleSearchFullscreenContext.Provider value={handleClose}>
-          <Search blockSearchFullscreen={blockSearchFullscreen} handleClose={handleClose} />
+          <Search
+            blockSearchFullscreen={blockSearchFullscreen}
+            handleClose={handleClose}
+          />
         </ToggleSearchFullscreenContext.Provider>
       </nav>
     </div>

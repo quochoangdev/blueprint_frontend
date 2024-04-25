@@ -124,7 +124,7 @@ const Products = () => {
                 </th>
                 <th>Title</th>
                 <th>Price</th>
-                <th>Category</th>
+                <th>Categories</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -141,11 +141,19 @@ const Products = () => {
                       <td>{product?.Category?.name}</td>
                       <td>
                         <div className={cx("action")}>
-                          <div className={cx("action-upd")} onClick={() => handleEdit(product)}>
+                          <div
+                            className={cx("action-upd")}
+                            onClick={() => handleEdit(product)}
+                          >
                             <FaRegEdit className={cx("action-upd-icon")} />
                           </div>
-                          <div className={cx("action-del")} onClick={() => handleDelete(product)}>
-                            <MdDeleteForever className={cx("action-del-icon")} />
+                          <div
+                            className={cx("action-del")}
+                            onClick={() => handleDelete(product)}
+                          >
+                            <MdDeleteForever
+                              className={cx("action-del-icon")}
+                            />
                           </div>
                         </div>
                       </td>

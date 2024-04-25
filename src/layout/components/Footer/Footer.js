@@ -5,6 +5,7 @@ import { SiYoutube, SiZalo } from "react-icons/si";
 
 //
 import styles from "./Footer.module.scss";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -12,25 +13,19 @@ const Footer = () => {
   return (
     <footer className={cx("wrapper")}>
       <div className={cx("footer")}>
-        {/*  */}
         <div className={cx("information")}>
-          {/*  */}
           <div className={cx("footer-upper")}>
-            {/*  */}
             <div className={cx("upper-follow-us")}>
               <div className={cx("follow-us-logo")}>
-                <a className={cx("logo-link")} href="/">
-                  <img
-                    className={cx("logo")}
-                    src="https://res.cloudinary.com/daofedrqe/image/upload/v1707379342/wanfit_apple_imageAvt/mhf6siicj77fofhuvfcm.png"
-                    alt="logo"
-                  />
-                </a>
+                <Link className={cx("logo-link")} to="/">
+                  <div className={cx("logo")}>QHDev</div>
+                </Link>
               </div>
               <div className={cx("topic-block")}>
-                Năm 2020, WanFit trở thành đại lý có tiềm năng. Chúng tôi phát triển chuỗi cửa hàng
-                tiêu chuẩn và WanFit nhằm mang đến trải nghiệm tốt nhất về sản phẩm và dịch vụ của
-                WanFit cho người dùng Việt Nam.
+                Năm 2020, WanFit trở thành đại lý có tiềm năng. Chúng tôi phát
+                triển chuỗi cửa hàng tiêu chuẩn và WanFit nhằm mang đến trải
+                nghiệm tốt nhất về sản phẩm và dịch vụ của WanFit cho người dùng
+                Việt Nam.
               </div>
               <div className={cx("social")}>
                 <a
@@ -39,7 +34,10 @@ const Footer = () => {
                 >
                   <FaFacebookF />
                 </a>
-                <a className={cx("social-youtube")} href="https://www.youtube.com/">
+                <a
+                  className={cx("social-youtube")}
+                  href="https://www.youtube.com/"
+                >
                   <SiYoutube />
                 </a>
                 <a
@@ -139,7 +137,8 @@ const Footer = () => {
                   Chi nhánh 2: khu vực Hồ Chí Minh và các tỉnh phía nam
                 </span>
                 <a className={cx("list-item")} href="/">
-                  Doanh nghiệp: <span className={cx("list-item-tel")}>0971.955.144</span>
+                  Doanh nghiệp:{" "}
+                  <span className={cx("list-item-tel")}>0971.955.144</span>
                 </a>
               </div>
             </div>
@@ -147,12 +146,14 @@ const Footer = () => {
           {/*  */}
           <div className={cx("footer-lower")}>
             <div className={cx("disclaimer")}>
-              © 2016 Công ty Cổ Phần HESMAN Việt Nam GPDKKD: 0107465657 do Sở KH & ĐT TP. Hà Nội cấp
+              © 2016 Công ty Cổ Phần HESMAN Việt Nam GPDKKD: 0107465657 do Sở KH
+              & ĐT TP. Hà Nội cấp
               <hr />
-              ngày 08/06/2016. Địa chỉ: Số 76 Thái Hà, phường Trung Liệt, quận Đống Đa, thành phố Hà
-              Nội, Việt Nam
+              ngày 08/06/2016. Địa chỉ: Số 76 Thái Hà, phường Trung Liệt, quận
+              Đống Đa, thành phố Hà Nội, Việt Nam
               <hr />
-              Đại diện pháp luật: PHẠM MẠNH HÒA | ĐT: 0247.305.9999 | Email: lienhe@shopdunk.com
+              Đại diện pháp luật: PHẠM MẠNH HÒA | ĐT: 0247.305.9999 | Email:
+              lienhe@shopdunk.com
             </div>
             <div className={cx("confirm")}>
               <a

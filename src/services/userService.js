@@ -154,12 +154,12 @@ const createProduct = (data) => {
   });
 };
 
-const readProduct = (currentPage, currentLimit, category, search, ProductId) => {
+const readProduct = (currentPage, currentLimit, categories, search, ProductId) => {
   return axios.get(`/api/v1/product/read`, {
     params: {
       page: currentPage,
       limit: currentLimit,
-      category: category,
+      categories: categories,
       search: search,
       id: ProductId,
     },
@@ -238,7 +238,6 @@ const readHeart = (currentPage, currentLimit, productId) => {
 // };
 
 const deleteHeart = (id) => {
-  console.log(id);
   return axios.delete(`/api/v1/heart/delete`, {
     data: {
       id: id,

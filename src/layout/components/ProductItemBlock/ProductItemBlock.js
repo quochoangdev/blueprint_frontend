@@ -33,7 +33,9 @@ const ProductItemBlock = (props) => {
 
   // Call Api
   useEffect(() => {
-    !!dataUsers === true && !!cookie === true && fetchProducts(props.product.id);
+    !!dataUsers === true &&
+      !!cookie === true &&
+      fetchProducts(props.product.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataUsers, cookie, props.product.id]);
   const fetchProducts = async () => {
@@ -63,7 +65,11 @@ const ProductItemBlock = (props) => {
         )}
       </div>
       <div className={cx("avatar")}>
-        <img className={cx("img")} src={`${props?.product?.imageAvatar[0]}`} alt="" />
+        <img
+          className={cx("img")}
+          src={`${props?.product?.imageAvatar[0]}`}
+          alt=""
+        />
       </div>
       <div className={cx("content")}>
         <div className={cx("check-design")}>
@@ -72,8 +78,12 @@ const ProductItemBlock = (props) => {
         </div>
         <div className={cx("title")}>{props.product.title}</div>
         <div className={cx("information")}>
-          <span className={cx("information")}>Số tầng {props.product.numberOfFloors}</span>
-          <span className={cx("information", "center")}>Phòng ngủ {props.product.roomNumber}</span>
+          <span className={cx("information")}>
+            Số tầng {props.product.numberOfFloors}
+          </span>
+          <span className={cx("information", "center")}>
+            Phòng ngủ {props.product.roomNumber}
+          </span>
           <span className={cx("information")}>
             Diện tích {props?.product?.width * props?.product?.length} m2
           </span>
@@ -83,7 +93,9 @@ const ProductItemBlock = (props) => {
             Khám Phá
             <MdOutlineArrowOutward className={cx("btn-icon")} />
           </button>
-          <div className={cx("price")}>{formatNumber(props?.product?.price)}đ</div>
+          <div className={cx("price")}>
+            {formatNumber(props?.product?.price)}đ
+          </div>
         </div>
       </div>
     </Link>

@@ -1,0 +1,116 @@
+.container {
+    width                : 100%;
+    display              : grid;
+    grid-auto-rows       : minmax(min-content, max-content);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap                  : 20px;
+    margin-bottom        : 32px;
+
+    .item-link {
+        display        : block;
+        width          : 100%;
+        height         : 100%;
+        text-decoration: none;
+
+        .item {
+            position      : relative;
+            display       : flex;
+            flex-direction: column;
+            width         : 285px;
+            height        : 408px;
+            background    : #FFFFFF;
+            box-shadow    : 0px 1px 8px rgba(0, 0, 0, 0.04);
+            border-radius : 8px;
+            padding       : 24px 20px 16px 20px;
+            transition    : all 0.15s;
+
+
+            .item-new {
+                top     : 7px;
+                right   : 8px;
+                position: absolute;
+                height  : 50px;
+            }
+
+            .item-img {
+                height  : 245px;
+                margin  : 25px 0;
+                overflow: hidden;
+
+
+
+                img {
+                    width       : 100%;
+                    height      : 100%;
+                    // transform: scale(1.3, 1.3);
+                }
+
+
+            }
+
+            .item-content {
+                height         : 78px;
+                display        : flex;
+                flex-direction : column;
+                justify-content: space-between;
+
+
+                .title {
+                    font-weight: 700;
+                    font-size  : 1.8rem;
+                    line-height: 2.7rem;
+                    color      : #1D1D1F;
+                    min-width  : 54px;
+                }
+
+                .content {
+                    display        : flex;
+                    justify-content: space-between;
+                    margin-right   : 15px;
+
+                    .content-price {
+                        display    : flex;
+                        font-weight: 700;
+                        font-size  : 1.6rem;
+                        line-height: 2.4rem;
+                        color      : #0066CC;
+
+                        .price-icon {
+                            display      : flex;
+                            font-size    : 1.2rem;
+                            margin-bottom: 2px;
+                        }
+
+                    }
+
+                    .content-sale {
+                        display        : flex;
+                        color          : #86868B;
+                        margin         : 0 5px 0 5px;
+                        font-size      : 14px;
+                        line-height    : 24px;
+                        text-decoration: line-through;
+
+                        .sale-icon {
+                            display      : flex;
+                            font-size    : 1.2rem;
+                            margin-bottom: 2px;
+                        }
+                    }
+
+                    .content-percent {
+                        color      : #86868B;
+                        margin     : 0 5px 0 5px;
+                        font-size  : 14px;
+                        line-height: 24px;
+                    }
+                }
+            }
+        }
+
+        .item:hover {
+            border-color: #02010100;
+            box-shadow  : 1px 1px 28px 0px rgb(0 0 0 / 12%);
+        }
+    }
+}
