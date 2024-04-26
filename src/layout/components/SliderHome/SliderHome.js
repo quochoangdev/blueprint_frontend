@@ -7,6 +7,7 @@ import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import classNames from "classnames/bind";
 
 import styles from "./SliderHome.module.scss";
+import './SliderHome.css'
 
 const cx = classNames.bind(styles);
 

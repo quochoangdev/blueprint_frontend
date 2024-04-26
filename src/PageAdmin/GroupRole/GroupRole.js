@@ -8,7 +8,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { TfiReload } from "react-icons/tfi";
-import { deleteGroupRole, readGroupRole } from "../../services/userService";
+import { deleteGroupRole, readGroupRole } from "../../services/apiAdminService";
 import ModalGroupRoleDelete from "./ModalGroupRoleDelete";
 import ModalGroupRoleCreate from "./ModalGroupRoleCreate/ModalGroupRoleCreate";
 import ModalGroupRoleEdit from "./ModalGroupRoleEdit/ModalGroupRoleEdit";

@@ -4,7 +4,7 @@ import styles from "./ModalEditUser.module.scss";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MdErrorOutline } from "react-icons/md";
-import { readGroup, updateUser } from "../../../services/userService";
+import { readGroup, updateUser } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

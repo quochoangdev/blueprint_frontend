@@ -4,8 +4,6 @@ import styles from "./ProductItemBlockCategory.module.scss";
 import { Link } from "react-router-dom";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { MdOutlineArrowOutward } from "react-icons/md";
-// import { FaRegHeart } from "react-icons/fa";
-// import { FaHeart } from "react-icons/fa";
 
 const cx = classNames.bind(styles);
 
@@ -16,9 +14,7 @@ const ProductItemBlockCategory = (props) => {
 
   return (
     <Link to={`/${props?.product?.slug}`} className={cx("product-item-block")}>
-      <div className={cx("heart")}>
-        {/* <FaRegHeart className={cx("heart-icon-empty")} /> */}
-        {/* <FaHeart className={cx("heart-icon-fill")} /> */}
+      <div className={cx("cart")}>
       </div>
       <div className={cx("avatar")}>
         <img className={cx("img")} src={`${props?.product?.imageAvatar[0]}`} alt="" />

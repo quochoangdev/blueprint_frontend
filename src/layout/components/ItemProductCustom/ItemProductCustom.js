@@ -9,8 +9,10 @@ const ItemProductCustom = ({ data, length }) => {
   const formatNumber = (number) => {
     return number.toLocaleString("vi-VN");
   };
-
   length && (data = data.slice(0, length));
+
+  console.log(">>>Check", data)
+  console.log(">>>Check l", length)
   return (
     <div className={cx("container")}>
       {data.map((dataItem) => {
@@ -34,7 +36,7 @@ const ItemProductCustom = ({ data, length }) => {
                 )}
               </div>
               <div className={cx("item-img")}>
-                <img src={dataItem?.imageAvt[0]} alt="error" />
+                <img src={dataItem?.imageAvatar[0]} alt="error" />
               </div>
               <div className={cx("item-content")}>
                 <h3 className={cx("title")}>{dataItem?.title}</h3>
@@ -58,103 +60,6 @@ const ItemProductCustom = ({ data, length }) => {
       })}
     </div>
   );
-  // return (
-  //   <div className={cx("container")}>
-  //     <a className={cx("item-link")} href="/">
-  //       <div className={cx("item")}>
-  //         <div className={cx("item-new")}>
-  //           <img src="https://shopdunk.com/images/uploaded/icon/new.png" alt="error" />
-  //         </div>
-  //         <div className={cx("item-img")}>
-  //           <img
-  //             src="https://res.cloudinary.com/daofedrqe/image/upload/v1702639679/wanfit_apple_imageAvt/ts6qtkzsfnkaanfcescz.jpg"
-  //             alt="error"
-  //           />
-  //         </div>
-  //         <div className={cx("item-content")}>
-  //           <h3 className={cx("title")}>iPhone 15 128GB</h3>
-  //           <div className={cx("content")}>
-  //             <div className={cx("content-price")}>
-  //               21.790.000
-  //               <div className={cx("price-icon")}>₫</div>
-  //             </div>
-  //             <div className={cx("content-sale")}>
-  //               24.990.000
-  //               <div className={cx("sale-icon")}>₫</div>
-  //             </div>
-  //             <div className={cx("content-percent")}>-12%</div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </a>
-
-  //     <a className={cx("item-link")} href="/">
-  //       <div className={cx("item")}>
-  //         <div className={cx("item-new")}>
-  //           <img src="https://shopdunk.com/images/uploaded/icon/new.png" alt="error" />
-  //         </div>
-  //         <div className={cx("item-img")}>
-  //           <img
-  //             src="https://res.cloudinary.com/daofedrqe/image/upload/v1702639679/wanfit_apple_imageAvt/ts6qtkzsfnkaanfcescz.jpg"
-  //             alt="error"
-  //           />
-  //         </div>
-  //         <div className={cx("item-content")}>
-  //           <h3 className={cx("title")}>iPhone 15 128GB</h3>
-  //           <div className={cx("content")}>
-  //             <div className={cx("content-price")}>21.790.000₫</div>
-  //             <div className={cx("content-sale")}>24.990.000₫</div>
-  //             <div className={cx("content-percent")}>-12%</div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </a>
-
-  //     <a className={cx("item-link")} href="/">
-  //       <div className={cx("item")}>
-  //         <div className={cx("item-new")}>
-  //           <img src="https://shopdunk.com/images/uploaded/icon/new.png" alt="error" />
-  //         </div>
-  //         <div className={cx("item-img")}>
-  //           <img
-  //             src="https://res.cloudinary.com/daofedrqe/image/upload/v1702639679/wanfit_apple_imageAvt/ts6qtkzsfnkaanfcescz.jpg"
-  //             alt="error"
-  //           />
-  //         </div>
-  //         <div className={cx("item-content")}>
-  //           <h3 className={cx("title")}>iPhone 15 128GB</h3>
-  //           <div className={cx("content")}>
-  //             <div className={cx("content-price")}>21.790.000₫</div>
-  //             <div className={cx("content-sale")}>24.990.000₫</div>
-  //             <div className={cx("content-percent")}>-12%</div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </a>
-
-  //     <a className={cx("item-link")} href="/">
-  //       <div className={cx("item")}>
-  //         <div className={cx("item-new")}>
-  //           <img src="https://shopdunk.com/images/uploaded/icon/new.png" alt="error" />
-  //         </div>
-  //         <div className={cx("item-img")}>
-  //           <img
-  //             src="https://res.cloudinary.com/daofedrqe/image/upload/v1702639679/wanfit_apple_imageAvt/ts6qtkzsfnkaanfcescz.jpg"
-  //             alt="error"
-  //           />
-  //         </div>
-  //         <div className={cx("item-content")}>
-  //           <h3 className={cx("title")}>iPhone 15 128GB</h3>
-  //           <div className={cx("content")}>
-  //             <div className={cx("content-price")}>21.790.000₫</div>
-  //             <div className={cx("content-sale")}>24.990.000₫</div>
-  //             <div className={cx("content-percent")}>-12%</div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </a>
-  //   </div>
-  // );
 };
 
 export default ItemProductCustom;

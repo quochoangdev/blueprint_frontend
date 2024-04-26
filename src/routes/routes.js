@@ -12,7 +12,7 @@ import DuAn from "../Pages/DuAn";
 import BaoGia from "../Pages/BaoGia";
 import PhanHoi from "../Pages/PhanHoi";
 import TuyenDung from "../Pages/TuyenDung";
-import Heart from "../Pages/Heart";
+import Cart from "../Pages/Cart";
 import CheckOut from "../Pages/CheckOut";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
@@ -76,8 +76,8 @@ const publicRoutes = [
     layout: DefaultLayout,
   },
   {
-    path: config.routes.heart,
-    component: Heart,
+    path: config.routes.cart,
+    component: Cart,
     layout: HeadlessLayout,
   },
   {

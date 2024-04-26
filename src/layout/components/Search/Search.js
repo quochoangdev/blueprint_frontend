@@ -7,7 +7,7 @@ import HeadlessTippy from "@tippyjs/react/headless";
 import styles from "./Search.module.scss";
 import ProductItem from "./ProductItem/ProductItem";
 import useDebounce from "../../../hooks/useDebounce";
-import { readProduct } from "../../../services/userService";
+import { readProduct } from "../../../services/apiUserService";
 
 const cx = classNames.bind(styles);
 export const SearchValueContext = createContext(null);

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { MdErrorOutline } from "react-icons/md";
 
 import styles from "./ModalGroupEdit.module.scss";
-import { updateGroup } from "../../../services/userService";
+import { updateGroup } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./Heart.module.scss";
+import styles from "./Cart.module.scss";
 import { GoTrash } from "react-icons/go";
 import { Link } from "react-router-dom";
-import { deleteHeart, readProduct } from "../../services/userService";
+import { deleteCart, readProduct } from "../../services/apiUserService";
 import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
-const HeartItem = (props) => {
+const CartItem = (props) => {
   const [productData, setProductData] = useState();
 
   // Call Api
   useEffect(() => {
     const { ProductId } = props?.product;
-    fetchProductForHeart(ProductId);
+    fetchProductForCart(ProductId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props?.product]);
-  const fetchProductForHeart = async (ProductId) => {
+  const fetchProductForCart = async (ProductId) => {
     let data = await readProduct(null, null, null, null, ProductId);
     setProductData(data.DT);
   };
@@ -26,8 +26,8 @@ const HeartItem = (props) => {
   };
 
   // handle delete
-  const handleDeleteHeart = async (id) => {
-    const response = await deleteHeart(id);
+  const handleDeleteCart = async (id) => {
+    const response = await deleteCart(id);
     console.log(response);
     if (response.EC === 0) {
       toast.success(response.EM);
@@ -57,7 +57,7 @@ const HeartItem = (props) => {
         </div>
       </div>
       <div className={cx("content-5")}>
-        <div className={cx("bl-trash")} onClick={() => handleDeleteHeart(productData?.id)}>
+        <div className={cx("bl-trash")} onClick={() => handleDeleteCart(productData?.id)}>
           <GoTrash className={cx("trash")} />
         </div>
       </div>
@@ -65,4 +65,4 @@ const HeartItem = (props) => {
   );
 };
 
-export default HeartItem;
+export default CartItem;

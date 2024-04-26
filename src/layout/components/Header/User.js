@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import config from "../../../config";
 import styles from "./Header.module.scss";
 import { useEffect, useState } from "react";
-import { readJWT } from "../../../services/userService";
+import { readJWT } from "../../../services/apiUserService";
 
 const cx = classNames.bind(styles);
 

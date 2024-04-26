@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./ContactOrder.module.scss";
-import { FaChevronDown, FaRegHeart } from "react-icons/fa";
-import { createHeart } from "../../../services/userService";
+import { FaChevronDown, } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
+import { createCart } from "../../../services/apiAdminService";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
@@ -37,10 +38,10 @@ const ContactOrder = (props) => {
     return true;
   };
   // Call Api
-  const handleAddHeart = async (e) => {
+  const handleAddCart = async (e) => {
     e.preventDefault();
     if (!!props?.dataUsers === true && !!props?.cookie === true) {
-      let data = await createHeart(props.productData);
+      let data = await createCart(props.productData);
       if (data.EC === 0) {
         toast.success(data.EM);
       } else {
@@ -51,7 +52,7 @@ const ContactOrder = (props) => {
     }
   };
 
-  const handleBuyWithHeart = async (e) => {
+  const handleBuyWithCart = async (e) => {
     e.preventDefault();
     const isCheck = isCheckInputs();
     if (isCheck) {
@@ -155,11 +156,11 @@ const ContactOrder = (props) => {
           </div>
         </div>
         <p className={cx("note")}>Bạn chưa cần phải thanh toán tiền ở bước này</p>
-        <button className={cx("btn", "cl-white", "fl-1")} onClick={(e) => handleAddHeart(e)}>
-          <FaRegHeart className={cx("icon")} />
-          {props?.isCheckHeart ? "Đã thêm vào yêu thích" : "Thêm vào yêu thích"}
+        <button className={cx("btn", "cl-white", "fl-1")} onClick={(e) => handleAddCart(e)}>
+          <FiShoppingCart className={cx("icon")} />
+          {props?.isCheckCart ? "Đã thêm vào giỏ hàng" : "Thêm vào giỏ hàng"}
         </button>
-        <button className={cx("btn", "cl-primary")} onClick={(e) => handleBuyWithHeart(e)}>
+        <button className={cx("btn", "cl-primary")} onClick={(e) => handleBuyWithCart(e)}>
           Mua Ngay
         </button>
       </form>

@@ -10,7 +10,7 @@ import ModalUserDelete from "./ModalUserDelete";
 import ModalEditUser from "./ModalEditUser/ModalEditUser";
 import ModalCreateUser from "./ModalCreateUser";
 import { toast } from "react-toastify";
-import { deleteUser, readUser } from "../../services/userService";
+import { deleteUser, readUser } from "../../services/apiAdminService";
 import { TfiReload } from "react-icons/tfi";
 
 const cx = classNames.bind(styles);

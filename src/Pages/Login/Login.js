@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./Login.module.scss";
-import { loginUser } from "../../services/userService";
+import { loginUser } from "../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

@@ -1,8 +1,7 @@
 import classNames from "classnames/bind";
-import { FiSearch, FiUser } from "react-icons/fi";
+import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState, createContext, useEffect } from "react";
-import { FaRegHeart } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
@@ -14,7 +13,7 @@ import User from "./User";
 import Search from "../Search/Search";
 import BaoGia from "./BaoGia";
 import DuAn from "./DuAn";
-import { readHeart, readJWT } from "../../../services/userService";
+import { readCart, readJWT } from "../../../services/apiUserService";
 
 const cx = classNames.bind(styles);
 export const ToggleSearchFullscreenContext = createContext(null);
@@ -48,18 +47,18 @@ const Header = () => {
     setBlockSearchFullscreen((pre) => !pre);
   };
 
-  useEffect(() => {
-    if (!!dataUsers === true && !!cookie === true) {
-      fetchProducts();
-    }
-  }, [dataUsers, cookie]);
+  // useEffect(() => {
+  //   if (!!dataUsers === true && !!cookie === true) {
+  //     fetchProducts();
+  //   }
+  // }, [dataUsers, cookie]);
 
-  const fetchProducts = async () => {
-    if (!!dataUsers === true && !!cookie === true) {
-      let data = await readHeart();
-      setProductData(data?.DT);
-    }
-  };
+  // const fetchProducts = async () => {
+  //   if (!!dataUsers === true && !!cookie === true) {
+  //     let data = await readCart();
+  //     setProductData(data?.DT);
+  //   }
+  // };
   return (
     <div className={cx("wrapper")}>
       <nav className={cx("navbar")}>
@@ -107,25 +106,20 @@ const Header = () => {
           </div>
           <div className={cx("social-category")}>
             <Link
-              to={`/${config.routes.heart}`}
+              to={`/${config.routes.cart}`}
               className={cx("social-category-link")}
             >
-              <FaRegHeart />
-              {!!dataUsers === true && !!cookie === true ? (
+              <FiShoppingCart />
+              {/* {!!dataUsers === true && !!cookie === true ? (
                 <div className={cx("car-quantity")}>
                   {productData && productData?.length}
                 </div>
               ) : (
-                <></>
-              )}
-            </Link>
-          </div>
-          {/* <div className={cx("social-category")}>
-            <Link to={`/${config.routes.cart}`} className={cx("social-category-link")}>
-              <FiShoppingCart />
+                <div className={cx("car-quantity")}>0</div>
+              )} */}
               <div className={cx("car-quantity")}>0</div>
             </Link>
-          </div> */}
+          </div>
           <div className={cx("social-category")}>
             <User icon={<FiUser />} />
           </div>

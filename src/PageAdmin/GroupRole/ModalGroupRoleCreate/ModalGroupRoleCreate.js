@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import styles from "./ModalGroupRoleCreate.module.scss";
-import { createGroupRole, readGroup, readRole } from "../../../services/userService";
+import { createGroupRole, readGroup, readRole } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 
