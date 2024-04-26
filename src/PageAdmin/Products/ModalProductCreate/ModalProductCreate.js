@@ -6,7 +6,7 @@ import { MdErrorOutline } from "react-icons/md";
 import { ImageToBase64 } from "../../../utility/ImageToBase64";
 
 import styles from "./ModalProductCreate.module.scss";
-import { createProduct, readCategory } from "../../../services/userService";
+import { createProduct, readCategory } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

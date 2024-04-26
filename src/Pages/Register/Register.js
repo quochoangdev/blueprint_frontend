@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 import styles from "./Register.module.scss";
-import { registerUser } from "../../services/userService";
+import { registerUser } from "../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

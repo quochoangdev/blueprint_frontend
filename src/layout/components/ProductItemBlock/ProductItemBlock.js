@@ -4,13 +4,13 @@ import styles from "./ProductItemBlock.module.scss";
 import { Link } from "react-router-dom";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { MdOutlineArrowOutward } from "react-icons/md";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegCart, FaCart } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { readHeart, readJWT } from "../../../services/userService";
+import { readCart, readJWT } from "../../../services/apiUserService";
 
 const cx = classNames.bind(styles);
 const ProductItemBlock = (props) => {
-  const [isCheckHeart, setIsCheckHeart] = useState();
+  const [isCheckCart, setIsCheckCart] = useState();
   // Check user
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,11 +40,11 @@ const ProductItemBlock = (props) => {
   }, [dataUsers, cookie, props.product.id]);
   const fetchProducts = async () => {
     let productId = props.product.id;
-    let data = await readHeart(null, null, productId);
+    let data = await readCart(null, null, productId);
     if (data.EC === 0) {
-      setIsCheckHeart(true);
+      setIsCheckCart(true);
     } else {
-      setIsCheckHeart(null);
+      setIsCheckCart(null);
     }
   };
 
@@ -53,12 +53,12 @@ const ProductItemBlock = (props) => {
   };
   return (
     <Link to={`/${props.product.slug}`} className={cx("product-item-block")}>
-      <div className={cx("heart")}>
+      <div className={cx("cart")}>
         {!!dataUsers === true && !!cookie === true ? (
-          isCheckHeart ? (
-            <FaHeart className={cx("heart-icon-fill")} />
+          isCheckCart ? (
+            <FaCart className={cx("cart-icon-fill")} />
           ) : (
-            <FaRegHeart className={cx("heart-icon-empty")} />
+            <FaRegCart className={cx("cart-icon-empty")} />
           )
         ) : (
           <></>

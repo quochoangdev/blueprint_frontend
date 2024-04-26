@@ -8,7 +8,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { TfiReload } from "react-icons/tfi";
-import { readRole, deleteRole } from "../../services/userService";
+import { readRole, deleteRole } from "../../services/apiAdminService";
 import ModalRoleDelete from "./ModalRoleDelete";
 import ModalRoleCreate from "./ModalRoleCreate/ModalRoleCreate";
 import ModalRoleEdit from "./ModalRoleEdit/ModalRoleEdit";

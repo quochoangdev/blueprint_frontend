@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "./ModalGroupRoleEdit.module.scss";
-import { readGroup, readRole, updateGroupRole } from "../../../services/userService";
+import { readGroup, readRole, updateGroupRole } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

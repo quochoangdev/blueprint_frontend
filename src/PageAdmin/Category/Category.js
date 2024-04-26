@@ -8,7 +8,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { TfiReload } from "react-icons/tfi";
-import { deleteCategory, readCategory } from "../../services/userService";
+import { deleteCategory, readCategory } from "../../services/apiAdminService";
 import ModalCategoryDelete from "./ModalCategoryDelete";
 import ModalCategoryCreate from "./ModalCategoryCreate";
 import ModalCategoryEdit from "./ModalCategoryEdit";

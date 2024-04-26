@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./MauBietThu.module.scss";
 import ProductItemBlockCategory from "../../layout/components/ProductItemBlockCategory/ProductItemBlockCategory";
 import ReactPaginate from "react-paginate";
-import { readProduct } from "../../services/userService";
+import { readProduct } from "../../services/apiUserService";
 
 const cx = classNames.bind(styles);
 const MauBietThu = () => {

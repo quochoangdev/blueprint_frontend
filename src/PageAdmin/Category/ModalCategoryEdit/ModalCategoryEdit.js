@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { MdErrorOutline } from "react-icons/md";
 
 import styles from "./ModalCategoryEdit.module.scss";
-import { updateCategory } from "../../../services/userService";
+import { updateCategory } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

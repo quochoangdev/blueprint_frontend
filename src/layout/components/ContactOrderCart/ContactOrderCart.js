@@ -1,10 +1,10 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "./ContactOrderCart.module.scss";
-import { FaChevronDown } from "react-icons/fa";
-// import {  FaRegHeart } from "react-icons/fa";
+import { FaChevronDown, FaRegHeart } from "react-icons/fa";
 // import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { FiShoppingCart } from "react-icons/fi";
 
 const cx = classNames.bind(styles);
 
@@ -63,16 +63,12 @@ const ContactOrderCart = () => {
           <div className={cx("price")}>6,990,000 ₫</div>
         </div>
         <p className={cx("note")}>Bạn chưa cần phải thanh toán tiền ở bước này</p>
-        {/* <div className={cx("two-btn")}> */}
-        {/* <button className={cx("btn", "cl-white", "fl-1", "mr-6")}>
-          <FaRegHeart className={cx("icon")} />
-          Thêm yêu thích
-        </button> */}
-        {/* <button className={cx("btn", "cl-white", "fl-1")}>
-          <FiShoppingCart className={cx("icon")} />
-          Thêm vào giỏ hàng
-        </button> */}
-        {/* </div> */}
+        <div className={cx("two-btn")}>
+          <button className={cx("btn", "cl-white", "fl-1")}>
+            <FiShoppingCart className={cx("icon")} />
+            Thêm vào giỏ hàng
+          </button>
+        </div>
         <Link to={"/checkout"} className={cx("btn", "cl-primary")}>
           Mua Ngay
         </Link>

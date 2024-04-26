@@ -16,15 +16,14 @@ import {
   FiDollarSign,
   FiHash,
 } from "react-icons/fi";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
 import ContactOrder from "../../layout/components/ContactOrder/ContactOrder";
 import { useParams } from "react-router-dom";
-import { readHeart, readJWT, readProductDetail } from "../../services/userService";
+import { readCart, readJWT, readProductDetail } from "../../services/apiUserService";
 
 const cx = classNames.bind(styles);
 
 const HomeDetail = () => {
-  const [isCheckHeart, setIsCheckHeart] = useState();
+  const [isCheckCart, setIsCheckCart] = useState();
   const { slug } = useParams();
   const [productData, setProductData] = useState();
   const [srcAvatar, setSrcAvatar] = useState();
@@ -62,11 +61,11 @@ const HomeDetail = () => {
   }, [dataUsers, cookie, productData?.id]);
   const fetchProductId = async () => {
     let productId = productData?.id;
-    let data = await readHeart(null, null, productId);
+    let data = await readCart(null, null, productId);
     if (data.EC === 0) {
-      setIsCheckHeart(true);
+      setIsCheckCart(true);
     } else {
-      setIsCheckHeart(null);
+      setIsCheckCart(null);
     }
   };
 
@@ -164,17 +163,6 @@ const HomeDetail = () => {
           <div className={cx("title")}>{productData?.title}</div>
           <div className={cx("img-avatar")} onClick={() => handleShowImg(srcAvatar)}>
             <img src={`${srcAvatar}`} alt="" />
-            <div className={cx("heart")}>
-              {!!dataUsers === true && !!cookie === true ? (
-                isCheckHeart ? (
-                  <FaHeart className={cx("heart-icon-fill")} />
-                ) : (
-                  <FaRegHeart className={cx("heart-icon-empty")} />
-                )
-              ) : (
-                <></>
-              )}
-            </div>
           </div>
           <div className={cx("img-sub")}>
             <div className={cx("img-sub-icon")}>
@@ -309,7 +297,7 @@ const HomeDetail = () => {
             productData={productData}
             dataUsers={dataUsers}
             cookie={cookie}
-            isCheckHeart={isCheckHeart}
+            isCheckCart={isCheckCart}
           />
         </div>
       </div>

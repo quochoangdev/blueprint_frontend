@@ -8,7 +8,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { TfiReload } from "react-icons/tfi";
-import { deleteProduct, readProduct } from "../../services/userService";
+import { deleteProduct, readProduct } from "../../services/apiAdminService";
 import ModalProductDelete from "./ModalProductDelete";
 import ModalProductCreate from "./ModalProductCreate";
 import ModalProductEdit from "./ModalProductEdit/ModalProductEdit";

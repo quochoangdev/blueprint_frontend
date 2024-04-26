@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { MdErrorOutline } from "react-icons/md";
 
 import styles from "./ModalRoleEdit.module.scss";
-import { updateRole } from "../../../services/userService";
+import { updateRole } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 

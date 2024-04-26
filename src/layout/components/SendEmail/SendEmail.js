@@ -12,7 +12,7 @@ const SendEmail = () => {
   const [data, setData] = useState({
     name: "",
     phone: "",
-    landArea: "",
+    product: "",
     budget: "",
     message: "",
   });
@@ -25,7 +25,7 @@ const SendEmail = () => {
       toast("Vui lòng nhập số điện thoại");
       return false;
     }
-    if (!data.landArea) {
+    if (!data.product) {
       toast("Vui lòng nhập diện tích đất");
       return false;
     }
@@ -80,15 +80,15 @@ const SendEmail = () => {
               onChange={handleOnChange}
             />
           </div>
-          {/* Diện tích đất */}
+          {/* Sản phẩm */}
           <div className={cx("email-letter")}>
-            <label htmlFor="landArea" className={cx("email-letter-title")}>
-              Diện tích đất
+            <label htmlFor="product" className={cx("email-letter-title")}>
+              Sản phẩm
             </label>
             <input
-              id="landArea"
+              id="product"
               className={cx("email-letter-input")}
-              name="landArea"
+              name="product"
               onChange={handleOnChange}
             />
           </div>
@@ -96,60 +96,60 @@ const SendEmail = () => {
           <div className={cx("email-letter")}>
             <label className={cx("email-letter-title")}>Ngân sách</label>
             <div className={cx("budget-content")}>
-              {/* Từ 1.3 - 1.5 tỷ */}
+              {/* < 10tr */}
               <div className={cx("budget-block")}>
                 <input
                   id="budget-1"
                   type="checkbox"
                   className={cx("budget-input")}
                   name="budget"
-                  value={"1.3-1.5"}
+                  value={"0-10"}
                   onChange={handleOnChange}
                 />
                 <label htmlFor="budget-1" className={cx("budget-title")}>
-                  Từ 1.3 - 1.5 tỷ
+                  &lt; 10 triệu
                 </label>
               </div>
-              {/* Từ 1.5 - 2 tỷ */}
+              {/* Từ 10 - 20 */}
               <div className={cx("budget-block")}>
                 <input
                   id="budget-2"
                   type="checkbox"
                   className={cx("budget-input")}
                   name="budget"
-                  value={"1.5-2"}
+                  value={"10-20"}
                   onChange={handleOnChange}
                 />
                 <label htmlFor="budget-2" className={cx("budget-title")}>
-                  Từ 1.5 - 2 tỷ
+                  10 - 20 triệu
                 </label>
               </div>
-              {/* Từ 2 - 2.5 tỷ */}
+              {/* Từ 20 - 30 */}
               <div className={cx("budget-block")}>
                 <input
                   id="budget-3"
                   type="checkbox"
                   className={cx("budget-input")}
                   name="budget"
-                  value={"2-2.5"}
+                  value={"20-30"}
                   onChange={handleOnChange}
                 />
                 <label htmlFor="budget-3" className={cx("budget-title")}>
-                  Từ 2 - 2.5 tỷ
+                  Từ 20 - 30 triệu
                 </label>
               </div>
-              {/* Trên 2.5 tỷ */}
+              {/* > 30 triệu */}
               <div className={cx("budget-block")}>
                 <input
                   id="budget-4"
                   type="checkbox"
                   className={cx("budget-input")}
                   name="budget"
-                  value={">2.5"}
+                  value={"30"}
                   onChange={handleOnChange}
                 />
                 <label htmlFor="budget-4" className={cx("budget-title")}>
-                  Trên 2.5 tỷ
+                  &gt; 30 triệu
                 </label>
               </div>
             </div>

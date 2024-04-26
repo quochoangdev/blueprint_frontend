@@ -1,58 +1,51 @@
 import React, { useEffect, useRef, useState } from "react";
-import classNames from "classnames/bind";
-import styles from "./Home.module.scss";
-import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import config from "../../config";
-import Feedback from "./Feedback";
+import { readProduct } from "../../services/apiUserService";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
-import { readProduct } from "../../services/userService";
 import { MdPhoneIphone, MdOutlineTabletMac } from "react-icons/md";
-import { FaLaptop } from "react-icons/fa";
+import { FaLaptop, FaSearch } from "react-icons/fa";
 import SliderHome from "../../layout/components/SliderHome";
 import HomePageItem from "../../layout/components/HomePageItem";
+import Feedback from "./Feedback";
+import config from "../../config";
+import classNames from "classnames/bind";
+import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
 
 const Home = () => {
-  const [dataMobile, setDataMobile] = useState([]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+  const [dataMobile, setDataMobile] = useState();
   const refSlider = useRef();
-  const [data, setData] = useState({
-    kindOfHouse: "",
-    roomNumber: "",
-    width: "",
-    length: "",
-  });
+  const [dataSearch, setDataSearch] = useState({ kindOfHouse: "", roomNumber: "", width: "", length: "", });
 
-  const handleOnChange = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  };
+  // feedback
   const handleLeftSlider = () => {
     refSlider.current.scrollLeft -= 400;
   };
   const handleRightSlider = () => {
     refSlider.current.scrollLeft += 400;
   };
-  setInterval(() => {
-    if (refSlider && refSlider.current && refSlider.current.scrollLeft) {
-      refSlider.current.scrollLeft += 400;
-    }
-  }, 4000);
-  const handleSubmitSearch = (e) => {
-    e.preventDefault();
-  };
 
+  setInterval(() => {
+    if (refSlider && refSlider.current && refSlider.current.scrollLeft) { refSlider.current.scrollLeft += 400; }
+  }, 4000);
+
+  // search option
+  const handleOnChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setDataSearch((prev) => { return { ...prev, [name]: value, }; });
+  };
+  const handleSubmitSearch = (e) => { e.preventDefault(); };
+
+  useEffect(() => { fetchProduct() }, [])
+  const fetchProduct = async () => {
+    const response = await readProduct()
+    if (response) {
+      setDataMobile(response?.DT)
+    }
+  }
   return (
     <>
       <SliderHome />
@@ -153,7 +146,7 @@ const Home = () => {
               <div className={cx("img-item")}>
                 <MdOutlineTabletMac className={cx("img")} />
               </div>
-              <div className={cx("title-item")}>Nhà phố đẹp</div>
+              <div className={cx("title-item")}>IPad</div>
             </Link>
             {/* Laptop */}
             <Link className={cx("item")} to={config.routes.mauBietThuDep}>
@@ -165,13 +158,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <HomePageItem
+      {dataMobile && <HomePageItem
         data={dataMobile}
         length={4}
         title={"Mobile"}
         btn={true}
         link={"/"}
-      />
+      />}
       <div className={cx("bg-feedback")}>
         <div className={cx("feedback")}>
           <div className={cx("heading")}>Phản hồi của khách hàng</div>
