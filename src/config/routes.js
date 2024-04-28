@@ -13,9 +13,9 @@ const routes = {
   login: "login",
   logout: "logout",
   // sub page
-  nhaCap4Dep: "nha-cap-4-dep",
-  nhaPhoDep: "nha-pho-dep",
-  mauBietThuDep: "mau-biet-thu-dep",
+  mobile: "dien-thoai",
+  ipad: "ipad",
+  laptop: "laptop",
   mauKhachSanDep: "mau-khach-san-dep",
   // admin
   homeAdmin: "admin/dashboard",

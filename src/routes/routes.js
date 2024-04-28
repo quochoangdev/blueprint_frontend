@@ -19,9 +19,9 @@ import Login from "../Pages/Login";
 import Logout from "../Pages/Logout";
 
 // Sub page
-import NhaCap4 from "../Pages/NhaCap4";
-import NhaPho from "../Pages/NhaPho";
-import MauBietThu from "../Pages/MauBietThu";
+import Mobile from "../Pages/Mobile";
+import Ipad from "../Pages/Ipad";
+import Laptop from "../Pages/Laptop";
 import MauKhachSan from "../Pages/MauKhachSan";
 
 // Admin Page
@@ -102,18 +102,18 @@ const publicRoutes = [
   },
   // Sub page
   {
-    path: config.routes.nhaCap4Dep,
-    component: NhaCap4,
+    path: config.routes.mobile,
+    component: Mobile,
     layout: DefaultLayout,
   },
   {
-    path: config.routes.nhaPhoDep,
-    component: NhaPho,
+    path: config.routes.ipad,
+    component: Ipad,
     layout: DefaultLayout,
   },
   {
-    path: config.routes.mauBietThuDep,
-    component: MauBietThu,
+    path: config.routes.laptop,
+    component: Laptop,
     layout: DefaultLayout,
   },
   {

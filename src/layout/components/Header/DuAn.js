@@ -17,15 +17,15 @@ const DuAn = ({ name, linkUrl, icon }) => {
       </Link>
       {icon && (
         <div className={cx("menu-category-link-absolute")}>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.nhaCap4Dep}`}>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.mobile}`}>
             Nhà cấp 4 đẹp
           </Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.nhaPhoDep}`}>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.ipad}`}>
             Nhà phố đẹp
           </Link>
           <Link
             className={cx("menu-category-link-absolute-a")}
-            to={`/${config.routes.mauBietThuDep}`}
+            to={`/${config.routes.laptop}`}
           >
             Mẫu biệt thự đẹp
           </Link>

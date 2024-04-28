@@ -11,8 +11,6 @@ const ItemProductCustom = ({ data, length }) => {
   };
   length && (data = data.slice(0, length));
 
-  console.log(">>>Check", data)
-  console.log(">>>Check l", length)
   return (
     <div className={cx("container")}>
       {data.map((dataItem) => {
