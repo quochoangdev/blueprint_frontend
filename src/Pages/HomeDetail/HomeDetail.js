@@ -1,331 +1,459 @@
-import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
-import styles from "./HomeDetail.module.scss";
-import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
-import { FaRegSquare } from "react-icons/fa";
-import { IoIosClose } from "react-icons/io";
-import { GrPrevious, GrNext } from "react-icons/gr";
-import {
-  FiLayers,
-  FiSmartphone,
-  FiAirplay,
-  FiInfo,
-  FiLayout,
-  FiCreditCard,
-  FiHome,
-  FiDollarSign,
-  FiHash,
-} from "react-icons/fi";
-import ContactOrder from "../../layout/components/ContactOrder/ContactOrder";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { readCart, readJWT, readProductDetail } from "../../services/apiUserService";
+import { PiStarThin } from "react-icons/pi";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { FaCheckCircle } from "react-icons/fa";
+import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
+import { TbReplace } from "react-icons/tb";
+import { FaCircleChevronLeft, FaCircleChevronRight, FaGift } from "react-icons/fa6";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
+import styles from "./HomeDetail.module.scss";
+import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "../../redux/cartSlice";
+import { readProductDetail } from "../../services/apiUserService";
+import { FiShoppingCart } from "react-icons/fi";
 
 const cx = classNames.bind(styles);
 
 const HomeDetail = () => {
-  const [isCheckCart, setIsCheckCart] = useState();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { slug } = useParams();
-  const [productData, setProductData] = useState();
-  const [srcAvatar, setSrcAvatar] = useState();
-  const [overflow, setOverflow] = useState(false);
-  const [indexNextImageAvatar, setIndexNextImageAvatar] = useState(0);
-  const [indexNextImageDetail, setIndexNextImageDetail] = useState();
-  const refImgSub = useRef();
 
-  // Check user
+  const [data, setData] = useState(null);
+  const [showImage, setShowImage] = useState("");
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedCapacity, setSelectedCapacity] = useState(null);
+  const [compact, setCompact] = useState(false);
+  const [imageAvatarColor, setImageDescribeColor] = useState("");
+  const [newData, setNewData] = useState({});
+
+  // price discount
+  const priceDiscount = data && data.price - data.price * (data.percentDiscount / 100);
+
+  // call Api
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  const [dataUsers, setDataUsers] = useState();
-  const [cookie, setCookie] = useState();
-
-  useEffect(() => {
-    // Get localStorage
-    const user = JSON.parse(localStorage.getItem("dataUsers"));
-    setDataUsers(user);
-    // Call api JWT
-    fetchJWT();
-  }, [productData?.id]);
-
-  const fetchJWT = async () => {
-    const resJWT = await readJWT();
-    setCookie(resJWT?.DT?.jwt);
-  };
-
-  // Call Api
-  useEffect(() => {
-    if (!!dataUsers === true && !!cookie === true) {
-      fetchProductId(productData?.id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataUsers, cookie, productData?.id]);
-  const fetchProductId = async () => {
-    let productId = productData?.id;
-    let data = await readCart(null, null, productId);
-    if (data.EC === 0) {
-      setIsCheckCart(true);
-    } else {
-      setIsCheckCart(null);
-    }
-  };
-
-  // Call Api
-  useEffect(() => {
-    fetchProducts(slug);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (async () => {
+      try {
+        const axiosProduct = await readProductDetail(slug)
+        if (axiosProduct) {
+          setData(axiosProduct?.DT);
+        }
+      } catch (error) {
+        toast.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    })();
   }, [slug]);
 
-  const fetchProducts = async (slug) => {
-    let data = await readProductDetail(slug);
-    setProductData(data?.DT);
-    setSrcAvatar(data?.DT?.imageAvatar[0]);
+  // left
+  // handle describe scroll
+  const describeScroll = useRef();
+  const handleDescribeScrollT = () => {
+    describeScroll.current.scrollLeft -= 208;
+  };
+  const handleDescribeScrollP = () => {
+    describeScroll.current.scrollLeft += 208;
   };
   const formatNumber = (number) => {
     return number.toLocaleString("vi-VN");
   };
-
-  const handleLeft = () => {
-    refImgSub.current.scrollLeft -= 80;
-  };
-  const handleRight = () => {
-    refImgSub.current.scrollLeft += 80;
+  // handle show describe image
+  const handleShowDescribeImage = (img) => {
+    setShowImage(img);
   };
 
-  // Avatar
-  const handleShowImgAvt = async (src, index) => {
-    setSrcAvatar(src);
-    setIndexNextImageAvatar(index);
+  // right
+  // handle start
+  const handleStart = () => {
+    toast.warning("Chức năng đang được phát triển");
+  };
+  // handle assess
+  const handleAssess = () => {
+    toast.warning("Chức năng đang được phát triển");
+  };
+  // handle compare
+  const handleCompare = () => {
+    toast.warning("Chức năng đang được phát triển");
+  };
+  // // handle capacity
+  // const handleCapacity = useCallback(
+  //   (capacity) => {
+  //     // active
+  //     setSelectedCapacity(capacity);
+
+  //     function replaceGb(slug, capacity) {
+  //       var regex = /-(\d+)gb/g;
+  //       return slug.replace(regex, "-" + capacity);
+  //     }
+  //     const newSlug = slug;
+  //     const newSlugReplace = replaceGb(newSlug, capacity).toLowerCase();
+  //     navigate(`/${newSlugReplace}`);
+  //   },
+  //   [slug, navigate]
+  // );
+  // // set default active capacity
+  // useEffect(() => {
+  //   function getSlugSplit(slug) {
+  //     var newSlug = slug.split("-");
+  //     var result = newSlug.filter(function (item) {
+  //       return item.includes("gb");
+  //     });
+  //     return result;
+  //   }
+
+  //   if (data?.slug) {
+  //     const result = getSlugSplit(data?.slug);
+  //     const newSlug = result && result[0].toUpperCase();
+  //     const handleSlugCapacity = () => {
+  //       handleCapacity(newSlug);
+  //     };
+  //     handleSlugCapacity();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [data]);
+
+  // handle color onClick
+  const handleColors = useCallback(
+    (color) => {
+      setImageDescribeColor(color);
+      setSelectedColor(color);
+    },
+    [setImageDescribeColor, setSelectedColor]
+  );
+
+  // handle color onClick
+  const handleOptionClick = useCallback(
+    (color) => {
+      handleColors(color);
+      setShowImage(false);
+    },
+    [handleColors]
+  );
+
+  // set color default
+  useEffect(() => {
+    const randomColor = Math.floor(Math.random() * data?.imageAvatar.length);
+    const firstAttributes = data?.imageAvatar.map((item) => Object.keys(item));
+    const firstKeysColor = firstAttributes && firstAttributes[randomColor ? randomColor : 0][0];
+    const handleFirstKeysColor = () => {
+      handleOptionClick(firstKeysColor);
+    };
+    handleFirstKeysColor();
+  }, [data?.imageAvatar, handleOptionClick]);
+
+  // handle compact
+  const handleCompact = () => {
+    setCompact((prev) => !prev);
   };
 
-  // Detail
-  const handleShowImg = async (arr, index) => {
-    setIndexNextImageDetail(index);
-    await setOverflow(true);
-    let imgHtml = await document.getElementsByClassName(`${styles.imgSrc}`);
-    let imgArray = await Array.from(imgHtml);
-    imgArray[0].src = arr;
-  };
-  const handleCloseImg = () => {
-    setOverflow(false);
-    setIndexNextImageAvatar(0);
-    setIndexNextImageDetail(undefined);
+  // handle buy
+  useEffect(() => {
+    setNewData(() => {
+      return {
+        _id: data?._id,
+        title: data?.title,
+        imageAvatar: data?.imageAvatar[0],
+        colors: data && selectedColor,
+        capacitys: data && selectedCapacity,
+        price: data && priceDiscount,
+        slug: data?.slug,
+      };
+    });
+  }, [data, priceDiscount, selectedCapacity, selectedColor]);
+
+  const handleBuy = (e) => {
+    e.preventDefault();
+    dispatch(addCartItem(newData));
   };
 
-  const handlePrevImageDetail = async () => {
-    if (indexNextImageAvatar >= 0 && indexNextImageDetail === undefined) {
-      setIndexNextImageAvatar((prev) => prev - 1);
-      let imgHtml = await document.getElementsByClassName(`${styles.imgSrc}`);
-      let imgArray = await Array.from(imgHtml);
-      if (productData.imageAvatar[indexNextImageAvatar - 1]) {
-        imgArray[0].src = productData.imageAvatar[indexNextImageAvatar - 1];
-      } else {
-        setOverflow(false);
-      }
-    }
-    if (indexNextImageDetail >= 0) {
-      setIndexNextImageDetail((prev) => prev - 1);
-      let imgHtml = await document.getElementsByClassName(`${styles.imgSrc}`);
-      let imgArray = await Array.from(imgHtml);
-      if (productData.imageDetail[indexNextImageDetail - 1]) {
-        imgArray[0].src = productData.imageDetail[indexNextImageDetail - 1];
-      } else {
-        setOverflow(false);
-      }
-    }
-  };
-  const handleNextImageDetail = async () => {
-    if (indexNextImageAvatar >= 0 && indexNextImageDetail === undefined) {
-      setIndexNextImageAvatar((prev) => prev + 1);
-      let imgHtml = await document.getElementsByClassName(`${styles.imgSrc}`);
-      let imgArray = await Array.from(imgHtml);
-      if (productData.imageAvatar[indexNextImageAvatar + 1]) {
-        imgArray[0].src = productData.imageAvatar[indexNextImageAvatar + 1];
-      } else {
-        setOverflow(false);
-      }
-    }
-    if (indexNextImageDetail >= 0) {
-      setIndexNextImageDetail((prev) => prev + 1);
-      let imgHtml = await document.getElementsByClassName(`${styles.imgSrc}`);
-      let imgArray = await Array.from(imgHtml);
-      if (productData.imageDetail[indexNextImageDetail + 1]) {
-        imgArray[0].src = productData.imageDetail[indexNextImageDetail + 1];
-      } else {
-        setOverflow(false);
-      }
-    }
+  // handle Installment
+  const handleInstallment = (e) => {
+    e.preventDefault();
+    toast.warning("Chức năng đang được phát triển");
   };
 
+  console.log(data)
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("inner")}>
-        <div className={cx("information")}>
-          <div className={cx("title")}>{productData?.title}</div>
-          <div className={cx("img-avatar")} onClick={() => handleShowImg(srcAvatar)}>
-            <img src={`${srcAvatar}`} alt="" />
-          </div>
-          <div className={cx("img-sub")}>
-            <div className={cx("img-sub-icon")}>
-              <div className={cx("sub-icon-left")} onClick={handleLeft}>
-                <FaCircleChevronLeft />
-              </div>
-              <div className={cx("sub-icon-right")} onClick={handleRight}>
-                <FaCircleChevronRight />
-              </div>
-            </div>
-            <div className={cx("img-sub-list")} ref={refImgSub}>
-              {productData?.imageAvatar.map((imgAvatar, index) => {
+    <div className={cx("wrapper-background")}>
+      <div className={cx("wrapper")}>
+        <div className={cx("product")}>
+          <div className={cx("product-left")}>
+            {/* {data?.imageAvatar.map((imgs, index) => {
+              if (imgs.hasOwnProperty(imageAvatarColor)) {
                 return (
-                  <div
+                  <a
                     key={index}
-                    className={cx("img-sub-item")}
-                    onClick={() => handleShowImgAvt(imgAvatar, index)}
+                    className={cx("left-link")}
+                    href={data && showImage ? showImage : data && imgs[imageAvatarColor][0]}
                   >
-                    <img src={`${imgAvatar}`} alt="" />
-                  </div>
+                    <img
+                      className={cx("left-img")}
+                      src={data && showImage ? showImage : data && imgs[imageAvatarColor][0]}
+                      alt=""
+                    />
+                  </a>
                 );
-              })}
-            </div>
-          </div>
-          <hr className={cx("hr")} />
-          <div className={cx("specifications")}>
-            <div className={cx("title")}>Thông số kỹ thuật</div>
-            <div className={cx("table-detail")}>
-              <table className={cx("table-left")}>
-                <tbody>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiLayers className={cx("icon")} />
-                        <span className={cx("text")}>Số tầng</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>{productData?.numberOfFloors}</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FaRegSquare className={cx("icon")} />
-                        <span className={cx("text")}>Diện tích</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>{productData?.width * productData?.length}m2</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiSmartphone className={cx("icon")} />
-                        <span className={cx("text")}>Chiều dài</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>{productData?.length}m</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiAirplay className={cx("icon")} />
-                        <span className={cx("text")}>Phong cách</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>Mái bằng</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiInfo className={cx("icon")} />
-                        <span className={cx("text")}>Thiết kế bởi</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>QuocHoangIT</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table className={cx("table-right")}>
-                <tbody>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiLayout className={cx("icon")} />
-                        <span className={cx("text")}>Phòng ngủ</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>{productData?.roomNumber}</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiCreditCard className={cx("icon")} />
-                        <span className={cx("text")}>Mặt tiền</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>{productData?.facade}m</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiHome className={cx("icon")} />
-                        <span className={cx("text")}>Loại hình</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>{productData?.Category?.name}</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiDollarSign className={cx("icon")} />
-                        <span className={cx("text")}>Chi phí</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>Liên hệ</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <div className={cx("two-row")}>
-                        <FiHash className={cx("icon")} />
-                        <span className={cx("text")}>Mã SP</span>
-                      </div>
-                    </th>
-                    <td className={cx("text")}>{productData?.productCode}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div className={cx("contact")}>
-          <ContactOrder
-            productData={productData}
-            dataUsers={dataUsers}
-            cookie={cookie}
-            isCheckCart={isCheckCart}
-          />
-        </div>
-      </div>
-      <div className={cx("detail-product")}>
-        <div className={cx("title")}>Chi tiết sản phẩm</div>
-        <div className={cx("block-img")}>
-          {productData?.imageDetail.map((imgDetail, index) => {
-            return (
+              }
+              return null;
+            })} */}
+            <a
+              className={cx("left-link")}
+              href={'/'}
+            >
               <img
-                key={`imgDetail-${index}`}
-                className={cx("detail-img")}
-                src={`${imgDetail}`}
+                className={cx("left-img")}
+                src={data?.imageAvatar[0]}
                 alt=""
-                onClick={() => handleShowImg(imgDetail, index)}
               />
-            );
-          })}
-        </div>
-        {overflow && (
-          <div className={cx("overflow-img")}>
-            <IoIosClose className={cx("overflow-close")} onClick={handleCloseImg} />
-            <img className={cx("imgSrc")} src="" alt="" />
-            <div className={cx("prev-next")}>
-              <GrPrevious className={cx("icon")} onClick={handlePrevImageDetail} />
-              <GrNext className={cx("icon")} onClick={handleNextImageDetail} />
+            </a>
+            <div className={cx("left-describe-image")}>
+              <div className={cx("left-describe-block")} ref={describeScroll}>
+                {data?.imageAvatar.map((img, index) => {
+                  return (
+                    <div
+                      className={cx("describe-item")}
+                      onClick={() => handleShowDescribeImage(img)}
+                      key={index}
+                    >
+                      <img className={cx("image-item")} src={img} alt="" />
+                    </div>
+                  )
+                })}
+              </div>
+              <FaCircleChevronLeft
+                className={cx("describe-icon-left")}
+                onClick={handleDescribeScrollT}
+              />
+              <FaCircleChevronRight
+                className={cx("describe-icon-right")}
+                onClick={handleDescribeScrollP}
+              />
             </div>
           </div>
-        )}
+          <div className={cx("product-right")}>
+            <h1 className={cx("title")}>{data?.title}</h1>
+            <div className={cx("sub-title")}>
+              <div className={cx("start")} onClick={handleStart}>
+                <PiStarThin className={cx("start-icon")} />
+                <PiStarThin className={cx("start-icon")} />
+                <PiStarThin className={cx("start-icon")} />
+                <PiStarThin className={cx("start-icon")} />
+                <PiStarThin className={cx("start-icon")} />
+              </div>
+              <div className={cx("start-assess")} onClick={handleAssess}>
+                Đánh giá
+              </div>
+              <div className={cx("compare")} onClick={handleCompare}>
+                <IoIosAddCircleOutline className={cx("compare-icon")} />
+                So sánh
+              </div>
+            </div>
+            <div className={cx("price")}>
+              <div className={cx("price-new")}>
+                <span className={cx("price-new-text")}>{data && formatNumber(priceDiscount)}</span>
+                <span className={cx("price-new-icon")}>₫</span>
+              </div>
+              <div className={cx("price-old")}>
+                {data && formatNumber(data.price)}
+                <span className={cx("price-old-icon")}>₫</span>
+              </div>
+            </div>
+            {/* <div className={cx("phone-capacity")}>
+              <div className={cx("phone-capacity-title")}>Dung lượng</div>
+              <div className={cx("phone-capacity-select")}>
+                {data &&
+                  data.capacitys.map((capacity, index) => (
+                    <div
+                      className={cx(
+                        "phone-capacity-option",
+                        `${capacity === selectedCapacity ? "active" : ""}`
+                      )}
+                      key={index}
+                      onClick={() => handleCapacity(capacity)}
+                    >
+                      {capacity === "1000GB" ? "1TB" : capacity}
+                    </div>
+                  ))}
+              </div>
+            </div> */}
+            <div className={cx("phone-color")}>
+              <div className={cx("phone-color-title")}>Màu sắc</div>
+              <div className={cx("phone-color-select")}>
+                {data &&
+                  data?.colors.map((color, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={cx(
+                          "phoneColorOption",
+                          `${color === selectedColor ? "active" : ""}`
+                        )}
+                        onClick={() => handleOptionClick(color)}
+                      >
+                        <div
+                          className={cx("phoneColorOptionColor")}
+                          style={{ backgroundColor: `${color}` }}
+                          onClick={() => handleOptionClick(color)}
+                        ></div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+            <div className={cx("special-offers")}>
+              <div className={cx("title")}>
+                <div className={cx("title-icon")}>
+                  <FaGift />
+                </div>
+                <div className={cx("title-text")}>Ưu đãi</div>
+              </div>
+              <div className={cx("description", `${compact ? "" : "description-height-107"}`)}>
+                {/*  */}
+                <div className={cx("description-item")}>
+                  <div className={cx("heading")}>I. Ưu đãi thanh toán</div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>
+                      Giảm tới <span>600.000đ</span> qua cổng thanh toán
+                    </div>
+                  </div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>
+                      Giảm tới <span>2.000.000đ</span> khi thanh toán qua thẻ tín dụng
+                    </div>
+                  </div>
+                </div>
+                {/*  */}
+                <div className={cx("description-item")}>
+                  <div className={cx("heading")}>II. Ưu đãi trả góp (1/12 - 31/12)</div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>
+                      Ưu đãi tới <span>500.000đ</span> khi thanh toán trả góp
+                    </div>
+                  </div>
+                </div>
+                {/*  */}
+                <div className={cx("description-item")}>
+                  <div className={cx("heading")}>III. Ưu đãi mua kèm iPhone 15 series</div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>Mua kèm giảm sâu phụ kiện Apple</div>
+                  </div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>Mua kèm giảm sâu phụ kiện Non Apple</div>
+                  </div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>
+                      Giảm 10% khi mua Bảo hành tiêu chuẩn mở rộng (6 tháng, 12 tháng)
+                    </div>
+                  </div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>
+                      Giảm 20% khi mua Bảo hành kim cương, Bảo hành VIP (Rơi vỡ, vào nước)
+                    </div>
+                  </div>
+                </div>
+                {/*  */}
+                <div className={cx("description-item")}>
+                  <div className={cx("heading")}>
+                    IV. Ưu đãi cán bộ công nhân viên VietinBank, VietcomBank, VinFast
+                  </div>
+                  <div className={cx("content")}>
+                    <div className={cx("content-icon")}>
+                      <FaCheckCircle />
+                    </div>
+                    <div className={cx("content-text")}>
+                      Tặng voucher giảm giá <span>500.000đ</span>
+                    </div>
+                  </div>
+                </div>
+                <div className={cx("compact")} onClick={handleCompact}>
+                  {compact ? (
+                    <>
+                      Thu gọn <AiOutlineUp />
+                    </>
+                  ) : (
+                    <>
+                      Xem thêm ưu đãi khác <AiOutlineDown />
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className={cx("btn-buy")}>
+              <a className={cx("btn-buy-link")} href="/" onClick={handleBuy}>
+                MUA NGAY
+              </a>
+            </div>
+            <div className={cx("btn-installment")}>
+              <a className={cx("btn-installment-link")} href="/" onClick={handleInstallment}>
+                <FiShoppingCart className={cx("btn-installment-link-icon")} />
+                Thêm vào giỏ hàng
+              </a>
+              <a className={cx("btn-installment-link")} href="/" onClick={handleInstallment}>
+                <TbReplace className={cx("btn-installment-link-icon")} />
+                Thu cũ đổi mới
+              </a>
+            </div>
+            <div className={cx("policy")}>
+              <div className={cx("policy-item")}>
+                <div className={cx("policy-item-icon")}>
+                  <FaCheckCircle />
+                </div>
+                <div className={cx("policy-item-text")}>
+                  Bộ sản phẩm gồm: Hộp, Sách hướng dẫn, Cây lấy sim, Cáp Type C
+                </div>
+              </div>
+              <div className={cx("policy-item")}>
+                <div className={cx("policy-item-icon")}>
+                  <FaCheckCircle />
+                </div>
+                <div className={cx("policy-item-text")}>Bảo hành chính hãng 1 năm</div>
+              </div>
+              <div className={cx("policy-item")}>
+                <div className={cx("policy-item-icon")}>
+                  <FaCheckCircle />
+                </div>
+                <div className={cx("policy-item-text")}>Giao hàng nhanh toàn quốc</div>
+              </div>
+              <div className={cx("policy-item")}>
+                <div className={cx("policy-item-icon")}>
+                  <FaCheckCircle />
+                </div>
+                <div className={cx("policy-item-text")}>
+                  Gọi đặt mua <span>0971955144</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={cx("suggest")}>
+          <h3 className={cx("title")}>Gợi ý phụ kiện đi kèm</h3>
+          <HomePageItem />
+        </div>
       </div>
     </div>
   );

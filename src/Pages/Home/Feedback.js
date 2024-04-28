@@ -18,7 +18,7 @@ const Feedback = (props) => {
         <div className={cx("feedback-avatar")}>
           <img className={cx("feedback-img")} src={props.img} alt="" />
         </div>
-        <div className={cx("feedback-name")}>Phạm Quốc Hoàng (WanFit)</div>
+        <div className={cx("feedback-name")}>Phạm Quốc Hoàng (QHD)</div>
       </div>
     </div>
   );
