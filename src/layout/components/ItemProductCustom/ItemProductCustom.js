@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames/bind";
 
 import styles from "./ItemProductCustom.module.scss";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -19,10 +20,10 @@ const ItemProductCustom = ({ data, length }) => {
           dataItem?.price - dataItem?.price * (dataItem?.percentDiscount / 100);
 
         return (
-          <a
+          <Link
             className={cx("item-link")}
             key={dataItem?._id}
-            href={`/${dataItem?.slug}`}
+            to={`/${dataItem?.slug}`}
           >
             <div className={cx("item")}>
               <div className={cx("item-new")}>
@@ -53,7 +54,7 @@ const ItemProductCustom = ({ data, length }) => {
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
         );
       })}
     </div>

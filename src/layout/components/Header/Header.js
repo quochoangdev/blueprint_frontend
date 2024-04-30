@@ -88,12 +88,12 @@ const Header = () => {
         {/* social */}
         <div className={cx("navbar-item-social")}>
           <div className={cx("social-category")}>
-            <a
-              href="tel:0971955144"
+            <Link
+              to="tel:0971955144"
               className={cx("social-category-link", "tel-link")}
             >
               Tel: 0971955144
-            </a>
+            </Link>
           </div>
           <div className={cx("social-category")}>
             <Link

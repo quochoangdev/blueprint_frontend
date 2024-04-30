@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PiStarThin } from "react-icons/pi";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { FaCheckCircle } from "react-icons/fa";
@@ -185,31 +185,31 @@ const HomeDetail = () => {
             {/* {data?.imageAvatar.map((imgs, index) => {
               if (imgs.hasOwnProperty(imageAvatarColor)) {
                 return (
-                  <a
+                  <Link
                     key={index}
                     className={cx("left-link")}
-                    href={data && showImage ? showImage : data && imgs[imageAvatarColor][0]}
+                    to={data && showImage ? showImage : data && imgs[imageAvatarColor][0]}
                   >
                     <img
                       className={cx("left-img")}
                       src={data && showImage ? showImage : data && imgs[imageAvatarColor][0]}
                       alt=""
                     />
-                  </a>
+                  </Link>
                 );
               }
               return null;
             })} */}
-            <a
+            <Link
               className={cx("left-link")}
-              href={'/'}
+              to={'/'}
             >
               <img
                 className={cx("left-img")}
                 src={data?.imageAvatar[0]}
                 alt=""
               />
-            </a>
+            </Link>
             <div className={cx("left-describe-image")}>
               <div className={cx("left-describe-block")} ref={describeScroll}>
                 {data?.imageAvatar.map((img, index) => {
@@ -404,19 +404,19 @@ const HomeDetail = () => {
               </div>
             </div>
             <div className={cx("btn-buy")}>
-              <a className={cx("btn-buy-link")} href="/" onClick={handleBuy}>
+              <Link className={cx("btn-buy-link")} to="/" onClick={handleBuy}>
                 MUA NGAY
-              </a>
+              </Link>
             </div>
             <div className={cx("btn-installment")}>
-              <a className={cx("btn-installment-link")} href="/" onClick={handleInstallment}>
+              <Link className={cx("btn-installment-link")} to="/" onClick={handleInstallment}>
                 <FiShoppingCart className={cx("btn-installment-link-icon")} />
                 Thêm vào giỏ hàng
-              </a>
-              <a className={cx("btn-installment-link")} href="/" onClick={handleInstallment}>
+              </Link>
+              <Link className={cx("btn-installment-link")} to="/" onClick={handleInstallment}>
                 <TbReplace className={cx("btn-installment-link-icon")} />
                 Thu cũ đổi mới
-              </a>
+              </Link>
             </div>
             <div className={cx("policy")}>
               <div className={cx("policy-item")}>
