@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import { FaChevronRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 import styles from "./HomePageItem.module.scss";
 import ItemProductCustom from "../ItemProductCustom";
@@ -12,9 +13,9 @@ const HomePageItem = ({ data = [], length, title, link, btn }) => {
     <div className={cx("wrapper")}>
       {title ? (
         <h2 className={cx("title")}>
-          <a href={`/${link}`} className={cx("title-link")}>
+          <Link to={`/${link}`} className={cx("title-link")}>
             {title}
-          </a>
+          </Link>
         </h2>
       ) : (
         <></>
@@ -22,12 +23,12 @@ const HomePageItem = ({ data = [], length, title, link, btn }) => {
       <ItemProductCustom data={data} length={length} />
       {btn ? (
         <div className={cx("btn-show-all")}>
-          <a href={`/${link}`} className={cx("btn-show-all-link")}>
+          <Link to={`/${link}`} className={cx("btn-show-all-link")}>
             Xem tất cả {title}
             <span className={cx("btn-show-icon")}>
               <FaChevronRight />
             </span>
-          </a>
+          </Link>
         </div>
       ) : (
         <></>

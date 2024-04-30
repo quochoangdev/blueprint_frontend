@@ -78,12 +78,12 @@ const publicRoutes = [
   {
     path: config.routes.cart,
     component: Cart,
-    layout: HeadlessLayout,
+    layout: DefaultLayout,
   },
   {
     path: config.routes.checkout,
     component: CheckOut,
-    layout: HeadlessLayout,
+    layout: DefaultLayout,
   },
   {
     path: config.routes.login,

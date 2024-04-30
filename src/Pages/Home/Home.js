@@ -146,21 +146,21 @@ const Home = () => {
         length={4}
         title={"Điện thoại"}
         btn={true}
-        link={"/"}
+        link={config.routes.mobile}
       />}
       {dataMobile && <HomePageItem
         data={dataMobile}
         length={4}
         title={"IPad"}
         btn={true}
-        link={"/"}
+        link={config.routes.ipad}
       />}
       {dataMobile && <HomePageItem
         data={dataMobile}
         length={4}
         title={"Laptap"}
         btn={true}
-        link={"/"}
+        link={config.routes.laptop}
       />}
       <div className={cx("bg-feedback")}>
         <div className={cx("feedback")}>
