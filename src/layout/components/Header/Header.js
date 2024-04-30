@@ -2,18 +2,16 @@ import classNames from "classnames/bind";
 import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState, createContext, useEffect } from "react";
-
 import { Link } from "react-router-dom";
-
-//
 import config from "../../../config";
 import styles from "./Header.module.scss";
 import HeaderItem from "./HeaderItem";
 import User from "./User";
 import Search from "../Search/Search";
-import BaoGia from "./BaoGia";
-import DuAn from "./DuAn";
 import { readCart, readJWT } from "../../../services/apiUserService";
+import MobileSl from "./MobileSl";
+import IpadSl from "./IpadSl";
+import LaptopSl from "./LaptopSl";
 
 const cx = classNames.bind(styles);
 export const ToggleSearchFullscreenContext = createContext(null);
@@ -71,15 +69,19 @@ const Header = () => {
         {/* menu category */}
         <div className={cx("navbar-item-menu")}>
           <HeaderItem name={"TRANG CHỦ"} linkUrl={""} />
-          <DuAn
-            name={"Dự án"}
-            linkUrl={"du-an"}
+          <MobileSl
+            name={"Điện thoại"}
+            linkUrl={config.routes.mobile}
             icon={<MdKeyboardArrowDown />}
           />
-          <HeaderItem name={"DỊCH VỤ"} linkUrl={"dich-vu"} />
-          <BaoGia
-            name={"Báo giá"}
-            linkUrl={"bao-gia"}
+          <IpadSl
+            name={"Tablet"}
+            linkUrl={config.routes.ipad}
+            icon={<MdKeyboardArrowDown />}
+          />
+          <LaptopSl
+            name={"Laptop"}
+            linkUrl={config.routes.laptop}
             icon={<MdKeyboardArrowDown />}
           />
           <HeaderItem name={"Phản hồi"} linkUrl={"phan-hoi"} />

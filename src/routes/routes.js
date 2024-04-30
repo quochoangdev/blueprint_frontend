@@ -8,7 +8,6 @@ import AdminLayout from "../layout/AdminLayout";
 import Home from "../Pages/Home";
 import HomeDetail from "../Pages/HomeDetail";
 import DichVu from "../Pages/DichVu";
-import DuAn from "../Pages/DuAn";
 import BaoGia from "../Pages/BaoGia";
 import PhanHoi from "../Pages/PhanHoi";
 import TuyenDung from "../Pages/TuyenDung";
@@ -36,6 +35,7 @@ import OrderAdmin from "../PageAdmin/Order";
 import SettingAdmin from "../PageAdmin/Settings";
 import SignOutAdmin from "../PageAdmin/SignOut";
 import NoLayout from "../layout/NoLayout";
+import Iphone from "../Pages/Iphone/Iphone";
 
 // Public routes
 const publicRoutes = [
@@ -53,11 +53,6 @@ const publicRoutes = [
   {
     path: config.routes.dichVu,
     component: DichVu,
-    layout: DefaultLayout,
-  },
-  {
-    path: config.routes.duAn,
-    component: DuAn,
     layout: DefaultLayout,
   },
   {
@@ -104,6 +99,11 @@ const publicRoutes = [
   {
     path: config.routes.mobile,
     component: Mobile,
+    layout: DefaultLayout,
+  },
+  {
+    path: config.routes.iphone,
+    component: Iphone,
     layout: DefaultLayout,
   },
   {

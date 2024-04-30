@@ -73,30 +73,13 @@
                 background-color: rgba(22, 24, 35, 0.1);
             }
 
+            // 
             .category-right {
                 height         : 100%;
                 width          : 20%;
                 display        : flex;
                 justify-content: flex-end;
                 align-items    : flex-start;
-
-                .show-link {
-                    display        : flex;
-                    align-items    : center;
-                    justify-content: center;
-                    background     : #FFFFFF;
-                    border         : 1px solid #EBEBEB;
-                    border-radius  : 8px;
-                    min-height     : 48px;
-                    min-width      : 176px;
-                    margin-right   : 4px;
-                    text-decoration: none;
-
-                    &:hover {
-                        color          : var(--primary);
-                        text-decoration: underline;
-                    }
-                }
 
                 select {
                     margin       : 0;

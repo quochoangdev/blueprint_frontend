@@ -3,7 +3,6 @@ const routes = {
   home: "/",
   homeDetail: "/:slug",
   dichVu: "dich-vu",
-  duAn: "du-an",
   baoGia: "bao-gia",
   phanHoi: "phan-hoi",
   tuyenDung: "tuyen-dung",
@@ -14,9 +13,9 @@ const routes = {
   logout: "logout",
   // sub page
   mobile: "dien-thoai",
+  iphone: "iphone",
   ipad: "ipad",
   laptop: "laptop",
-  mauKhachSanDep: "mau-khach-san-dep",
   // admin
   homeAdmin: "admin/dashboard",
   userAdmin: "admin/users",

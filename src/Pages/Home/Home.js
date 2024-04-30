@@ -129,7 +129,7 @@ const Home = () => {
               <div className={cx("img-item")}>
                 <MdOutlineTabletMac className={cx("img")} />
               </div>
-              <div className={cx("title-item")}>IPad</div>
+              <div className={cx("title-item")}>Tablet</div>
             </Link>
             {/* Laptop */}
             <Link className={cx("item")} to={config.routes.laptop}>
@@ -151,14 +151,14 @@ const Home = () => {
       {dataMobile && <HomePageItem
         data={dataMobile}
         length={4}
-        title={"IPad"}
+        title={"Tablet"}
         btn={true}
         link={config.routes.ipad}
       />}
       {dataMobile && <HomePageItem
         data={dataMobile}
         length={4}
-        title={"Laptap"}
+        title={"Laptop"}
         btn={true}
         link={config.routes.laptop}
       />}
