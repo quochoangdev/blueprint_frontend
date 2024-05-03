@@ -1,11 +1,22 @@
+import Resizer from 'react-image-file-resizer';
+
+const resizeFile = (file) => new Promise(resolve => {
+  Resizer.imageFileResizer(file, 300, 300, 'JPEG', 80, 0,
+    uri => {
+      resolve(uri);
+    },
+    'base64'
+  );
+});
+
 const MultipleImageToBase64 = async (file) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  const data = new Promise((resolve, reject) => {
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (err) => reject(err);
-  });
-  return data;
+  try {
+    const resizedImage = await resizeFile(file);
+    return resizedImage;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 };
 
 export { MultipleImageToBase64 };

@@ -73,10 +73,10 @@ const ModalProductCreate = (props) => {
   };
 
   // Confirm
-  const handleConfirmUser = async () => {
+  const handleConfirmProduct = async () => {
+    console.log(data)
     let isCheckBorder = checkValidateInputs();
     let isCheckTextEmpty = isCheckInputs();
-
     if (isCheckBorder && isCheckTextEmpty) {
       let response = await createProduct(data);
 
@@ -188,7 +188,7 @@ const ModalProductCreate = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <button className={cx("btn", "secondary")} onClick={props.handleClose}>Close</button>
-          <button className={cx("btn", "primary")} onClick={() => handleConfirmUser()}>Save</button>
+          <button className={cx("btn", "primary")} onClick={() => handleConfirmProduct()}>Save</button>
         </Modal.Footer>
       </Modal>
     </>
