@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, version } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { readProduct } from "../../services/apiUserService";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";

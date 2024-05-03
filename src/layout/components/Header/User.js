@@ -1,6 +1,5 @@
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-//
 import config from "../../../config";
 import styles from "./Header.module.scss";
 import { useEffect, useState } from "react";

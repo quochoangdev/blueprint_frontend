@@ -6,7 +6,7 @@ const initialState = {
   city: "",
   district: "",
   title: "",
-  imageAvatar: "",
+  image: "",
   price: "",
 };
 
@@ -21,7 +21,7 @@ export const checkoutSlice = createSlice({
       state.city = action.payload.infoCustomer.city;
       state.district = action.payload.infoCustomer.district;
       state.title = action.payload.productData.title;
-      state.imageAvatar = action.payload.productData.imageAvatar[0];
+      state.image = action.payload.productData.image[0];
       state.price = action.payload.productData.price;
     },
   },

@@ -35,7 +35,7 @@ const ItemProductCustom = ({ data, length }) => {
                 )}
               </div>
               <div className={cx("item-img")}>
-                <img src={dataItem?.imageAvatar[0]} alt="error" />
+                <img src={dataItem?.image[0]} alt="error" />
               </div>
               <div className={cx("item-content")}>
                 <h3 className={cx("title")}>{dataItem?.title}</h3>
