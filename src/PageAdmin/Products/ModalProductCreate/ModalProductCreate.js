@@ -11,7 +11,8 @@ import { createProduct, readCategory } from "../../../services/apiAdminService";
 const cx = classNames.bind(styles);
 
 const ModalProductCreate = (props) => {
-  const [categoryData, setCategoryData] = useState([]);
+  const [categoriesData, setCategoriesData] = useState([]);
+  const [capacityData] = useState([{ name: "64GB", value: 64 }, { name: "128GB", value: 128 }, { name: "256GB", value: 256 }, { name: "512GB", value: 512 }, { name: "1TB", value: 1000 }]);
   const [data, setData] = useState({ title: "", price: "", version: "", categoriesId: "", image: "", capacity: "", color: "", percentDiscount: "", quantity: "" });
   const validInputDefault = { title: true, price: true, version: true, categoriesId: true, image: true, capacity: true, color: true, percentDiscount: true, quantity: true };
   const [validInputs, setValidInputs] = useState(validInputDefault);
@@ -29,23 +30,6 @@ const ModalProductCreate = (props) => {
     return true;
   };
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => { return { ...prev, [name]: value, }; });
-  };
-
-  const handleImage = async (e) => {
-    const multipleImages = e.target.files;
-    const arrMultipleImage = [];
-    for (let i = 0; i < multipleImages.length; ++i) {
-      const base = await ImageToBase64(multipleImages[i]);
-      arrMultipleImage.push(base);
-    }
-    setData((prev) => { return { ...prev, image: arrMultipleImage, }; });
-  };
-
-  const handleOnFocus = () => { setValidInputs(validInputDefault); };
-
   // Valid Input
   const checkValidateInputs = () => {
     setValidInputs(validInputDefault);
@@ -61,16 +45,34 @@ const ModalProductCreate = (props) => {
     return true;
   };
 
+  const handleOnFocus = () => { setValidInputs(validInputDefault); };
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => { return { ...prev, [name]: value, }; });
+  };
+
+  const handleImage = async (e) => {
+    const multipleImages = e.target.files;
+    const arrMultipleImage = [];
+    for (let i = 0; i < multipleImages.length; ++i) {
+      const base = await ImageToBase64(multipleImages[i]);
+      arrMultipleImage.push(base);
+    }
+    setData((prev) => { return { ...prev, image: arrMultipleImage, }; });
+  };
+
   // Get Category
   useEffect(() => { getCategory(); }, []);
   const getCategory = async () => {
     let response = await readCategory();
     if (response && response.EC === 0) {
-      setCategoryData(response.DT);
+      setCategoriesData(response.DT);
       if (response.DT && response.DT.length > 0) {
       }
     } else { toast.error(response.EM); }
   };
+  console.log(categoriesData)
 
   // Confirm
   const handleConfirmProduct = async () => {
@@ -135,7 +137,10 @@ const ModalProductCreate = (props) => {
               <div className={cx("bl-input")}>
                 <label>Categories (<span className={cx("valid-start")}>*</span>)</label>
                 <div className={cx("bl-icon")}>
-                  <input className={cx(validInputs.categoriesId ? "" : `is-valid`)} type="text" name="categoriesId" onChange={handleOnChange} onFocus={handleOnFocus} />
+                  <select className={cx(validInputs.categoriesId ? "" : `is-valid`)} name="categoriesId" onChange={handleOnChange} onFocus={handleOnFocus}>
+                    <option value={""}>-- option --</option>
+                    {categoriesData && categoriesData.map((categories, index) => <option key={`${index}-categories`} value={categories?.id}>{categories?.name}</option>)}
+                  </select>
                   {!validInputs.categoriesId && (<MdErrorOutline className={cx("icon")} />)}
                 </div>
               </div>
@@ -152,7 +157,10 @@ const ModalProductCreate = (props) => {
               <div className={cx("bl-input")}>
                 <label>Capacity (<span className={cx("valid-start")}>*</span>)</label>
                 <div className={cx("bl-icon")}>
-                  <input className={cx(validInputs.capacity ? "" : `is-valid`)} type="text" name="capacity" multiple onChange={handleOnChange} onFocus={handleOnFocus} />
+                  <select className={cx(validInputs.capacity ? "" : `is-valid`)} name="capacity" onChange={handleOnChange} onFocus={handleOnFocus}>
+                    <option value={""}>-- option --</option>
+                    {capacityData && capacityData.map((item, index) => <option key={`${index}-capacity`} value={item?.value}>{item?.name}</option>)}
+                  </select>
                   {!validInputs.capacity && (<MdErrorOutline className={cx("icon")} />)}
                 </div>
               </div>

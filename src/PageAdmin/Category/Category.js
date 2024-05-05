@@ -131,8 +131,8 @@ const Category = () => {
             <tbody>
               {listDataCategory &&
                 listDataCategory.DT &&
-                listDataCategory.DT.categorys &&
-                listDataCategory.DT.categorys.map((category, index) => {
+                listDataCategory.DT.categories &&
+                listDataCategory.DT.categories.map((category, index) => {
                   return (
                     <tr key={index} className={cx("row-inner")}>
                       <td>{(currentPage - 1) * currentLimit + index + 1}</td>

@@ -76,7 +76,7 @@ const Header = () => {
           />
           <IpadSl
             name={"Tablet"}
-            linkUrl={config.routes.ipad}
+            linkUrl={config.routes.tablet}
             icon={<MdKeyboardArrowDown />}
           />
           <LaptopSl

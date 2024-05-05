@@ -11,7 +11,8 @@ import { readCategory, updateProduct } from "../../../services/apiAdminService";
 const cx = classNames.bind(styles);
 
 const ModalProductEdit = (props) => {
-    const [categoryData, setCategoryData] = useState([]);
+    const [categoriesData, setCategoriesData] = useState([]);
+    const [capacityData] = useState([{ name: "64GB", value: 64 }, { name: "128GB", value: 128 }, { name: "256GB", value: 256 }, { name: "512GB", value: 512 }, { name: "1TB", value: 1000 }]);
     const [data, setData] = useState({ title: "", price: "", version: "", categoriesId: "", image: "", capacity: "", color: "", percentDiscount: "", quantity: "" });
     const validInputDefault = { title: true, price: true, version: true, categoriesId: true, capacity: true, color: true, percentDiscount: true, quantity: true };
     const [validInputs, setValidInputs] = useState(validInputDefault);
@@ -45,11 +46,11 @@ const ModalProductEdit = (props) => {
 
 
     useEffect(() => {
-        // let currentCategoryId = props?.dataModalEdit?.categoryId;
+        // let currentCategoryId = props?.dataModalEdit?.categoriesId;
         setData((prev) => {
             return {
                 ...prev, ...props.dataModalEdit, image: ''
-                // categoryId: currentCategoryId ? currentCategoryId : "",
+                // categoriesId: currentCategoryId ? currentCategoryId : "",
             };
         });
     }, [props.dataModalEdit]);
@@ -76,7 +77,7 @@ const ModalProductEdit = (props) => {
     const getCategory = async () => {
         let response = await readCategory();
         if (response && response.EC === 0) {
-            setCategoryData(response.DT);
+            setCategoriesData(response.DT);
             if (response.DT && response.DT.length > 0) {
             }
         } else { toast.error(response.EM); }
@@ -145,7 +146,9 @@ const ModalProductEdit = (props) => {
                             <div className={cx("bl-input")}>
                                 <label>Categories (<span className={cx("valid-start")}>*</span>)</label>
                                 <div className={cx("bl-icon")}>
-                                    <input className={cx(validInputs.categoriesId ? "" : `is-valid`)} value={data?.categoriesId} type="text" name="categoriesId" onChange={handleOnChange} onFocus={handleOnFocus} />
+                                    <select className={cx(validInputs.categoriesId ? "" : `is-valid`)} value={data?.categoriesId} name="categoriesId" onChange={handleOnChange} onFocus={handleOnFocus}>
+                                        {categoriesData && categoriesData.map((categories, index) => <option key={`${index}-categories`} value={categories?.id}>{categories?.name}</option>)}
+                                    </select>
                                     {!validInputs.categoriesId && (<MdErrorOutline className={cx("icon")} />)}
                                 </div>
                             </div>
@@ -161,7 +164,9 @@ const ModalProductEdit = (props) => {
                             <div className={cx("bl-input")}>
                                 <label>Capacity (<span className={cx("valid-start")}>*</span>)</label>
                                 <div className={cx("bl-icon")}>
-                                    <input className={cx(validInputs.capacity ? "" : `is-valid`)} value={data?.capacity} type="text" name="capacity" multiple onChange={handleOnChange} onFocus={handleOnFocus} />
+                                    <select className={cx(validInputs.capacity ? "" : `is-valid`)} value={data?.capacity} name="capacity" onChange={handleOnChange} onFocus={handleOnFocus}>
+                                        {capacityData && capacityData.map((item, index) => <option key={`${index}-capacity`} value={item?.value}>{item?.name}</option>)}
+                                    </select>
                                     {!validInputs.capacity && (<MdErrorOutline className={cx("icon")} />)}
                                 </div>
                             </div>

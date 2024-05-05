@@ -13,9 +13,9 @@ const routes = {
   logout: "logout",
   // sub page
   mobile: "dien-thoai",
-  iphone: "iphone",
-  ipad: "ipad",
+  tablet: "tablet",
   laptop: "laptop",
+  iphone: "iphone",
   // admin
   homeAdmin: "admin/dashboard",
   userAdmin: "admin/users",
