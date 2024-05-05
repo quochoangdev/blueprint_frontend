@@ -19,9 +19,8 @@ import Logout from "../Pages/Logout";
 
 // Sub page
 import Mobile from "../Pages/Mobile";
-import Ipad from "../Pages/Tablet";
+import Tablet from "../Pages/Tablet";
 import Laptop from "../Pages/Laptop";
-import MauKhachSan from "../Pages/MauKhachSan";
 
 // Admin Page
 import HomeAdmin from "../PageAdmin/Home";
@@ -30,13 +29,13 @@ import GroupRoleAdmin from "../PageAdmin/GroupRole";
 import RoleAdmin from "../PageAdmin/Roles";
 import UserAdmin from "../PageAdmin/User";
 import ProductAdmin from "../PageAdmin/Products";
-import CategoryAdmin from "../PageAdmin/Category";
+import CategoriesAdmin from "../PageAdmin/Categories/Categories";
+import BrandAdmin from "../PageAdmin/Brand";
 import OrderAdmin from "../PageAdmin/Order";
 import SettingAdmin from "../PageAdmin/Settings";
 import SignOutAdmin from "../PageAdmin/SignOut";
 import NoLayout from "../layout/NoLayout";
 import Iphone from "../Pages/Iphone/Iphone";
-import Tablet from "../Pages/Tablet";
 
 // Public routes
 const publicRoutes = [
@@ -149,8 +148,13 @@ const publicRoutes = [
     layout: AdminLayout,
   },
   {
-    path: config.routes.categoryAdmin,
-    component: CategoryAdmin,
+    path: config.routes.categoriesAdmin,
+    component: CategoriesAdmin,
+    layout: AdminLayout,
+  },
+  {
+    path: config.routes.brandAdmin,
+    component: BrandAdmin,
     layout: AdminLayout,
   },
   {

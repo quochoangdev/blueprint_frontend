@@ -48,53 +48,60 @@ const SliderAdmin = () => {
       </Link>
       <div className={cx("list")}>
         <Link
-          className={cx("list-item", currentActive === "dashboard" ? "active" : "")}
+          className={cx("list-item", "group-background-dashboard", currentActive === "dashboard" ? "active" : "")}
           to={`/${config.routes.homeAdmin}`}
         >
           <RxDashboard className={cx("list-icon")} />
           <span className={cx("list-content")}>Dashboard</span>
         </Link>
         <Link
-          className={cx("list-item", currentActive === "users" ? "active" : "")}
+          className={cx("list-item", "group-background-user", currentActive === "users" ? "active" : "")}
           to={`/${config.routes.userAdmin}`}
         >
           <TbUserCog className={cx("list-icon")} />
           <span className={cx("list-content")}>Users</span>
         </Link>
         <Link
-          className={cx("list-item", currentActive === "groups" ? "active" : "")}
+          className={cx("list-item", "group-background-user", currentActive === "groups" ? "active" : "")}
           to={`/${config.routes.groupAdmin}`}
         >
           <RiListRadio className={cx("list-icon")} />
           <span className={cx("list-content")}>Groups</span>
         </Link>
         <Link
-          className={cx("list-item", currentActive === "group-role" ? "active" : "")}
+          className={cx("list-item", "group-background-user", currentActive === "group-role" ? "active" : "")}
           to={`/${config.routes.groupRoleAdmin}`}
         >
           <RiListRadio className={cx("list-icon")} />
           <span className={cx("list-content")}>Group-Role</span>
         </Link>
         <Link
-          className={cx("list-item", currentActive === "roles" ? "active" : "")}
+          className={cx("list-item", "group-background-user", currentActive === "roles" ? "active" : "")}
           to={`/${config.routes.roleAdmin}`}
         >
           <RiListRadio className={cx("list-icon")} />
           <span className={cx("list-content")}>Roles</span>
         </Link>
         <Link
-          className={cx("list-item", currentActive === "products" ? "active" : "")}
+          className={cx("list-item", "group-background-product", currentActive === "products" ? "active" : "")}
           to={`/${config.routes.productAdmin}`}
         >
           <HiOutlineShoppingBag className={cx("list-icon")} />
           <span className={cx("list-content")}>Products</span>
         </Link>
         <Link
-          className={cx("list-item", currentActive === "categories" ? "active" : "")}
-          to={`/${config.routes.categoryAdmin}`}
+          className={cx("list-item", "group-background-product", currentActive === "categories" ? "active" : "")}
+          to={`/${config.routes.categoriesAdmin}`}
         >
           <HiOutlineShoppingBag className={cx("list-icon")} />
           <span className={cx("list-content")}>Categories</span>
+        </Link>
+        <Link
+          className={cx("list-item", "group-background-product", currentActive === "brand" ? "active" : "")}
+          to={`/${config.routes.brandAdmin}`}
+        >
+          <HiOutlineShoppingBag className={cx("list-icon")} />
+          <span className={cx("list-content")}>Brand</span>
         </Link>
         <Link
           className={cx("list-item", currentActive === "orders" ? "active" : "")}

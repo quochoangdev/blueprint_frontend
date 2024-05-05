@@ -99,7 +99,7 @@ const Home = () => {
         </Link>
         <Link
           className={cx("list-item", currentActive === "categories" ? "active" : "")}
-          to={`/${config.routes.categoryAdmin}`}
+          to={`/${config.routes.categoriesAdmin}`}
         >
           <HiOutlineShoppingBag className={cx("list-icon")} />
           <span className={cx("list-content")}>Categories</span>

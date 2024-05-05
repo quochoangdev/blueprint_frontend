@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import classNames from "classnames/bind";
-import styles from "./Category.module.scss";
+import styles from "./Categories.module.scss";
 import { IoMenuOutline, IoAddOutline } from "react-icons/io5";
 import { LuListTree } from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
@@ -15,9 +15,9 @@ import ModalCategoriesEdit from "./ModalCategoriesEdit/ModalCategoriesEdit";
 
 const cx = classNames.bind(styles);
 
-const Category = () => {
+const Categories = () => {
   // Pagination
-  const [listDataCategory, setListDataCategory] = useState([]);
+  const [listDataCategories, setListDataCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentLimit, setCurrentLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
@@ -48,7 +48,7 @@ const Category = () => {
 
   const fetchCategories = async () => {
     let data = await readCategories(currentPage, currentLimit);
-    setListDataCategory(data);
+    setListDataCategories(data);
     setTotalPages(data?.DT?.totalPages);
   };
 
@@ -109,7 +109,7 @@ const Category = () => {
             </button>
             <button className={cx("btn-create")} onClick={handleNewProduct}>
               <IoAddOutline className={cx("btn-icon")} />
-              <span>New Category</span>
+              <span>New Categories</span>
             </button>
           </div>
         </h2>
@@ -129,10 +129,10 @@ const Category = () => {
               </tr>
             </thead>
             <tbody>
-              {listDataCategory &&
-                listDataCategory.DT &&
-                listDataCategory.DT.categories &&
-                listDataCategory.DT.categories.map((category, index) => {
+              {listDataCategories &&
+                listDataCategories.DT &&
+                listDataCategories.DT.categories &&
+                listDataCategories.DT.categories.map((category, index) => {
                   return (
                     <tr key={index} className={cx("row-inner")}>
                       <td>{(currentPage - 1) * currentLimit + index + 1}</td>
@@ -201,4 +201,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Categories;

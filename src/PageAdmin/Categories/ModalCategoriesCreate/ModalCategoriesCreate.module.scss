@@ -1,0 +1,124 @@
+.form-wrapper {
+    min-height: 100px;
+}
+
+.title {
+    font-size: 2.4rem;
+}
+
+.two-row {
+    display        : flex;
+    justify-content: space-between;
+    margin-bottom  : 10px;
+
+    .bl-input {
+        width: 48.5%;
+
+        label {
+            font-size  : 1.6rem;
+            font-weight: 400;
+            color      : #000;
+        }
+
+        input {
+            width    : 100%;
+            font-size: 1.6rem;
+            border   : 1px solid #EBEBEB;
+            padding  : 8px 8px 8px 8px;
+        }
+
+        input:focus-visible {
+            outline: unset;
+        }
+    }
+
+    .bl-select {
+        width: 48.5%;
+
+        label {
+            font-size  : 1.6rem;
+            font-weight: 400;
+            color      : #000;
+        }
+
+        select {
+            width    : 100%;
+            font-size: 1.6rem;
+            border   : 1px solid #EBEBEB;
+            padding  : 8px 8px 8px 8px;
+        }
+
+        select:focus-visible {
+            outline: unset;
+        }
+    }
+}
+
+.bl-one-input {
+    margin-bottom: 10px;
+
+    label {
+        font-size  : 1.6rem;
+        font-weight: 400;
+        color      : #000;
+    }
+
+    input {
+        width    : 100%;
+        font-size: 1.6rem;
+        border   : 1px solid #EBEBEB;
+        padding  : 8px 8px 8px 8px;
+    }
+
+    input:focus-visible {
+        outline: unset;
+    }
+}
+
+.is-valid {
+    border: 1px solid red !important;
+}
+
+// Btn
+.btn {
+    font-size    : 1.6rem;
+    color        : #fff;
+    width        : 70px;
+    height       : 35px;
+    border-radius: 5px;
+    border       : none;
+    cursor       : pointer;
+}
+
+.secondary {
+    background-color: #6C757D;
+
+    &:hover {
+        background-color: #5c636a;
+    }
+}
+
+.primary {
+    background-color: #0D6EFD;
+
+    &:hover {
+        background-color: #0a58ca;
+    }
+}
+
+// Error icon
+.bl-icon {
+    position: relative;
+
+    .icon {
+        color    : red;
+        right    : 8px;
+        top      : 50%;
+        transform: translateY(-50%);
+        position : absolute;
+    }
+}
+
+.valid-start {
+    color: red;
+}
