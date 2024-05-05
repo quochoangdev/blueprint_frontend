@@ -12,22 +12,16 @@ const cx = classNames.bind(styles);
 const ModalCategoriesEdit = (props) => {
   const [data, setData] = useState({
     name: "",
-    description: "",
   });
 
   const validInputDefault = {
     name: true,
-    description: true,
   };
   const [validInputs, setValidInputs] = useState(validInputDefault);
 
   const isCheckInputs = () => {
     if (!data.name) {
       toast("Please Enter Name");
-      return false;
-    }
-    if (!data.description) {
-      toast("Please Enter Description");
       return false;
     }
     return true;
@@ -54,7 +48,7 @@ const ModalCategoriesEdit = (props) => {
   // Valid Input
   const checkValidateInputs = () => {
     setValidInputs(validInputDefault);
-    let arr = ["name", "description"];
+    let arr = ["name"];
     let check = true;
     // eslint-disable-next-line array-callback-return
     arr.map((item, index) => {
@@ -95,7 +89,6 @@ const ModalCategoriesEdit = (props) => {
           return {
             ...prev,
             name: "",
-            description: "",
           };
         });
       } else {
@@ -135,23 +128,6 @@ const ModalCategoriesEdit = (props) => {
                   onFocus={handleOnFocus}
                 />
                 {!validInputs.name && <MdErrorOutline className={cx("icon")} />}
-              </div>
-            </div>
-            {/* description */}
-            <div className={cx("bl-one-input")}>
-              <label>
-                Description (<span className={cx("valid-start")}>*</span>)
-              </label>
-              <div className={cx("bl-icon")}>
-                <input
-                  className={cx(validInputs.description ? "" : `is-valid`)}
-                  value={data.description}
-                  type="text"
-                  name="description"
-                  onChange={handleOnChange}
-                  onFocus={handleOnFocus}
-                />
-                {!validInputs.description && <MdErrorOutline className={cx("icon")} />}
               </div>
             </div>
           </form>
