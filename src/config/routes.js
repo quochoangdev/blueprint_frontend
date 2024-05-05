@@ -23,7 +23,7 @@ const routes = {
   groupRoleAdmin: "admin/group-role",
   roleAdmin: "admin/roles",
   productAdmin: "admin/products",
-  categoryAdmin: "admin/categorys",
+  categoryAdmin: "admin/categories",
   orderAdmin: "admin/orders",
   settingAdmin: "admin/settings",
   signOutAdmin: "admin/sign-out",

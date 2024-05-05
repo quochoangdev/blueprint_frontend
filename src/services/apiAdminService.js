@@ -38,10 +38,10 @@ const updateProduct = (data) => { return axios.put(`/v1/admin/product/update`, {
 const deleteProduct = (id) => { return axios.delete(`/v1/admin/product/delete`, { data: { id: id, }, }); };
 
 // CRUD Category
-const createCategory = (data) => { return axios.post(`/v1/admin/category/create`, { data, }); };
-const readCategory = (currentPage, currentLimit) => { return axios.get(`/v1/admin/category/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
-const updateCategory = (data) => { return axios.put(`/v1/admin/category/update`, { data, }); };
-const deleteCategory = (id) => { return axios.delete(`/v1/admin/category/delete`, { data: { id: id, }, }); };
+const createCategory = (data) => { return axios.post(`/v1/admin/categories/create`, { data, }); };
+const readCategory = (currentPage, currentLimit) => { return axios.get(`/v1/admin/categories/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
+const updateCategory = (data) => { return axios.put(`/v1/admin/categories/update`, { data, }); };
+const deleteCategory = (id) => { return axios.delete(`/v1/admin/categories/delete`, { data: { id: id, }, }); };
 
 // CRUD Cart
 const createCart = (data) => { return axios.post(`/v1/admin/cart/create`, { data, }); };

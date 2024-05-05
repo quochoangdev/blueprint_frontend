@@ -10,7 +10,7 @@ import User from "./User";
 import Search from "../Search/Search";
 import { readCart, readJWT } from "../../../services/apiUserService";
 import MobileSl from "./MobileSl";
-import IpadSl from "./IpadSl";
+import TabletSl from "./TabletSl";
 import LaptopSl from "./LaptopSl";
 
 const cx = classNames.bind(styles);
@@ -74,7 +74,7 @@ const Header = () => {
             linkUrl={config.routes.mobile}
             icon={<MdKeyboardArrowDown />}
           />
-          <IpadSl
+          <TabletSl
             name={"Tablet"}
             linkUrl={config.routes.tablet}
             icon={<MdKeyboardArrowDown />}

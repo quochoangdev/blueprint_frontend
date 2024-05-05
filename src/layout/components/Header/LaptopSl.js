@@ -1,11 +1,9 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-
-//
-// import config from "../../../config";
-import styles from "./Header.module.scss";
 import config from "../../../config";
+
+import styles from "./Header.module.scss";
 
 const cx = classNames.bind(styles);
 const LaptopSl = ({ name, linkUrl, icon }) => {
@@ -17,13 +15,9 @@ const LaptopSl = ({ name, linkUrl, icon }) => {
       </Link>
       {icon && (
         <div className={cx("menu-category-link-absolute")}>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>MacBook</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>HP</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>ASus</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>Acer</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>Lenovo</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>Dell</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>Msi</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/laptop/${config.routes.laptop}`}>MacBook</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/laptop/${config.routes.laptop}`}>Lenovo</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/laptop/${config.routes.laptop}`}>Dell</Link>
         </div>
       )}
     </div>

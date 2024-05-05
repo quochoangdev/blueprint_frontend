@@ -5,7 +5,7 @@ import styles from "./Header.module.scss";
 import config from "../../../config";
 
 const cx = classNames.bind(styles);
-const IpadSl = ({ name, linkUrl, icon }) => {
+const TabletSl = ({ name, linkUrl, icon }) => {
   return (
     <div className={cx("menu-category")}>
       <Link to={`/${linkUrl}`} className={cx("menu-category-link")}>
@@ -14,20 +14,18 @@ const IpadSl = ({ name, linkUrl, icon }) => {
       </Link>
       {icon && (
         <div className={cx("menu-category-link-absolute")}>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>IPad</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Samsung</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Oppo</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Xiaomi</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Lenovo</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/tablet/${config.routes.tablet}`}>IPad</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/tablet/${config.routes.tablet}`}>Samsung</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/tablet/${config.routes.tablet}`}>Lenovo</Link>
         </div>
       )}
     </div>
   );
 };
 
-IpadSl.propTypes = {
+TabletSl.propTypes = {
   name: PropTypes.string,
   linkUrl: PropTypes.string,
 };
 
-export default IpadSl;
+export default TabletSl;

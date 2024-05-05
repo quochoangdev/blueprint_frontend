@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { toast } from "react-toastify";
-
-import styles from "./Mobile.module.scss";
 import SliderDefaultLayout from "../../layout/components/SliderDefaultLayout";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
-import axios from "axios";
 import { readProduct } from "../../services/apiUserService";
 import { Link } from "react-router-dom";
+
+import styles from "./Mobile.module.scss";
 
 const cx = classNames.bind(styles);
 const Mobile = () => {
@@ -16,8 +15,6 @@ const Mobile = () => {
     "Tất cả",
     "IPhone",
     "Samsung",
-    "OPPO",
-    "Xiaomi",
   ];
   const [data, setData] = useState();
   const [pageIndex, setPageIndex] = useState(1);
@@ -142,7 +139,7 @@ const Mobile = () => {
             </div>
           </div>
           <div className={cx("category-right")}>
-            {selectCategory !== "Tất cả" && <Link className={cx("show-link")} to={`/${selectCategory.toLocaleLowerCase()}`}>Xem chi tiết {selectCategory}</Link>}
+            {selectCategory !== "Tất cả" && <Link className={cx("show-link")} to={`/dien-thoai/${selectCategory.toLocaleLowerCase()}`}>Xem chi tiết {selectCategory}</Link>}
             <select onChange={handleCategorySelect}>
               <option value={false}>Thứ tự hiển thị</option>
               <option value={"title"}>Tên: A đến Z</option>

@@ -100,7 +100,7 @@ const Category = () => {
         <h2 className={cx("heading")}>
           <div className={cx("heading-left")}>
             <IoMenuOutline className={cx("heading-icon")} />
-            <span>Categorys</span>
+            <span>Categories</span>
           </div>
           <div className={cx("heading-right")}>
             <button className={cx("btn-create")} onClick={handleReload}>

@@ -23,7 +23,7 @@ const readProduct = (currentPage, currentLimit, categories, search, ProductId) =
 const readProductDetail = (slug) => { return axios.get(`/v1/product/read/${slug}`); };
 
 // CRUD Category
-const readCategory = (currentPage, currentLimit) => { return axios.get(`/v1/category/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
+const readCategory = (currentPage, currentLimit) => { return axios.get(`/v1/categories/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
 
 // CRUD Cart
 const deleteCart = (id) => { return axios.delete(`/v1/cart/delete`, { data: { id: id, }, }); };

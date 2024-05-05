@@ -90,11 +90,11 @@ const SliderAdmin = () => {
           <span className={cx("list-content")}>Products</span>
         </Link>
         <Link
-          className={cx("list-item", currentActive === "categorys" ? "active" : "")}
+          className={cx("list-item", currentActive === "categories" ? "active" : "")}
           to={`/${config.routes.categoryAdmin}`}
         >
           <HiOutlineShoppingBag className={cx("list-icon")} />
-          <span className={cx("list-content")}>Categorys</span>
+          <span className={cx("list-content")}>Categories</span>
         </Link>
         <Link
           className={cx("list-item", currentActive === "orders" ? "active" : "")}

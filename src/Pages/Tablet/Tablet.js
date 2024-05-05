@@ -2,22 +2,20 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { toast } from "react-toastify";
-
-import styles from "./Tablet.module.scss";
 import SliderDefaultLayout from "../../layout/components/SliderDefaultLayout";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
 import { readProduct } from "../../services/apiUserService";
+import { Link } from "react-router-dom";
+
+import styles from "./Tablet.module.scss";
 
 const cx = classNames.bind(styles);
 const Tablet = () => {
   const allCategory = [
     "Tất cả",
-    "iPad Pro M1",
-    "iPad Pro M2",
-    "iPad Air",
-    "iPad 9",
-    "iPad 10",
-    "iPad Mini",
+    "IPad",
+    "Samsung",
+    "Lenovo",
   ];
   const [data, setData] = useState();
   const [pageIndex, setPageIndex] = useState(1);
@@ -110,6 +108,7 @@ const Tablet = () => {
       toast.warning("Đã ở trang cuối!");
     }
   };
+
   return (
     <div className={cx("wrapper")}>
       <>
@@ -141,6 +140,7 @@ const Tablet = () => {
             </div>
           </div>
           <div className={cx("category-right")}>
+            {selectCategory !== "Tất cả" && <Link className={cx("show-link")} to={`/tablet/${selectCategory.toLocaleLowerCase()}`}>Xem chi tiết {selectCategory}</Link>}
             <select onChange={handleCategorySelect}>
               <option value={false}>Thứ tự hiển thị</option>
               <option value={"title"}>Tên: A đến Z</option>
