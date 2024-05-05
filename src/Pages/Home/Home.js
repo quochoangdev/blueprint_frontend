@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, version } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { readProduct } from "../../services/apiUserService";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
@@ -125,7 +125,7 @@ const Home = () => {
               <div className={cx("title-item")}>Điện thoại</div>
             </Link>
             {/* IPad  */}
-            <Link className={cx("item")} to={config.routes.ipad}>
+            <Link className={cx("item")} to={config.routes.tablet}>
               <div className={cx("img-item")}>
                 <MdOutlineTabletMac className={cx("img")} />
               </div>
@@ -153,7 +153,7 @@ const Home = () => {
         length={4}
         title={"Tablet"}
         btn={true}
-        link={config.routes.ipad}
+        link={config.routes.tablet}
       />}
       {dataMobile && <HomePageItem
         data={dataMobile}

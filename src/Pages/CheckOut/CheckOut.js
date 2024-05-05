@@ -73,7 +73,7 @@ const CheckOut = () => {
                 <div className={cx("container")}>
                   <div className={cx("content")}>
                     <div className={cx("content-1")}>
-                      <img src={`${productData?.imageAvatar[0]}`} alt="" />
+                      <img src={`${productData?.image[0]}`} alt="" />
                     </div>
                     <div className={cx("content-2")}>
                       <div className={cx("heading")}>{productData?.title}</div>

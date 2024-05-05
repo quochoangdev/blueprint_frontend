@@ -14,11 +14,11 @@ const IpadSl = ({ name, linkUrl, icon }) => {
       </Link>
       {icon && (
         <div className={cx("menu-category-link-absolute")}>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.ipad}`}>IPad</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.ipad}`}>Samsung</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.ipad}`}>Oppo</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.ipad}`}>Xiaomi</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.ipad}`}>Lenovo</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>IPad</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Samsung</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Oppo</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Xiaomi</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Lenovo</Link>
         </div>
       )}
     </div>

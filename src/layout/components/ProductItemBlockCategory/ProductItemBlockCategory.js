@@ -17,7 +17,7 @@ const ProductItemBlockCategory = (props) => {
       <div className={cx("cart")}>
       </div>
       <div className={cx("avatar")}>
-        <img className={cx("img")} src={`${props?.product?.imageAvatar[0]}`} alt="" />
+        <img className={cx("img")} src={`${props?.product?.image[0]}`} alt="" />
       </div>
       <div className={cx("content")}>
         <div className={cx("check-design")}>

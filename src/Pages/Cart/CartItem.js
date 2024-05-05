@@ -39,7 +39,7 @@ const CartItem = (props) => {
   return (
     <div className={cx("content")}>
       <div className={cx("content-1")}>
-        <img src={`${productData && productData?.imageAvatar[0]}`} alt="" />
+        <img src={`${productData && productData?.image[0]}`} alt="" />
       </div>
       <div className={cx("content-2")}>
         <div className={cx("heading")}>{productData && productData?.title}</div>

@@ -28,13 +28,13 @@ const Header = () => {
     const user = JSON.parse(localStorage.getItem("dataUsers"));
     setDataUsers(user);
     // Call api JWT
-    fetchJWT();
+    // fetchJWT();
   }, []);
 
-  const fetchJWT = async () => {
-    const resJWT = await readJWT();
-    setCookie(resJWT?.DT?.jwt);
-  };
+  // const fetchJWT = async () => {
+  //   const resJWT = await readJWT();
+  //   setCookie(resJWT?.DT?.jwt);
+  // };
 
   const handleSearchFullscreen = (e) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ const Header = () => {
           />
           <IpadSl
             name={"Tablet"}
-            linkUrl={config.routes.ipad}
+            linkUrl={config.routes.tablet}
             icon={<MdKeyboardArrowDown />}
           />
           <LaptopSl

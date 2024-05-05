@@ -4,7 +4,7 @@ import axios from "../custom/axios";
 const loginUser = (data) => { return axios.post(`/v1/admin/user/login`, { data, }); };
 const logoutUser = (data) => { return axios.post(`/v1/admin/user/logout`, { data, }); };
 const registerUser = (data) => { return axios.post(`/v1/admin/user/register`, { data, }); };
-const readJWT = (currentPage, currentLimit) => { return axios.get(`/v1/admin/user/jwt-token`); };
+const readJWT = () => { return axios.get(`/v1/admin/user/jwt-token`); };
 
 // CRUD User
 const createUser = (data) => { return axios.post(`/v1/admin/user/create`, { data, }); };
@@ -50,36 +50,12 @@ const updateCart = (data) => { return axios.put(`/v1/admin/cart/update`, { data,
 const deleteCart = (id) => { return axios.delete(`/v1/admin/cart/delete`, { data: { id: id, }, }); };
 
 export {
-  loginUser,
-  registerUser,
-  createUser,
-  readUser,
-  updateUser,
-  deleteUser,
-  readGroup,
-  createGroup,
-  readRole,
-  deleteRole,
-  createRole,
-  updateRole,
-  logoutUser,
-  readJWT,
-  createProduct,
-  readProduct,
-  updateProduct,
-  deleteProduct,
-  createCategory,
-  readCategory,
-  updateCategory,
-  deleteCategory,
-  updateGroup,
-  deleteGroup,
-  createGroupRole,
-  readGroupRole,
-  updateGroupRole,
-  deleteGroupRole,
-  readProductDetail,
-  createCart,
-  readCart,
-  deleteCart,
+  loginUser, logoutUser, registerUser, readJWT,
+  createUser, readUser, updateUser, deleteUser,
+  createGroup, readGroup, updateGroup, deleteGroup,
+  createGroupRole, readGroupRole, updateGroupRole, deleteGroupRole,
+  createRole, readRole, deleteRole, updateRole,
+  createProduct, readProduct, updateProduct, deleteProduct,
+  createCategory, readCategory, updateCategory, deleteCategory,
+  readProductDetail, createCart, readCart, deleteCart,
 };

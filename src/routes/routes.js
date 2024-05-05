@@ -19,7 +19,7 @@ import Logout from "../Pages/Logout";
 
 // Sub page
 import Mobile from "../Pages/Mobile";
-import Ipad from "../Pages/Ipad";
+import Ipad from "../Pages/Tablet";
 import Laptop from "../Pages/Laptop";
 import MauKhachSan from "../Pages/MauKhachSan";
 
@@ -36,6 +36,7 @@ import SettingAdmin from "../PageAdmin/Settings";
 import SignOutAdmin from "../PageAdmin/SignOut";
 import NoLayout from "../layout/NoLayout";
 import Iphone from "../Pages/Iphone/Iphone";
+import Tablet from "../Pages/Tablet";
 
 // Public routes
 const publicRoutes = [
@@ -107,18 +108,13 @@ const publicRoutes = [
     layout: DefaultLayout,
   },
   {
-    path: config.routes.ipad,
-    component: Ipad,
+    path: config.routes.tablet,
+    component: Tablet,
     layout: DefaultLayout,
   },
   {
     path: config.routes.laptop,
     component: Laptop,
-    layout: DefaultLayout,
-  },
-  {
-    path: config.routes.mauKhachSanDep,
-    component: MauKhachSan,
     layout: DefaultLayout,
   },
   // Admin

@@ -29,7 +29,7 @@ const HomeDetail = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedCapacity, setSelectedCapacity] = useState(null);
   const [compact, setCompact] = useState(false);
-  const [imageAvatarColor, setImageDescribeColor] = useState("");
+  const [imageColor, setImageDescribeColor] = useState("");
   const [newData, setNewData] = useState({});
 
   // price discount
@@ -136,14 +136,14 @@ const HomeDetail = () => {
 
   // set color default
   useEffect(() => {
-    const randomColor = Math.floor(Math.random() * data?.imageAvatar.length);
-    const firstAttributes = data?.imageAvatar.map((item) => Object.keys(item));
+    const randomColor = Math.floor(Math.random() * data?.image.length);
+    const firstAttributes = data?.image.map((item) => Object.keys(item));
     const firstKeysColor = firstAttributes && firstAttributes[randomColor ? randomColor : 0][0];
     const handleFirstKeysColor = () => {
       handleOptionClick(firstKeysColor);
     };
     handleFirstKeysColor();
-  }, [data?.imageAvatar, handleOptionClick]);
+  }, [data?.image, handleOptionClick]);
 
   // handle compact
   const handleCompact = () => {
@@ -156,7 +156,7 @@ const HomeDetail = () => {
       return {
         _id: data?._id,
         title: data?.title,
-        imageAvatar: data?.imageAvatar[0],
+        image: data?.image[0],
         colors: data && selectedColor,
         capacitys: data && selectedCapacity,
         price: data && priceDiscount,
@@ -182,17 +182,17 @@ const HomeDetail = () => {
       <div className={cx("wrapper")}>
         <div className={cx("product")}>
           <div className={cx("product-left")}>
-            {/* {data?.imageAvatar.map((imgs, index) => {
-              if (imgs.hasOwnProperty(imageAvatarColor)) {
+            {/* {data?.image.map((imgs, index) => {
+              if (imgs.hasOwnProperty(imageColor)) {
                 return (
                   <Link
                     key={index}
                     className={cx("left-link")}
-                    to={data && showImage ? showImage : data && imgs[imageAvatarColor][0]}
+                    to={data && showImage ? showImage : data && imgs[imageColor][0]}
                   >
                     <img
                       className={cx("left-img")}
-                      src={data && showImage ? showImage : data && imgs[imageAvatarColor][0]}
+                      src={data && showImage ? showImage : data && imgs[imageColor][0]}
                       alt=""
                     />
                   </Link>
@@ -206,13 +206,13 @@ const HomeDetail = () => {
             >
               <img
                 className={cx("left-img")}
-                src={data?.imageAvatar[0]}
+                src={data?.image[0]}
                 alt=""
               />
             </Link>
             <div className={cx("left-describe-image")}>
               <div className={cx("left-describe-block")} ref={describeScroll}>
-                {data?.imageAvatar.map((img, index) => {
+                {data?.image.map((img, index) => {
                   return (
                     <div
                       className={cx("describe-item")}
@@ -283,7 +283,7 @@ const HomeDetail = () => {
             <div className={cx("phone-color")}>
               <div className={cx("phone-color-title")}>Màu sắc</div>
               <div className={cx("phone-color-select")}>
-                {data &&
+                {/* {data &&
                   data?.colors.map((color, index) => {
                     return (
                       <div
@@ -301,7 +301,7 @@ const HomeDetail = () => {
                         ></div>
                       </div>
                     );
-                  })}
+                  })} */}
               </div>
             </div>
             <div className={cx("special-offers")}>

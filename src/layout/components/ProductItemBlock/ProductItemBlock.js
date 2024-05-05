@@ -67,7 +67,7 @@ const ProductItemBlock = (props) => {
       <div className={cx("avatar")}>
         <img
           className={cx("img")}
-          src={`${props?.product?.imageAvatar[0]}`}
+          src={`${props?.product?.image[0]}`}
           alt=""
         />
       </div>

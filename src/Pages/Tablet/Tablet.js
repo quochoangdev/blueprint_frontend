@@ -3,14 +3,13 @@ import classNames from "classnames/bind";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
-import styles from "./Ipad.module.scss";
+import styles from "./Tablet.module.scss";
 import SliderDefaultLayout from "../../layout/components/SliderDefaultLayout";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
-import axios from "axios";
 import { readProduct } from "../../services/apiUserService";
 
 const cx = classNames.bind(styles);
-const Ipad = () => {
+const Tablet = () => {
   const allCategory = [
     "Tất cả",
     "iPad Pro M1",
@@ -178,4 +177,4 @@ const Ipad = () => {
   );
 };
 
-export default Ipad;
+export default Tablet;
