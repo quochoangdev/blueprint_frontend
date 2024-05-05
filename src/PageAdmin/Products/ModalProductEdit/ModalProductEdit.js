@@ -6,7 +6,7 @@ import { MdErrorOutline } from "react-icons/md";
 import { ImageToBase64 } from "../../../utility/ImageToBase64";
 
 import styles from "./ModalProductEdit.module.scss";
-import { readCategory, updateProduct } from "../../../services/apiAdminService";
+import { readCategories, updateProduct } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 
@@ -72,10 +72,10 @@ const ModalProductEdit = (props) => {
         return true;
     };
 
-    // Get Category
-    useEffect(() => { getCategory(); }, []);
-    const getCategory = async () => {
-        let response = await readCategory();
+    // Get Categories
+    useEffect(() => { getCategories(); }, []);
+    const getCategories = async () => {
+        let response = await readCategories();
         if (response && response.EC === 0) {
             setCategoriesData(response.DT);
             if (response.DT && response.DT.length > 0) {

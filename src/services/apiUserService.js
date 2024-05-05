@@ -25,8 +25,11 @@ const readProductDetail = (slug) => { return axios.get(`/v1/product/read/${slug}
 // CRUD Category
 const readCategory = (currentPage, currentLimit) => { return axios.get(`/v1/categories/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
 
+// CRUD Brand
+const readBrand = (currentPage, currentLimit) => { return axios.get(`/v1/brand/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
+
 // CRUD Cart
 const deleteCart = (id) => { return axios.delete(`/v1/cart/delete`, { data: { id: id, }, }); };
 const readCart = (currentPage, currentLimit, productId) => { return axios.get(`/v1/cart/read`, { params: { page: currentPage, limit: currentLimit, productId: productId, }, }); };
 
-export { loginUser, logoutUser, registerUser, readJWT, readUser, readGroup, readRole, readProduct, readCategory, readGroupRole, readProductDetail, readCart, deleteCart };
+export { loginUser, logoutUser, registerUser, readJWT, readUser, readGroup, readRole, readProduct, readCategory, readBrand, readGroupRole, readProductDetail, readCart, deleteCart };

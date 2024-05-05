@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function ModalCategoryDelete(props) {
+function ModalCategoriesDelete(props) {
   return (
     <>
       <Modal show={props.show} onHide={props.handleClose}>
@@ -24,4 +24,4 @@ function ModalCategoryDelete(props) {
   );
 }
 
-export default ModalCategoryDelete;
+export default ModalCategoriesDelete;

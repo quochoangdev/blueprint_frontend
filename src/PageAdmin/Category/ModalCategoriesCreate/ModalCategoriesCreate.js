@@ -1,15 +1,15 @@
 import classNames from "classnames/bind";
 import Modal from "react-bootstrap/Modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { MdErrorOutline } from "react-icons/md";
+import { createCategories } from "../../../services/apiAdminService";
 
-import styles from "./ModalCategoryEdit.module.scss";
-import { updateCategory } from "../../../services/apiAdminService";
+import styles from "./ModalCategoriesCreate.module.scss";
 
 const cx = classNames.bind(styles);
 
-const ModalCategoryEdit = (props) => {
+const ModalCategoriesCreate = (props) => {
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -32,10 +32,6 @@ const ModalCategoryEdit = (props) => {
     }
     return true;
   };
-
-  useEffect(() => {
-    setData({ ...props.dataModel });
-  }, [props.dataModel]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -73,11 +69,11 @@ const ModalCategoryEdit = (props) => {
   };
 
   // Confirm
-  const handleConfirmGroup = async () => {
+  const handleConfirmRole = async () => {
     let isCheckBorder = checkValidateInputs();
     let isCheckTextEmpty = isCheckInputs();
     if (isCheckBorder && isCheckTextEmpty) {
-      let response = await updateCategory(data);
+      let response = await createCategories(data);
       if (response && response.EC === 1) {
         let dataValid = response.DT;
         setValidInputs((prev) => {
@@ -90,7 +86,7 @@ const ModalCategoryEdit = (props) => {
       if (response && response.EC === 0) {
         toast.success(response.EM);
         props.handleClose();
-        props.fetchCategorys();
+        props.fetchCategories();
         setData((prev) => {
           return {
             ...prev,
@@ -103,7 +99,6 @@ const ModalCategoryEdit = (props) => {
       }
     }
   };
-  console.log(data);
   return (
     <>
       <Modal
@@ -123,12 +118,11 @@ const ModalCategoryEdit = (props) => {
             {/* name */}
             <div className={cx("bl-one-input")}>
               <label>
-                Name (<span className={cx("valid-start")}>*</span>)
+                name (<span className={cx("valid-start")}>*</span>)
               </label>
               <div className={cx("bl-icon")}>
                 <input
                   className={cx(validInputs.name ? "" : `is-valid`)}
-                  value={data.name}
                   type="text"
                   name="name"
                   onChange={handleOnChange}
@@ -145,7 +139,6 @@ const ModalCategoryEdit = (props) => {
               <div className={cx("bl-icon")}>
                 <input
                   className={cx(validInputs.description ? "" : `is-valid`)}
-                  value={data.description}
                   type="text"
                   name="description"
                   onChange={handleOnChange}
@@ -160,7 +153,7 @@ const ModalCategoryEdit = (props) => {
           <button className={cx("btn", "secondary")} onClick={props.handleClose}>
             Close
           </button>
-          <button className={cx("btn", "primary")} onClick={() => handleConfirmGroup()}>
+          <button className={cx("btn", "primary")} onClick={() => handleConfirmRole()}>
             Save
           </button>
         </Modal.Footer>
@@ -169,4 +162,4 @@ const ModalCategoryEdit = (props) => {
   );
 };
 
-export default ModalCategoryEdit;
+export default ModalCategoriesCreate;

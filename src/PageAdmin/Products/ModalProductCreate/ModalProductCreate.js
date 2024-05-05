@@ -6,7 +6,7 @@ import { MdErrorOutline } from "react-icons/md";
 import { ImageToBase64 } from "../../../utility/ImageToBase64";
 
 import styles from "./ModalProductCreate.module.scss";
-import { createProduct, readCategory } from "../../../services/apiAdminService";
+import { createProduct, readCategories } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 
@@ -65,7 +65,7 @@ const ModalProductCreate = (props) => {
   // Get Category
   useEffect(() => { getCategory(); }, []);
   const getCategory = async () => {
-    let response = await readCategory();
+    let response = await readCategories();
     if (response && response.EC === 0) {
       setCategoriesData(response.DT);
       if (response.DT && response.DT.length > 0) {

@@ -8,10 +8,10 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { TfiReload } from "react-icons/tfi";
-import { deleteCategory, readCategory } from "../../services/apiAdminService";
-import ModalCategoryDelete from "./ModalCategoryDelete";
-import ModalCategoryCreate from "./ModalCategoryCreate";
-import ModalCategoryEdit from "./ModalCategoryEdit";
+import { deleteCategories, readCategories } from "../../services/apiAdminService";
+import ModalCategoriesDelete from "./ModalCategoriesDelete";
+import ModalCategoriesCreate from "./ModalCategoriesCreate/ModalCategoriesCreate";
+import ModalCategoriesEdit from "./ModalCategoriesEdit/ModalCategoriesEdit";
 
 const cx = classNames.bind(styles);
 
@@ -39,15 +39,15 @@ const Category = () => {
   };
 
   useEffect(() => {
-    fetchCategorys();
+    fetchCategories();
     setCurrentLimit(10);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   // listDataProduct.DT && console.log(listDataProduct.DT.products);
 
-  const fetchCategorys = async () => {
-    let data = await readCategory(currentPage, currentLimit);
+  const fetchCategories = async () => {
+    let data = await readCategories(currentPage, currentLimit);
     setListDataCategory(data);
     setTotalPages(data?.DT?.totalPages);
   };
@@ -80,9 +80,9 @@ const Category = () => {
   };
 
   const handleConfirmModelDelete = async () => {
-    let resDelete = await deleteCategory(dataModelDelete.id);
+    let resDelete = await deleteCategories(dataModelDelete.id);
     if (resDelete.EC === 0) {
-      fetchCategorys();
+      fetchCategories();
       toast.success(resDelete.EM);
     } else {
       toast.error(resDelete.EM);
@@ -180,22 +180,22 @@ const Category = () => {
           />
         </div>
       )}
-      <ModalCategoryDelete
+      <ModalCategoriesDelete
         show={isShowModalDelete}
         handleClose={handleCloseModelDelete}
         handleConfirm={handleConfirmModelDelete}
         dataModel={dataModelDelete}
       />
-      <ModalCategoryCreate
+      <ModalCategoriesCreate
         show={isShowModalCreate}
         handleClose={handleCloseModelCreate}
-        fetchCategorys={fetchCategorys}
+        fetchCategories={fetchCategories}
       />
-      <ModalCategoryEdit
+      <ModalCategoriesEdit
         show={isShowModalEdit}
         handleClose={handleCloseModelUpdate}
         dataModel={dataModalEdit}
-        fetchCategorys={fetchCategorys}
+        fetchCategories={fetchCategories}
       />
     </>
   );
