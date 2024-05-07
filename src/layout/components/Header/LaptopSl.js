@@ -15,9 +15,9 @@ const LaptopSl = ({ name, linkUrl, icon }) => {
       </Link>
       {icon && (
         <div className={cx("menu-category-link-absolute")}>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/laptop/${config.routes.laptop}`}>MacBook</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/laptop/${config.routes.laptop}`}>Lenovo</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/laptop/${config.routes.laptop}`}>Dell</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>MacBook</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>Lenovo</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.laptop}`}>Dell</Link>
         </div>
       )}
     </div>

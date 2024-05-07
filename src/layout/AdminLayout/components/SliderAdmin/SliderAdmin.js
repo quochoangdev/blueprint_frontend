@@ -103,20 +103,20 @@ const SliderAdmin = () => {
           <HiOutlineShoppingBag className={cx("list-icon")} />
           <span className={cx("list-content")}>Brand</span>
         </Link>
-        <Link
+        {/* <Link
           className={cx("list-item", currentActive === "orders" ? "active" : "")}
           to={`/${config.routes.orderAdmin}`}
         >
           <MdOutlineShoppingCart className={cx("list-icon")} />
           <span className={cx("list-content")}>Orders</span>
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           className={cx("list-item", currentActive === "settings" ? "active" : "")}
           to={`/${config.routes.settingAdmin}`}
         >
           <IoSettingsOutline className={cx("list-icon")} />
           <span className={cx("list-content")}>Settings</span>
-        </Link>
+        </Link> */}
         <Link
           className={cx("list-item", currentActive === "sign-out" ? "active" : "")}
           to={`/${config.routes.signOutAdmin}`}
