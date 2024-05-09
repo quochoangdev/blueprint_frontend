@@ -110,7 +110,7 @@ const User = () => {
             </button>
           </div>
         </h2>
-        <div className={cx("container")}>
+        <div className={cx("")}>
           <table className={cx("table-inner")}>
             <tbody>
               <tr className={cx("row-inner")}>

@@ -1,67 +1,53 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import { toast } from "react-toastify";
 import SliderDefaultLayout from "../../layout/components/SliderDefaultLayout";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
 import { readProduct } from "../../services/apiUserService";
 import { Link } from "react-router-dom";
 
 import styles from "./Mobile.module.scss";
+import ReactPaginateBlock from "../../layout/components/ReactPaginateBlock/ReactPaginateBlock";
 
 const cx = classNames.bind(styles);
 const Mobile = () => {
-  const allCategory = [
-    "Tất cả",
-    "IPhone",
-    "Samsung",
-  ];
-  const [data, setData] = useState();
-  const [pageIndex, setPageIndex] = useState(1);
-  const [lengthPageIndex, setLengthPageIndex] = useState(null);
+  // Pagination
+  const [listDataProduct, setListDataProduct] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentLimit, setCurrentLimit] = useState(12);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const allCategory = ["Tất cả", "IPhone", "Samsung",];
+
   const [selectCategory, setSelectCategory] = useState("Tất cả");
   const [version, setVersion] = useState(null);
   const [sort, setSort] = useState(null);
+  console.log("version", version)
+  console.log("sort", sort)
+  // Page
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected + 1);
+  };
 
-  // call api
   useEffect(() => {
-    (async () => {
-      const params = {
-        limit: 12,
-        page: pageIndex,
-        category: "ipad",
-        sort: sort,
-      };
-      if (version !== "Tất cả") {
-        params.version = version;
-      } else {
-        delete params.version;
-      }
-      const axiosProduct = await readProduct();
-      setData(axiosProduct?.DT);
-    })();
-  }, [pageIndex, version, sort]);
+    fetchProducts();
+    setCurrentLimit(12);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
-  // get length page
-  useEffect(() => {
-    (async () => {
-      const params = {
-        category: "ipad",
-      };
-      if (version !== "Tất cả") {
-        params.version = version;
-      } else {
-        delete params.version;
-      }
-      const axiosProduct = await readProduct();
-      setLengthPageIndex(Math.ceil(axiosProduct?.DT?.length / 12));
-    })();
-  }, [version]);
+  const fetchProducts = async () => {
+    let data = await readProduct(currentPage, currentLimit, "mobile", null, null, null);
+    const mixArray = (arr) => {
+      const equalRandom = () => { return Math.random() - 0.5; }
+      return arr.sort(equalRandom);
+    }
+    const newDataMix = mixArray(data?.DT?.products)
+    setListDataProduct(newDataMix);
+    setTotalPages(data?.DT?.totalPages);
+  };
 
   // handle click item category
   const handleClickItemCategory = (category) => {
     setVersion(category);
-    setPageIndex(1);
     setSelectCategory(category);
   };
 
@@ -73,51 +59,12 @@ const Mobile = () => {
     }
   };
 
-  // handle pagination
-  const handlePagination = (page) => {
-    setPageIndex(page);
-    window.scrollTo({
-      top: 500,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
-  const handlePaginationLeft = () => {
-    if (pageIndex > 1) {
-      console.log(pageIndex);
-      setPageIndex(pageIndex - 1);
-      window.scrollTo({
-        top: 500,
-        left: 0,
-        behavior: "smooth",
-      });
-    } else {
-      toast.warning("Đã ở trang đầu!");
-    }
-  };
-  const handlePaginationRight = () => {
-    if (pageIndex < lengthPageIndex) {
-      setPageIndex(pageIndex + 1);
-      window.scrollTo({
-        top: 500,
-        left: 0,
-        behavior: "smooth",
-      });
-    } else {
-      toast.warning("Đã ở trang cuối!");
-    }
-  };
-
   return (
     <div className={cx("wrapper")}>
       <>
         <h1 className={cx("title")}>IPhone</h1>
         <SliderDefaultLayout
-          images={[
-            "https://shopdunk.com/images/uploaded/banner/banner_thang12/gen10dm.png",
-            "https://shopdunk.com/images/uploaded/banner/banner_thang12/airdm.png",
-            "https://shopdunk.com/images/uploaded/banner/banner_thang12/g9dm.png",
-          ]}
+          images={["https://shopdunk.com/images/uploaded/banner/banner_thang12/gen10dm.png", "https://shopdunk.com/images/uploaded/banner/banner_thang12/airdm.png", "https://shopdunk.com/images/uploaded/banner/banner_thang12/g9dm.png",]}
         />
         ;
       </>
@@ -127,13 +74,7 @@ const Mobile = () => {
             <div className={cx("category")}>
               {allCategory.map((item, index) => {
                 return (
-                  <div
-                    className={cx("category-item", `${item === selectCategory ? "active" : ""}`)}
-                    key={index}
-                    onClick={() => handleClickItemCategory(item)}
-                  >
-                    {item}
-                  </div>
+                  <div className={cx("category-item", `${item === selectCategory ? "active" : ""}`)} key={index} onClick={() => handleClickItemCategory(item)}>{item}</div>
                 );
               })}
             </div>
@@ -150,29 +91,12 @@ const Mobile = () => {
           </div>
         </div>
         <div className={cx("all-product")}>
-          <HomePageItem data={data} />
+          <HomePageItem data={listDataProduct} />
         </div>
       </div>
-      <div className={cx("limiting")}>
-        <div className={cx("item-page")} onClick={handlePaginationLeft}>
-          <FaAngleLeft />
-        </div>
-        {[...Array(lengthPageIndex)].map((_, index) => {
-          return (
-            <div
-              className={cx("item-page", `${pageIndex === index + 1 ? "active" : ""}`)}
-              key={index}
-              onClick={() => handlePagination(index + 1)}
-            >
-              {index + 1}
-            </div>
-          );
-        })}
-        <div className={cx("item-page")} onClick={handlePaginationRight}>
-          <FaAngleRight />
-        </div>
-      </div>
+      {totalPages > 0 && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
     </div>
+
   );
 };
 

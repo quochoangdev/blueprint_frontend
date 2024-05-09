@@ -30,8 +30,8 @@ const Search = ({ blockSearchFullscreen, handleClose }) => {
     setLoading(true);
     const fetchApi = async () => {
       setLoading(true);
-      const result = await readProduct(1, 5, null, debounceValue);
-      setSearchResult(result.DT.products);
+      const result = await readProduct(1, 5, null, null, searchValue, null);
+      setSearchResult(result?.DT?.products);
       setLoading(false);
     };
     fetchApi();
@@ -74,12 +74,12 @@ const Search = ({ blockSearchFullscreen, handleClose }) => {
           <div>
             <HeadlessTippy
               interactive="true"
-              visible={showResult && searchResult.length > 0}
+              visible={showResult && searchResult?.length > 0}
               render={(attrs) => {
                 return (
                   <div className={cx("search-result")} tabIndex="-1" {...attrs}>
                     <h4 className={cx("result-title")}>Sản phẩm gợi ý</h4>
-                    {searchResult.map((apiItem, index) => {
+                    {searchResult && searchResult.map((apiItem, index) => {
                       return <ProductItem product={apiItem} key={`product-${index}`} />;
                     })}
                   </div>

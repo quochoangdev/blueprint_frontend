@@ -111,7 +111,7 @@ const GroupRole = () => {
             </button>
           </div>
         </h2>
-        <div className={cx("container")}>
+        <div className={cx("")}>
           <table className={cx("table-inner")}>
             <thead>
               <tr className={cx("row-inner")}>

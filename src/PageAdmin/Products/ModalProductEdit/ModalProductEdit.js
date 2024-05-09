@@ -4,63 +4,39 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MdErrorOutline } from "react-icons/md";
 import { ImageToBase64 } from "../../../utility/ImageToBase64";
+import { readBrand, readCategories, updateProduct } from "../../../services/apiAdminService";
 
 import styles from "./ModalProductEdit.module.scss";
-import { readCategories, updateProduct } from "../../../services/apiAdminService";
 
 const cx = classNames.bind(styles);
 
 const ModalProductEdit = (props) => {
     const [categoriesData, setCategoriesData] = useState([]);
-    const [capacityData] = useState([{ name: "64GB", value: 64 }, { name: "128GB", value: 128 }, { name: "256GB", value: 256 }, { name: "512GB", value: 512 }, { name: "1TB", value: 1000 }]);
-    const [data, setData] = useState({ title: "", price: "", version: "", categoriesId: "", image: "", capacity: "", color: "", percentDiscount: "", quantity: "" });
-    const validInputDefault = { title: true, price: true, version: true, categoriesId: true, capacity: true, color: true, percentDiscount: true, quantity: true };
+    const [brandData, setBrandData] = useState([]);
+    const [capacityData] = useState(["64GB", "128GB", "256GB", "512GB", "1TB"]);
+    const [colors] = useState(["black", "white", "blue", "red", "purple", "gold", "silver", "pink", "green", "natural"]);
+    const [data, setData] = useState({ title: "", price: "", categoriesId: "", brandId: "", version: "", quantity: "", percentDiscount: "", capacity: "", color: "", image: "" });
+    const validInputDefault = { title: true, price: true, categoriesId: true, brandId: true, version: true, quantity: true, percentDiscount: true, color: true, capacity: true, image: true };
     const [validInputs, setValidInputs] = useState(validInputDefault);
 
     const isCheckInputs = () => {
         if (!data.title) { toast("Please Enter Title"); return false; }
         if (!data.price) { toast("Please Enter Price"); return false; }
-        if (!data.version) { toast("Please Enter Version"); return false; }
         if (!data.categoriesId) { toast("Please Enter Last CategoriesId"); return false; }
+        if (!data.brandId) { toast("Please Enter Last BrandId"); return false; }
+        if (!data.version) { toast("Please Enter Version"); return false; }
+        if (!data.quantity) { toast("Please Enter Quantity"); return false; }
+        if (!data.percentDiscount) { toast("Please Enter PercentDiscount"); return false; }
         if (!data.capacity) { toast("Please Enter Capacity"); return false; }
         if (!data.color) { toast("Please Enter Color"); return false; }
-        if (!data.percentDiscount) { toast("Please Enter PercentDiscount"); return false; }
-        if (!data.quantity) { toast("Please Enter Quantity"); return false; }
+        if (!data.image) { toast("Please Enter Image"); return false; }
         return true;
     };
-
-    const handleOnChange = (e) => {
-        const { name, value } = e.target;
-        setData((prev) => { return { ...prev, [name]: value, }; });
-    };
-
-    const handleImage = async (e) => {
-        const multipleImages = e.target.files;
-        const arrMultipleImage = [];
-        for (let i = 0; i < multipleImages.length; ++i) {
-            const base = await ImageToBase64(multipleImages[i]);
-            arrMultipleImage.push(base);
-        }
-        setData((prev) => { return { ...prev, image: arrMultipleImage, }; });
-    };
-
-
-    useEffect(() => {
-        // let currentCategoryId = props?.dataModalEdit?.categoriesId;
-        setData((prev) => {
-            return {
-                ...prev, ...props.dataModalEdit, image: ''
-                // categoriesId: currentCategoryId ? currentCategoryId : "",
-            };
-        });
-    }, [props.dataModalEdit]);
-
-    const handleOnFocus = () => { setValidInputs(validInputDefault); };
 
     // Valid Input
     const checkValidateInputs = () => {
         setValidInputs(validInputDefault);
-        let arr = ["title", "price", "version", "categoriesId", "capacity", "color", "percentDiscount", "quantity"];
+        let arr = ["title", "price", "categoriesId", "brandId", "version", "quantity", "percentDiscount", "capacity", "color", "image"];
         let check = true;
         // eslint-disable-next-line array-callback-return
         arr.map((item, index) => {
@@ -72,9 +48,46 @@ const ModalProductEdit = (props) => {
         return true;
     };
 
-    // Get Categories
-    useEffect(() => { getCategories(); }, []);
-    const getCategories = async () => {
+    useEffect(() => {
+        setData((prev) => { return { ...prev, ...props.dataModalEdit } });
+    }, [props.dataModalEdit]);
+
+    const handleOnFocus = () => { setValidInputs(validInputDefault); };
+
+    const handleOnChange = (e) => {
+        const { name, value } = e.target;
+        setData((prev) => { return { ...prev, [name]: value, }; });
+    };
+
+    const handleOnChangeColor = (e) => {
+        const { name, value } = e.target;
+        setData((prev) => {
+            if (prev.color.includes(value)) { return { ...prev }; }
+            else { return { ...prev, [name]: [...prev.color, value] }; }
+        });
+    };
+
+    const handleOnChangeCapacity = (e) => {
+        const { name, value } = e.target;
+        setData((prev) => {
+            if (prev.capacity.includes(value)) { return prev; }
+            else { return { ...prev, [name]: [...prev.capacity, value] }; }
+        });
+    };
+
+    const handleImageWithColor = async (e, color) => {
+        const multipleImages = e.target.files;
+        const arrMultipleImage = [];
+        for (let i = 0; i < multipleImages.length; ++i) {
+            const base = await ImageToBase64(multipleImages[i]);
+            arrMultipleImage.push(base);
+        }
+        setData((prev) => { return { ...prev, image: { ...prev.image, [color]: arrMultipleImage } }; });
+    };
+
+    // Get Category
+    useEffect(() => { getCategory(); }, []);
+    const getCategory = async () => {
         let response = await readCategories();
         if (response && response.EC === 0) {
             setCategoriesData(response.DT);
@@ -83,11 +96,22 @@ const ModalProductEdit = (props) => {
         } else { toast.error(response.EM); }
     };
 
+    // Get Brand
+    useEffect(() => { getBrand(); }, []);
+    const getBrand = async () => {
+        let response = await readBrand();
+        if (response && response.EC === 0) {
+            setBrandData(response.DT);
+            if (response.DT && response.DT.length > 0) {
+            }
+        } else { toast.error(response.EM); }
+    };
+
     // Confirm
-    const handleConfirmUser = async () => {
+    const handleConfirmProduct = async () => {
+        console.log(brandData)
         let isCheckBorder = checkValidateInputs();
         let isCheckTextEmpty = isCheckInputs();
-
         if (isCheckBorder && isCheckTextEmpty) {
             let response = await updateProduct(data);
 
@@ -100,7 +124,7 @@ const ModalProductEdit = (props) => {
                 toast.success(response.EM);
                 props.handleClose(); props.fetchProducts();
                 setData((prev) => {
-                    return { ...prev, title: "", price: "", version: "", quantity: "", image: "", capacity: "", color: "", percentDiscount: "", categoriesId: "" };
+                    return { ...prev, title: "", price: "", version: "", quantity: "", image: "", capacity: "", color: "", percentDiscount: "", categoriesId: "", brandId: "" };
                 });
 
             } else { toast.error(response.EM); }
@@ -134,7 +158,30 @@ const ModalProductEdit = (props) => {
                                 </div>
                             </div>
                         </div>
-                        {/* version and  categories*/}
+                        {/* categories and brand */}
+                        <div className={cx("two-row")}>
+                            <div className={cx("bl-input")}>
+                                <label>Categories (<span className={cx("valid-start")}>*</span>)</label>
+                                <div className={cx("bl-icon")}>
+                                    <select className={cx(validInputs.categoriesId ? "" : `is-valid`)} value={data?.categoriesId} name="categoriesId" onChange={handleOnChange} onFocus={handleOnFocus}>
+                                        <option value={""}>-- option --</option>
+                                        {categoriesData?.map((categories, index) => <option key={`${index}-categories`} value={categories?.id}>{categories?.name}</option>)}
+                                    </select>
+                                    {!validInputs.categoriesId && (<MdErrorOutline className={cx("icon")} />)}
+                                </div>
+                            </div>
+                            <div className={cx("bl-input")}>
+                                <label>Brand (<span className={cx("valid-start")}>*</span>)</label>
+                                <div className={cx("bl-icon")}>
+                                    <select className={cx(validInputs.brandId ? "" : `is-valid`)} value={data?.brandId} name="brandId" onChange={handleOnChange} onFocus={handleOnFocus}>
+                                        <option value={""}>-- option --</option>
+                                        {brandData?.map((brand, index) => <option key={`${index}-brand`} value={brand?.id}>{brand?.name}</option>)}
+                                    </select>
+                                    {!validInputs.brandId && (<MdErrorOutline className={cx("icon")} />)}
+                                </div>
+                            </div>
+                        </div>
+                        {/*version and quantity*/}
                         <div className={cx("two-row")}>
                             <div className={cx("bl-input")}>
                                 <label>Version (<span className={cx("valid-start")}>*</span>)</label>
@@ -144,42 +191,15 @@ const ModalProductEdit = (props) => {
                                 </div>
                             </div>
                             <div className={cx("bl-input")}>
-                                <label>Categories (<span className={cx("valid-start")}>*</span>)</label>
+                                <label>Quantity (<span className={cx("valid-start")}>*</span>)</label>
                                 <div className={cx("bl-icon")}>
-                                    <select className={cx(validInputs.categoriesId ? "" : `is-valid`)} value={data?.categoriesId} name="categoriesId" onChange={handleOnChange} onFocus={handleOnFocus}>
-                                        {categoriesData && categoriesData.map((categories, index) => <option key={`${index}-categories`} value={categories?.id}>{categories?.name}</option>)}
-                                    </select>
-                                    {!validInputs.categoriesId && (<MdErrorOutline className={cx("icon")} />)}
+                                    <input className={cx(validInputs.quantity ? "" : `is-valid`)} value={data?.quantity} type="text" name="quantity" onChange={handleOnChange} onFocus={handleOnFocus} />
+                                    {!validInputs.quantity && (<MdErrorOutline className={cx("icon")} />)}
                                 </div>
                             </div>
                         </div>
-                        {/* Image and Capacity */}
+                        {/* percent discount */}
                         <div className={cx("two-row")}>
-                            <div className={cx("bl-input")}>
-                                <label>Image (<span className={cx("valid-start")}>*</span>)</label>
-                                <div className={cx("bl-icon")}>
-                                    <input type="file" name="image" accept="image/*" multiple onChange={handleImage} onFocus={handleOnFocus} />
-                                </div>
-                            </div>
-                            <div className={cx("bl-input")}>
-                                <label>Capacity (<span className={cx("valid-start")}>*</span>)</label>
-                                <div className={cx("bl-icon")}>
-                                    <select className={cx(validInputs.capacity ? "" : `is-valid`)} value={data?.capacity} name="capacity" onChange={handleOnChange} onFocus={handleOnFocus}>
-                                        {capacityData && capacityData.map((item, index) => <option key={`${index}-capacity`} value={item?.value}>{item?.name}</option>)}
-                                    </select>
-                                    {!validInputs.capacity && (<MdErrorOutline className={cx("icon")} />)}
-                                </div>
-                            </div>
-                        </div>
-                        {/* color and percentDiscount */}
-                        <div className={cx("two-row")}>
-                            <div className={cx("bl-input")}>
-                                <label>Color (<span className={cx("valid-start")}>*</span>)</label>
-                                <div className={cx("bl-icon")}>
-                                    <input className={cx(validInputs.color ? "" : `is-valid`)} value={data?.color} type="text" name="color" onChange={handleOnChange} onFocus={handleOnFocus} />
-                                    {!validInputs.color && (<MdErrorOutline className={cx("icon")} />)}
-                                </div>
-                            </div>
                             <div className={cx("bl-input")}>
                                 <label>PercentDiscount (<span className={cx("valid-start")}>*</span>)</label>
                                 <div className={cx("bl-icon")}>
@@ -188,23 +208,69 @@ const ModalProductEdit = (props) => {
                                 </div>
                             </div>
                         </div>
-                        {/* quantities */}
+                        {/* capacity */}
                         <div className={cx("two-row")}>
                             <div className={cx("bl-input")}>
-                                <label>Quantity (<span className={cx("valid-start")}>*</span>)</label>
+                                <label>Capacity (<span className={cx("valid-start")}>*</span>)</label>
                                 <div className={cx("bl-icon")}>
-                                    <input className={cx(validInputs.quantity ? "" : `is-valid`)} value={data?.quantity} type="text" name="quantity" onChange={handleOnChange} onFocus={handleOnFocus} />
-                                    {!validInputs.quantity && (<MdErrorOutline className={cx("icon")} />)}
+                                    <select className={cx(validInputs.capacity ? "" : `is-valid`)} value={data?.capacity} name="capacity" onChange={handleOnChangeCapacity} onFocus={handleOnFocus}>
+                                        <option value={""}>-- option --</option>
+                                        {capacityData && capacityData.map((item, index) => <option key={`${index}-capacity`} value={item}>{item}</option>)}
+                                    </select>
+                                    {!validInputs.capacity && (<MdErrorOutline className={cx("icon")} />)}
                                 </div>
                             </div>
+                            <div className={cx("bl-input")}>
+                                {data?.capacity.length > 0 &&
+                                    <>
+                                        <label>Selected capacity</label>
+                                        <div className={cx("select-block")}>{data?.capacity.map((item, index) => <span key={index}>{item}{' '}</span>)}</div>
+                                    </>
+                                }
+                            </div>
+                        </div>
+                        {/* color */}
+                        <div className={cx("two-row")}>
+                            <div className={cx("bl-input")}>
+                                <label>Color (<span className={cx("valid-start")}>*</span>)</label>
+                                <div className={cx("bl-icon")}>
+                                    <select className={cx(validInputs.color ? "" : `is-valid`)} value={data?.color} name="color" onChange={handleOnChangeColor} onFocus={handleOnFocus}>
+                                        <option value={""}>-- option --</option>
+                                        {colors && colors.map((item, index) => <option key={`${index}-color`} value={item}>{item}</option>)}
+                                    </select>
+                                    {!validInputs.color && (<MdErrorOutline className={cx("icon")} />)}
+                                </div>
+                            </div>
+                            <div className={cx("bl-input")}>
+                                {data?.color.length > 0 &&
+                                    <>
+                                        <label>Selected color</label>
+                                        <div className={cx("select-block")}>{data?.color.map((item, index) => <span key={index}>{item}{' '}</span>)}</div>
+                                    </>
+                                }
+                            </div>
+                        </div>
+                        {/* Image */}
+                        <div className={cx("bl-one-input")}>
+                            <label>Image (<span className={cx("valid-start")}>*</span>)</label>
+                            {data?.color.length > 0 && data?.color.map((item, index) => {
+                                const handleChange = (e) => handleImageWithColor(e, item);
+                                return (
+                                    <div className={cx("bl-icon")} key={index}>
+                                        <div>{item}</div>
+                                        <input className={cx(validInputs.image ? "" : `is-valid`)} type="file" name="image" accept="image/*" multiple onChange={handleChange} onFocus={handleOnFocus} />
+                                        {!validInputs.image && (<MdErrorOutline className={cx("icon")} />)}
+                                    </div>
+                                )
+                            })}
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <button className={cx("btn", "secondary")} onClick={props.handleClose}>Close</button>
-                    <button className={cx("btn", "primary")} onClick={() => handleConfirmUser()}>Save</button>
+                    <button className={cx("btn", "primary")} onClick={() => handleConfirmProduct()}>Save</button>
                 </Modal.Footer>
-            </Modal>
+            </Modal >
         </>
     );
 };

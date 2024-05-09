@@ -30,6 +30,12 @@
         input:focus-visible {
             outline: unset;
         }
+
+        .select-block {
+            height : 39px;
+            border : 1px solid #EBEBEB;
+            padding: 8px 8px 8px 8px;
+        }
     }
 
     .bl-select {

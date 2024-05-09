@@ -19,7 +19,7 @@ const readGroupRole = (currentPage, currentLimit) => { return axios.get(`/v1/gro
 const readRole = (currentPage, currentLimit) => { return axios.get(`/v1/role/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
 
 // CRUD Product
-const readProduct = (currentPage, currentLimit, categories, search, ProductId) => { return axios.get(`/v1/product/read`, { params: { page: currentPage, limit: currentLimit, categories: categories, search: search, id: ProductId, }, }); };
+const readProduct = (currentPage, currentLimit, categories, brand, search, ProductId) => { return axios.get(`/v1/product/read`, { params: { page: currentPage, limit: currentLimit, categories: categories, brand: brand, search: search, id: ProductId, }, }); };
 const readProductDetail = (slug) => { return axios.get(`/v1/product/read/${slug}`); };
 
 // CRUD Category

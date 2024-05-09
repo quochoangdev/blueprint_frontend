@@ -20,218 +20,118 @@ import { FiShoppingCart } from "react-icons/fi";
 const cx = classNames.bind(styles);
 
 const HomeDetail = () => {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { slug } = useParams();
 
   const [data, setData] = useState(null);
   const [showImage, setShowImage] = useState("");
-  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedColor, setSelectedColor] = useState("");
   const [selectedCapacity, setSelectedCapacity] = useState(null);
+  const [dataBuy, setDataBuy] = useState({});
   const [compact, setCompact] = useState(false);
-  const [imageColor, setImageDescribeColor] = useState("");
-  const [newData, setNewData] = useState({});
 
   // price discount
   const priceDiscount = data && data.price - data.price * (data.percentDiscount / 100);
 
   // call Api
-  useEffect(() => {
-    (async () => {
-      try {
-        const axiosProduct = await readProductDetail(slug)
-        if (axiosProduct) {
-          setData(axiosProduct?.DT);
-        }
-      } catch (error) {
-        toast.error("Lỗi khi lấy dữ liệu:", error);
-      }
-    })();
-  }, [slug]);
+  useEffect(() => { fetchData(slug) }, [slug]);
+  const fetchData = async (slug) => {
+    try {
+      const axiosProduct = await readProductDetail(slug)
+      if (axiosProduct) { setData(axiosProduct?.DT); }
+    } catch (error) {
+      toast.error("Lỗi khi lấy dữ liệu:", error);
+    }
+  }
 
   // left
   // handle describe scroll
   const describeScroll = useRef();
-  const handleDescribeScrollT = () => {
-    describeScroll.current.scrollLeft -= 208;
-  };
-  const handleDescribeScrollP = () => {
-    describeScroll.current.scrollLeft += 208;
-  };
-  const formatNumber = (number) => {
-    return number.toLocaleString("vi-VN");
-  };
+  const handleDescribeScrollT = () => { describeScroll.current.scrollLeft -= 208; };
+  const handleDescribeScrollP = () => { describeScroll.current.scrollLeft += 208; };
+  const formatNumber = (number) => { return number.toLocaleString("vi-VN"); };
   // handle show describe image
-  const handleShowDescribeImage = (img) => {
-    setShowImage(img);
-  };
+  const handleShowDescribeImage = (img) => { setShowImage(img); };
 
   // right
   // handle start
-  const handleStart = () => {
-    toast.warning("Chức năng đang được phát triển");
-  };
+  const handleStart = () => { toast.warning("Chức năng đang được phát triển"); };
   // handle assess
-  const handleAssess = () => {
-    toast.warning("Chức năng đang được phát triển");
-  };
+  const handleAssess = () => { toast.warning("Chức năng đang được phát triển"); };
   // handle compare
-  const handleCompare = () => {
-    toast.warning("Chức năng đang được phát triển");
-  };
-  // // handle capacity
-  // const handleCapacity = useCallback(
-  //   (capacity) => {
-  //     // active
-  //     setSelectedCapacity(capacity);
+  const handleCompare = () => { toast.warning("Chức năng đang được phát triển"); };
 
-  //     function replaceGb(slug, capacity) {
-  //       var regex = /-(\d+)gb/g;
-  //       return slug.replace(regex, "-" + capacity);
-  //     }
-  //     const newSlug = slug;
-  //     const newSlugReplace = replaceGb(newSlug, capacity).toLowerCase();
-  //     navigate(`/${newSlugReplace}`);
-  //   },
-  //   [slug, navigate]
-  // );
-  // // set default active capacity
-  // useEffect(() => {
-  //   function getSlugSplit(slug) {
-  //     var newSlug = slug.split("-");
-  //     var result = newSlug.filter(function (item) {
-  //       return item.includes("gb");
-  //     });
-  //     return result;
-  //   }
+  // handle capacity
+  useEffect(() => {
+    const capacityTitle = data?.title.substring(data?.title.lastIndexOf(' ') + 1);
+    setSelectedCapacity(capacityTitle)
+  }, [data])
+  const handleCapacity = useCallback(
+    (capacity) => {
+      setSelectedCapacity(capacity);
+      const currentSlug = data?.slug.replace(data?.slug.substring(data?.slug.lastIndexOf('-') + 1), capacity).toLocaleLowerCase()
+      navigate(`/${currentSlug}`)
+    },
+    [data?.slug, navigate]
+  );
 
-  //   if (data?.slug) {
-  //     const result = getSlugSplit(data?.slug);
-  //     const newSlug = result && result[0].toUpperCase();
-  //     const handleSlugCapacity = () => {
-  //       handleCapacity(newSlug);
-  //     };
-  //     handleSlugCapacity();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [data]);
-
-  // handle color onClick
+  // handle color 
   const handleColors = useCallback(
     (color) => {
-      setImageDescribeColor(color);
       setSelectedColor(color);
     },
-    [setImageDescribeColor, setSelectedColor]
+    [setSelectedColor]
   );
-
-  // handle color onClick
-  const handleOptionClick = useCallback(
-    (color) => {
-      handleColors(color);
-      setShowImage(false);
-    },
-    [handleColors]
-  );
-
-  // set color default
-  useEffect(() => {
-    const randomColor = Math.floor(Math.random() * data?.image.length);
-    const firstAttributes = data?.image.map((item) => Object.keys(item));
-    const firstKeysColor = firstAttributes && firstAttributes[randomColor ? randomColor : 0][0];
-    const handleFirstKeysColor = () => {
-      handleOptionClick(firstKeysColor);
-    };
-    handleFirstKeysColor();
-  }, [data?.image, handleOptionClick]);
+  const handleOptionClick = useCallback((color) => { handleColors(color); setShowImage(false); }, [handleColors]); // handle color onClick
+  useEffect(() => { data && setSelectedColor(data?.color[0]) }, [data]); // set color default
 
   // handle compact
-  const handleCompact = () => {
-    setCompact((prev) => !prev);
-  };
+  const handleCompact = () => { setCompact((prev) => !prev); };
 
   // handle buy
   useEffect(() => {
-    setNewData(() => {
+    setDataBuy(() => {
       return {
-        _id: data?._id,
+        id: data?.id,
         title: data?.title,
-        image: data?.image[0],
-        colors: data && selectedColor,
-        capacitys: data && selectedCapacity,
+        image: selectedColor && data?.image[selectedColor][0],
+        color: data && selectedColor,
+        capacity: data && selectedCapacity,
         price: data && priceDiscount,
         slug: data?.slug,
       };
     });
   }, [data, priceDiscount, selectedCapacity, selectedColor]);
-
   const handleBuy = (e) => {
-    e.preventDefault();
-    dispatch(addCartItem(newData));
+    console.log(dataBuy)
+    e.preventDefault(); dispatch(addCartItem(dataBuy));
   };
 
   // handle Installment
-  const handleInstallment = (e) => {
-    e.preventDefault();
-    toast.warning("Chức năng đang được phát triển");
-  };
+  const handleInstallment = (e) => { e.preventDefault(); toast.warning("Chức năng đang được phát triển"); };
 
-  console.log(data)
   return (
     <div className={cx("wrapper-background")}>
       <div className={cx("wrapper")}>
         <div className={cx("product")}>
           <div className={cx("product-left")}>
-            {/* {data?.image.map((imgs, index) => {
-              if (imgs.hasOwnProperty(imageColor)) {
-                return (
-                  <Link
-                    key={index}
-                    className={cx("left-link")}
-                    to={data && showImage ? showImage : data && imgs[imageColor][0]}
-                  >
-                    <img
-                      className={cx("left-img")}
-                      src={data && showImage ? showImage : data && imgs[imageColor][0]}
-                      alt=""
-                    />
-                  </Link>
-                );
-              }
-              return null;
-            })} */}
-            <Link
-              className={cx("left-link")}
-              to={'/'}
-            >
-              <img
-                className={cx("left-img")}
-                src={data?.image[0]}
-                alt=""
-              />
+            <Link className={cx("left-link")} to={'/'}>
+              {selectedColor && <img className={cx("left-img")} src={showImage || data?.image[selectedColor][0]} alt="" />}
             </Link>
             <div className={cx("left-describe-image")}>
               <div className={cx("left-describe-block")} ref={describeScroll}>
-                {data?.image.map((img, index) => {
+                {selectedColor && data?.image[selectedColor].map((img, index) => {
                   return (
-                    <div
-                      className={cx("describe-item")}
-                      onClick={() => handleShowDescribeImage(img)}
-                      key={index}
-                    >
+                    <div className={cx("describe-item")} onClick={() => handleShowDescribeImage(img)} key={index}>
                       <img className={cx("image-item")} src={img} alt="" />
                     </div>
                   )
                 })}
               </div>
-              <FaCircleChevronLeft
-                className={cx("describe-icon-left")}
-                onClick={handleDescribeScrollT}
-              />
-              <FaCircleChevronRight
-                className={cx("describe-icon-right")}
-                onClick={handleDescribeScrollP}
-              />
+              <FaCircleChevronLeft className={cx("describe-icon-left")} onClick={handleDescribeScrollT} />
+              <FaCircleChevronRight className={cx("describe-icon-right")} onClick={handleDescribeScrollP} />
             </div>
           </div>
           <div className={cx("product-right")}>
@@ -259,56 +159,34 @@ const HomeDetail = () => {
               </div>
               <div className={cx("price-old")}>
                 {data && formatNumber(data.price)}
-                <span className={cx("price-old-icon")}>₫</span>
+                <span className={cx("price-old-icon")}>₫ {" "} -{data?.percentDiscount}%</span>
               </div>
             </div>
-            {/* <div className={cx("phone-capacity")}>
+            <div className={cx("phone-capacity")}>
               <div className={cx("phone-capacity-title")}>Dung lượng</div>
               <div className={cx("phone-capacity-select")}>
-                {data &&
-                  data.capacitys.map((capacity, index) => (
-                    <div
-                      className={cx(
-                        "phone-capacity-option",
-                        `${capacity === selectedCapacity ? "active" : ""}`
-                      )}
-                      key={index}
-                      onClick={() => handleCapacity(capacity)}
-                    >
-                      {capacity === "1000GB" ? "1TB" : capacity}
-                    </div>
-                  ))}
+                {data?.capacity.map((capacity, index) => (
+                  <div className={cx("phone-capacity-option", `${capacity === selectedCapacity ? "active" : ""}`)} key={index} onClick={() => handleCapacity(capacity)}>
+                    {capacity === "1000GB" ? "1TB" : capacity}
+                  </div>
+                ))}
               </div>
-            </div> */}
+            </div>
             <div className={cx("phone-color")}>
               <div className={cx("phone-color-title")}>Màu sắc</div>
               <div className={cx("phone-color-select")}>
-                {/* {data &&
-                  data?.colors.map((color, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className={cx(
-                          "phoneColorOption",
-                          `${color === selectedColor ? "active" : ""}`
-                        )}
-                        onClick={() => handleOptionClick(color)}
-                      >
-                        <div
-                          className={cx("phoneColorOptionColor")}
-                          style={{ backgroundColor: `${color}` }}
-                          onClick={() => handleOptionClick(color)}
-                        ></div>
-                      </div>
-                    );
-                  })} */}
+                {data?.color.map((color, index) => {
+                  return (
+                    <div key={index} className={cx("phoneColorOption", `${color === selectedColor ? "active" : ""}`)} onClick={() => handleOptionClick(color)}>
+                      <div className={cx("phoneColorOptionColor")} style={{ backgroundColor: `${color === "natural" ? "#C7BEAF" : color}` }} onClick={() => handleOptionClick(color)}></div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className={cx("special-offers")}>
               <div className={cx("title")}>
-                <div className={cx("title-icon")}>
-                  <FaGift />
-                </div>
+                <div className={cx("title-icon")}><FaGift /></div>
                 <div className={cx("title-text")}>Ưu đãi</div>
               </div>
               <div className={cx("description", `${compact ? "" : "description-height-107"}`)}>
@@ -392,13 +270,9 @@ const HomeDetail = () => {
                 </div>
                 <div className={cx("compact")} onClick={handleCompact}>
                   {compact ? (
-                    <>
-                      Thu gọn <AiOutlineUp />
-                    </>
+                    <>Thu gọn <AiOutlineUp /></>
                   ) : (
-                    <>
-                      Xem thêm ưu đãi khác <AiOutlineDown />
-                    </>
+                    <>Xem thêm ưu đãi khác <AiOutlineDown /></>
                   )}
                 </div>
               </div>

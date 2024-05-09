@@ -112,7 +112,7 @@ const Products = () => {
             </button>
           </div>
         </h2>
-        <div className={cx("container")}>
+        <div className={cx("")}>
           <table className={cx("table-inner")}>
             <thead>
               <tr className={cx("row-inner")}>
@@ -125,6 +125,7 @@ const Products = () => {
                 <th>Title</th>
                 <th>Price</th>
                 <th>Categories</th>
+                <th>Brand</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -139,6 +140,7 @@ const Products = () => {
                       <td>{product?.title}</td>
                       <td>{product?.price}</td>
                       <td>{product?.Category?.name}</td>
+                      <td>{product?.Brand?.name}</td>
                       <td>
                         <div className={cx("action")}>
                           <div
@@ -167,7 +169,7 @@ const Products = () => {
       {totalPages > 0 && (
         <div className={cx("page")}>
           <ReactPaginate
-            className={cx("pagination", "hello")}
+            className={cx("pagination", "custom")}
             nextLabel="next >"
             onPageChange={handlePageClick}
             pageRangeDisplayed={3}

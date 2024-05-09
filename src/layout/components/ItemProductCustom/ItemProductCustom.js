@@ -14,28 +14,18 @@ const ItemProductCustom = ({ data, length }) => {
 
   return (
     <div className={cx("container")}>
-      {data.map((dataItem) => {
-        const priceDiscount =
-          dataItem &&
-          dataItem?.price - dataItem?.price * (dataItem?.percentDiscount / 100);
+      {data.map((dataItem, index) => {
+        const priceDiscount = dataItem && dataItem?.price - dataItem?.price * (dataItem?.percentDiscount / 100);
+        const firstImageColor = Object.keys(dataItem.image)[0]
 
         return (
-          <Link
-            className={cx("item-link")}
-            key={dataItem?._id}
-            to={`/${dataItem?.slug}`}
-          >
+          <Link className={cx("item-link")} key={`${index}-product`} to={`/${dataItem?.slug}`}>
             <div className={cx("item")}>
               <div className={cx("item-new")}>
-                {dataItem?.new && (
-                  <img
-                    src="https://shopdunk.com/images/uploaded/icon/new.png"
-                    alt="error"
-                  />
-                )}
+                {dataItem?.new && (<img src="https://shopdunk.com/images/uploaded/icon/new.png" alt="error" />)}
               </div>
               <div className={cx("item-img")}>
-                <img src={dataItem?.image[0]} alt="error" />
+                {dataItem?.image && <img src={dataItem?.image[firstImageColor][0]} alt="error" />}
               </div>
               <div className={cx("item-content")}>
                 <h3 className={cx("title")}>{dataItem?.title}</h3>
