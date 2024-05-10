@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import SliderDefaultLayout from "../../layout/components/SliderDefaultLayout";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
-import { readProduct } from "../../services/apiUserService";
+import { readProductFilter } from "../../services/apiUserService";
 import { Link } from "react-router-dom";
 
 import styles from "./Mobile.module.scss";
@@ -19,43 +19,36 @@ const Mobile = () => {
   const allCategory = ["Tất cả", "IPhone", "Samsung",];
 
   const [selectCategory, setSelectCategory] = useState("Tất cả");
-  const [version, setVersion] = useState(null);
   const [sort, setSort] = useState(null);
-  console.log("version", version)
-  console.log("sort", sort)
+
   // Page
   const handlePageClick = (event) => {
     setCurrentPage(event.selected + 1);
   };
+  // console.log(version?.toLowerCase())
 
   useEffect(() => {
-    fetchProducts();
+    fetchProducts("mobile", null, null, null);
     setCurrentLimit(12);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  const fetchProducts = async () => {
-    let data = await readProduct(currentPage, currentLimit, "mobile", null, null, null);
-    const mixArray = (arr) => {
-      const equalRandom = () => { return Math.random() - 0.5; }
-      return arr.sort(equalRandom);
-    }
-    const newDataMix = mixArray(data?.DT?.products)
-    setListDataProduct(newDataMix);
+  const fetchProducts = async (categories, brand, version, sort) => {
+    let data = await readProductFilter(currentPage, currentLimit, categories, brand, version, sort);
+    setListDataProduct(data?.DT?.products);
     setTotalPages(data?.DT?.totalPages);
   };
 
   // handle click item category
   const handleClickItemCategory = (category) => {
-    setVersion(category);
     setSelectCategory(category);
+    fetchProducts("mobile", category?.toLowerCase(), null, sort);
   };
 
   const handleCategorySelect = (e) => {
     if (e.target.value !== false) {
       setSort(e.target.value);
-    } else {
-      setSort(null);
+      fetchProducts("mobile", selectCategory, null, e.target.value);
     }
   };
 

@@ -4,31 +4,29 @@ import SliderDefaultLayout from "../../layout/components/SliderDefaultLayout";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
 import { readProductFilter } from "../../services/apiUserService";
 
-import styles from "./Iphone.module.scss";
+import styles from "./Samsung.module.scss";
 import ReactPaginateBlock from "../../layout/components/ReactPaginateBlock/ReactPaginateBlock";
 
 const cx = classNames.bind(styles);
-const Iphone = () => {
+const Samsung = () => {
   // Pagination
   const [listDataProduct, setListDataProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentLimit, setCurrentLimit] = useState(12);
   const [totalPages, setTotalPages] = useState(0);
 
-  const allVersion = [{ key: "Tất cả", value: "" }, { key: "IPhone 11", value: 11 }, { key: "IPhone 12", value: 12 }, { key: "IPhone 13", value: 13 }, { key: "IPhone 14", value: 14 }, { key: "IPhone 15", value: 15 }];
+  const allVersion = [{ key: "Tất cả", value: "" }, { key: "Galaxy M", value: "m" }, { key: "Galaxy A", value: "a" }, { key: "Galaxy S", value: "s" }, { key: "Galaxy Z", value: "z" }];
 
   const [selectVersion, setSelectVersion] = useState("Tất cả");
-
   const [sort, setSort] = useState(null);
   const [version, setVersion] = useState(null);
-
   // Page
   const handlePageClick = (event) => {
     setCurrentPage(event.selected + 1);
   };
 
   useEffect(() => {
-    fetchProducts("mobile", "iphone", null, null);
+    fetchProducts("mobile", "samsung", null, null);
     setCurrentLimit(12);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
@@ -44,13 +42,13 @@ const Iphone = () => {
   const handleClickItemCategory = (key, value) => {
     setSelectVersion(key);
     setVersion(value)
-    fetchProducts("mobile", "iphone", value, sort);
+    fetchProducts("mobile", "samsung", value, sort);
   };
 
-  const handleCategorySelect = async (e) => {
+  const handleCategorySelect = (e) => {
     if (e.target.value !== false) {
       setSort(e.target.value);
-      fetchProducts("mobile", "iphone", version, e.target.value);
+      fetchProducts("mobile", "samsung", version, e.target.value);
     }
   };
 
@@ -94,4 +92,4 @@ const Iphone = () => {
   );
 };
 
-export default Iphone;
+export default Samsung;

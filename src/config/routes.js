@@ -14,6 +14,7 @@ const routes = {
   // sub page
   mobile: "dien-thoai",
   iphone: "dien-thoai/iphone",
+  samsung: "dien-thoai/samsung",
   tablet: "tablet",
   laptop: "laptop",
   // admin

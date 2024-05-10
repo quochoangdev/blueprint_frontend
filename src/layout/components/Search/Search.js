@@ -7,7 +7,7 @@ import HeadlessTippy from "@tippyjs/react/headless";
 import styles from "./Search.module.scss";
 import ProductItem from "./ProductItem/ProductItem";
 import useDebounce from "../../../hooks/useDebounce";
-import { readProduct } from "../../../services/apiUserService";
+import { readProductSearch } from "../../../services/apiUserService";
 
 const cx = classNames.bind(styles);
 export const SearchValueContext = createContext(null);
@@ -30,7 +30,7 @@ const Search = ({ blockSearchFullscreen, handleClose }) => {
     setLoading(true);
     const fetchApi = async () => {
       setLoading(true);
-      const result = await readProduct(1, 5, null, null, searchValue, null);
+      const result = await readProductSearch(1, 5, searchValue);
       setSearchResult(result?.DT?.products);
       setLoading(false);
     };

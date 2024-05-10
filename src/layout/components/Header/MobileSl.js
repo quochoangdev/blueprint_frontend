@@ -15,7 +15,7 @@ const MobileSl = ({ name, linkUrl, icon }) => {
       {icon && (
         <div className={cx("menu-category-link-absolute")}>
           <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.iphone}`}>Iphone</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.mobile}`}>Samsung</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.samsung}`}>Samsung</Link>
         </div>
       )}
     </div>

@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./Cart.module.scss";
 import { GoTrash } from "react-icons/go";
 import { Link } from "react-router-dom";
-import { deleteCart, readProduct } from "../../services/apiUserService";
+import { deleteCart, readProductId } from "../../services/apiUserService";
 import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
@@ -18,7 +18,7 @@ const CartItem = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props?.product]);
   const fetchProductForCart = async (ProductId) => {
-    let data = await readProduct(null, null, null, null, ProductId);
+    let data = await readProductId(null, null, ProductId);
     setProductData(data.DT);
   };
   const formatNumber = (number) => {

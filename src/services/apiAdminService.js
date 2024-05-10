@@ -32,7 +32,7 @@ const deleteRole = (id) => { return axios.delete(`/v1/admin/role/delete`, { data
 
 // CRUD Product
 const createProduct = (data) => { return axios.post(`/v1/admin/product/create`, { data, }); };
-const readProduct = (currentPage, currentLimit, categories, search, ProductId) => { return axios.get(`/v1/admin/product/read`, { params: { page: currentPage, limit: currentLimit, categories: categories, search: search, id: ProductId, }, }); };
+const readProduct = (currentPage, currentLimit) => { return axios.get(`/v1/admin/product/read`, { params: { page: currentPage, limit: currentLimit }, }); };
 const readProductDetail = (slug) => { return axios.get(`/v1/admin/product/read/${slug}`); };
 const updateProduct = (data) => { return axios.put(`/v1/admin/product/update`, { data, }); };
 const deleteProduct = (id) => { return axios.delete(`/v1/admin/product/delete`, { data: { id: id, }, }); };
@@ -50,10 +50,10 @@ const updateBrand = (data) => { return axios.put(`/v1/admin/brand/update`, { dat
 const deleteBrand = (id) => { return axios.delete(`/v1/admin/brand/delete`, { data: { id: id, }, }); };
 
 // CRUD Cart
-const createCart = (data) => { return axios.post(`/v1/admin/cart/create`, { data, }); };
-const readCart = (currentPage, currentLimit, productId) => { return axios.get(`/v1/admin/cart/read`, { params: { page: currentPage, limit: currentLimit, productId: productId, }, }); };
-const updateCart = (data) => { return axios.put(`/v1/admin/cart/update`, { data, }); };
-const deleteCart = (id) => { return axios.delete(`/v1/admin/cart/delete`, { data: { id: id, }, }); };
+// const createCart = (data) => { return axios.post(`/v1/admin/cart/create`, { data, }); };
+// const readCart = (currentPage, currentLimit, productId) => { return axios.get(`/v1/admin/cart/read`, { params: { page: currentPage, limit: currentLimit, productId: productId, }, }); };
+// const updateCart = (data) => { return axios.put(`/v1/admin/cart/update`, { data, }); };
+// const deleteCart = (id) => { return axios.delete(`/v1/admin/cart/delete`, { data: { id: id, }, }); };
 
 export {
   loginUser, logoutUser, registerUser, readJWT,
@@ -64,5 +64,6 @@ export {
   createProduct, readProduct, updateProduct, deleteProduct,
   createCategories, readCategories, updateCategories, deleteCategories,
   createBrand, readBrand, updateBrand, deleteBrand,
-  readProductDetail, createCart, readCart, deleteCart,
+  readProductDetail
+  // , createCart, readCart, deleteCart,
 };

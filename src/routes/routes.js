@@ -36,6 +36,7 @@ import SettingAdmin from "../PageAdmin/Settings";
 import SignOutAdmin from "../PageAdmin/SignOut";
 import NoLayout from "../layout/NoLayout";
 import Iphone from "../Pages/Iphone/Iphone";
+import Samsung from "../Pages/Samsung";
 
 // Public routes
 const publicRoutes = [
@@ -104,6 +105,11 @@ const publicRoutes = [
   {
     path: config.routes.iphone,
     component: Iphone,
+    layout: DefaultLayout,
+  },
+  {
+    path: config.routes.samsung,
+    component: Samsung,
     layout: DefaultLayout,
   },
   {

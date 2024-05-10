@@ -14,7 +14,7 @@ const ModalProductCreate = (props) => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [brandData, setBrandData] = useState([]);
   const [capacityData] = useState(["64GB", "128GB", "256GB", "512GB", "1TB"]);
-  const [colors] = useState(["black", "white", "blue", "red", "purple", "gold", "silver", "pink", "green", "natural"]);
+  const [colors] = useState(["black", "white", "blue", "red", "purple", "gold", "silver", "pink", "green", "natural", "darkblue", "lightblue"]);
   const [data, setData] = useState({ title: "", price: "", categoriesId: "", brandId: "", version: "", quantity: "", percentDiscount: "", capacity: "", color: "", image: "" });
   const validInputDefault = { title: true, price: true, categoriesId: true, brandId: true, version: true, quantity: true, percentDiscount: true, color: true, capacity: true, image: true };
   const [validInputs, setValidInputs] = useState(validInputDefault);
