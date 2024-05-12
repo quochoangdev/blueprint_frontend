@@ -9,7 +9,6 @@ import { SearchValueContext } from "../Search";
 const cx = classNames.bind(styles);
 
 const ProductItem = ({ product }) => {
-  console.log(product);
   const ToggleSearch = useContext(ToggleSearchFullscreenContext);
   const setSearchValue = useContext(SearchValueContext);
   const navigate = useNavigate();

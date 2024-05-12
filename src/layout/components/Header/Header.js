@@ -1,40 +1,40 @@
 import classNames from "classnames/bind";
 import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import config from "../../../config";
 import styles from "./Header.module.scss";
 import HeaderItem from "./HeaderItem";
 import User from "./User";
 import Search from "../Search/Search";
-import { readCart, readJWT } from "../../../services/apiUserService";
+import { readJWT } from "../../../services/apiUserService";
 import MobileSl from "./MobileSl";
 import TabletSl from "./TabletSl";
 import LaptopSl from "./LaptopSl";
+import jwtDecode from "../../../routes/jwtDecode";
+import { CountCartContext } from "../../../hooks/DataContext";
+
 
 const cx = classNames.bind(styles);
 export const ToggleSearchFullscreenContext = createContext(null);
 
 const Header = () => {
+  const { countCart } = useContext(CountCartContext)
   const [blockSearchFullscreen, setBlockSearchFullscreen] = useState(false);
-  const [productData, setProductData] = useState();
-  const [dataUsers, setDataUsers] = useState();
-  const [cookie, setCookie] = useState();
+  const [userLogin, setUserLogin] = useState()
 
-  // Check user
-  useEffect(() => {
-    // Get localStorage
-    const user = JSON.parse(localStorage.getItem("dataUsers"));
-    setDataUsers(user);
-    // Call api JWT
-    // fetchJWT();
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  // const fetchJWT = async () => {
-  //   const resJWT = await readJWT();
-  //   setCookie(resJWT?.DT?.jwt);
-  // };
+  useEffect(() => { fetchJWT(); }, []);
+  const fetchJWT = async () => {
+    let decoded = false
+    const resJWT = await readJWT();
+    if (resJWT?.DT?.jwt) {
+      decoded = await jwtDecode(resJWT?.DT?.jwt)
+    }
+    setUserLogin(decoded)
+  };
 
   const handleSearchFullscreen = (e) => {
     e.preventDefault();
@@ -45,18 +45,6 @@ const Header = () => {
     setBlockSearchFullscreen((pre) => !pre);
   };
 
-  // useEffect(() => {
-  //   if (!!dataUsers === true && !!cookie === true) {
-  //     fetchProducts();
-  //   }
-  // }, [dataUsers, cookie]);
-
-  // const fetchProducts = async () => {
-  //   if (!!dataUsers === true && !!cookie === true) {
-  //     let data = await readCart();
-  //     setProductData(data?.DT);
-  //   }
-  // };
   return (
     <div className={cx("wrapper")}>
       <nav className={cx("navbar")}>
@@ -112,14 +100,13 @@ const Header = () => {
               className={cx("social-category-link")}
             >
               <FiShoppingCart />
-              {/* {!!dataUsers === true && !!cookie === true ? (
+              {!!userLogin ? (
                 <div className={cx("car-quantity")}>
-                  {productData && productData?.length}
+                  {countCart && countCart}
                 </div>
               ) : (
                 <div className={cx("car-quantity")}>0</div>
-              )} */}
-              <div className={cx("car-quantity")}>0</div>
+              )}
             </Link>
           </div>
           <div className={cx("social-category")}>

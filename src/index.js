@@ -6,15 +6,18 @@ import GlobalStyles from "./components/GlobalStyles/GlobalStyles";
 import "./index.css";
 import { store } from "./redux/Store";
 import { Provider } from "react-redux";
+import { CountCartProvider } from "./hooks/DataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <GlobalStyles>
-      <App />
-    </GlobalStyles>
-  </Provider>
+    <CountCartProvider>
+      <GlobalStyles>
+        <App />
+      </GlobalStyles >
+    </CountCartProvider>
+  </Provider >
   // </React.StrictMode>
 );
 

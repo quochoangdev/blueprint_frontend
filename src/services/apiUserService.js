@@ -32,7 +32,16 @@ const readCategory = (currentPage, currentLimit) => { return axios.get(`/v1/cate
 const readBrand = (currentPage, currentLimit) => { return axios.get(`/v1/brand/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
 
 // CRUD Cart
-const deleteCart = (id) => { return axios.delete(`/v1/cart/delete`, { data: { id: id, }, }); };
-const readCart = (currentPage, currentLimit, productId) => { return axios.get(`/v1/cart/read`, { params: { page: currentPage, limit: currentLimit, productId: productId, }, }); };
+const createCart = (data) => { return axios.post(`/v1/cart/create`, { data, }); };
+const readCart = (currentPage, currentLimit, idUser) => { return axios.get(`/v1/cart/read`, { params: { page: currentPage, limit: currentLimit, idUser }, }); };
+const readCartTotal = (idUser) => { return axios.get(`/v1/cart/read`, { params: { idUser }, }) };
+const updateCart = (data) => { return axios.put(`/v1/cart/update`, { data, }); };
+const deleteCart = (idUser, idProduct) => { return axios.delete(`/v1/cart/delete`, { data: { idUser, idProduct }, }); };
 
-export { loginUser, logoutUser, registerUser, readJWT, readUser, readGroup, readRole, readProduct, readProductId, readProductFilter, readProductSearch, readCategory, readBrand, readGroupRole, readProductDetail, readCart, deleteCart };
+export {
+    loginUser, logoutUser, registerUser, readJWT,
+    readUser, readGroup, readRole, readGroupRole,
+    readProduct, readProductId, readProductFilter, readProductSearch, readProductDetail,
+    readCategory, readBrand,
+    createCart, readCart, readCartTotal, updateCart, deleteCart
+};

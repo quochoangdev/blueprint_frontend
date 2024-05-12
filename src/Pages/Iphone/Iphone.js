@@ -9,6 +9,7 @@ import ReactPaginateBlock from "../../layout/components/ReactPaginateBlock/React
 
 const cx = classNames.bind(styles);
 const Iphone = () => {
+
   // Pagination
   const [listDataProduct, setListDataProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

@@ -5,50 +5,42 @@ import { GoTrash } from "react-icons/go";
 import { Link } from "react-router-dom";
 import ContactOrderCart from "../../layout/components/ContactOrderCart/ContactOrderCart";
 import CartItem from "./CartItem";
-import { readCart, readJWT } from "../../services/apiUserService";
+import { readCart, readCartTotal, readJWT } from "../../services/apiUserService";
 import ReactPaginate from "react-paginate";
+import ReactPaginateBlock from "../../layout/components/ReactPaginateBlock/ReactPaginateBlock";
+import jwtDecode from "../../routes/jwtDecode";
 
 const cx = classNames.bind(styles);
 
 const Cart = () => {
-    // Pagination
     const [productData, setProductData] = useState();
+    // Pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [currentLimit, setCurrentLimit] = useState(5);
+    const [currentLimit, setCurrentLimit] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
-    const [dataUsers, setDataUsers] = useState();
-    const [cookie, setCookie] = useState();
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
-    useEffect(() => {
-        // Get localStorage
-        const user = JSON.parse(localStorage.getItem("dataUsers"));
-        setDataUsers(user);
-        // Call api JWT
-        fetchJWT();
-    }, []);
+    useEffect(() => { window.scrollTo(0, 0); }, []);
 
-    const fetchJWT = async () => {
-        const resJWT = await readJWT();
-        setCookie(resJWT?.DT?.jwt);
-    };
     // Page
-    const handlePageClick = (event) => {
-        setCurrentPage(event.selected + 1);
-    };
+    const handlePageClick = (event) => { setCurrentPage(event.selected + 1); };
+
     // Call Api
-    // useEffect(() => {
-    //     !!dataUsers === true && !!cookie === true && fetchProducts();
-    //     setCurrentLimit(5);
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [dataUsers, cookie, currentPage]);
-    // const fetchProducts = async () => {
-    //     let data = await readCart(currentPage, currentLimit);
-    //     setProductData(data?.DT?.carts);
-    //     setTotalPages(data?.DT?.totalPages);
-    // };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { fetchJWT(); setCurrentLimit(10); }, [currentPage]);
+    const fetchJWT = async () => {
+        let decoded = false
+        const resJWT = await readJWT();
+        if (resJWT?.DT?.jwt) {
+            decoded = await jwtDecode(resJWT?.DT?.jwt)
+            fetchCartWithId(decoded?.user?.id)
+        }
+    };
+    const fetchCartWithId = async (idUser) => {
+        const fetchCart = await readCart(currentPage, currentLimit, idUser)
+        setTotalPages(fetchCart?.DT?.totalPages);
+        setProductData(fetchCart?.DT?.carts)
+    }
+
     return (
         <>
             <div className={cx("wrapper")}>
@@ -62,44 +54,19 @@ const Cart = () => {
                             <div className={cx("title-5")}></div>
                         </div>
                         <div className={cx("container")}>
-                            {/* {console.log(productData)} */}
-                            {/* {productData &&
+                            {productData &&
                                 productData.map((product, index) => {
                                     return (
                                         <CartItem
                                             key={`cart-${index}`}
-                                            product={product}
-                                            fetchProducts={fetchProducts}
+                                            product={product.Product}
+                                            fetchProducts={fetchJWT}
                                         />
                                     );
-                                })} */}
+                                })}
                         </div>
                         <div className={cx("bl-buy")}>
-                            {totalPages > 0 && (
-                                <div className={cx("page")}>
-                                    <ReactPaginate
-                                        className={cx("pagination", "hello")}
-                                        nextLabel="Next >"
-                                        onPageChange={handlePageClick}
-                                        pageRangeDisplayed={3}
-                                        marginPagesDisplayed={2}
-                                        pageCount={totalPages}
-                                        previousLabel="< Prev"
-                                        pageClassName="page-item"
-                                        pageLinkClassName="page-link"
-                                        previousClassName="page-item"
-                                        previousLinkClassName="page-link"
-                                        nextClassName="page-item"
-                                        nextLinkClassName="page-link"
-                                        breakLabel="..."
-                                        breakClassName="page-item"
-                                        breakLinkClassName="page-link"
-                                        containerClassName="pagination"
-                                        activeClassName="active"
-                                        renderOnZeroPageCount={null}
-                                    />
-                                </div>
-                            )}
+                            {totalPages > 0 && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
                             <Link to={"/"} className={cx("buy")}>
                                 Tiếp tục mua sắm
                             </Link>

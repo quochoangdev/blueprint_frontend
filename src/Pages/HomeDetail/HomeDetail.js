@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
 import { PiStarThin } from "react-icons/pi";
 import { IoIosAddCircleOutline } from "react-icons/io";
@@ -8,29 +9,48 @@ import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import { TbReplace } from "react-icons/tb";
 import { FaCircleChevronLeft, FaCircleChevronRight, FaGift } from "react-icons/fa6";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-
-import styles from "./HomeDetail.module.scss";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../../redux/cartSlice";
-import { readProductDetail } from "../../services/apiUserService";
+import { createCart, readCartTotal, readJWT, readProductDetail } from "../../services/apiUserService";
 import { FiShoppingCart } from "react-icons/fi";
+import jwtDecode from "../../routes/jwtDecode";
+import { CountCartContext } from "../../hooks/DataContext";
+
+
+import styles from "./HomeDetail.module.scss";
 
 const cx = classNames.bind(styles);
 
 const HomeDetail = () => {
+  const { setCountCart } = useContext(CountCartContext)
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { slug } = useParams();
-
+  const [userLogin, setUserLogin] = useState()
   const [data, setData] = useState(null);
   const [showImage, setShowImage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedCapacity, setSelectedCapacity] = useState(null);
   const [dataBuy, setDataBuy] = useState({});
   const [compact, setCompact] = useState(false);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchJWT(); }, []);
+  const fetchJWT = async () => {
+    let decoded = false
+    const resJWT = await readJWT();
+    if (resJWT?.DT?.jwt) {
+      decoded = await jwtDecode(resJWT?.DT?.jwt)
+      fetchCartWithId(decoded?.user?.id)
+    }
+    setUserLogin(decoded)
+  };
+  const fetchCartWithId = async (idUser) => {
+    const fetchCart = await readCartTotal(idUser)
+    setCountCart(fetchCart.DT)
+  }
 
   // price discount
   const priceDiscount = data && data.price - data.price * (data.percentDiscount / 100);
@@ -109,8 +129,21 @@ const HomeDetail = () => {
     e.preventDefault(); dispatch(addCartItem(dataBuy));
   };
 
+  // handle add cart
+  const handleAddCart = async (e) => {
+    e.preventDefault();
+    const dataObj = { idUser: userLogin?.user?.id, idProduct: data?.id }
+    const fetchCart = await createCart(dataObj)
+    if (fetchCart?.EC === 0) {
+      toast.success(fetchCart?.EM);
+      fetchJWT()
+    } else {
+      toast.warning(fetchCart?.EM);
+    }
+  }
+
   // handle Installment
-  const handleInstallment = (e) => { e.preventDefault(); toast.warning("Chức năng đang được phát triển"); };
+  const handleInstallment = (e) => { e.preventDefault(); toast.warning("Chức năng đang được phát triển") };
 
   return (
     <div className={cx("wrapper-background")}>
@@ -283,7 +316,7 @@ const HomeDetail = () => {
               </Link>
             </div>
             <div className={cx("btn-installment")}>
-              <Link className={cx("btn-installment-link")} to="/" onClick={handleInstallment}>
+              <Link className={cx("btn-installment-link")} to="#" onClick={handleAddCart}>
                 <FiShoppingCart className={cx("btn-installment-link-icon")} />
                 Thêm vào giỏ hàng
               </Link>

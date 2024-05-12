@@ -1,35 +1,29 @@
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import config from "../../../config";
-import styles from "./Header.module.scss";
 import { useEffect, useState } from "react";
 import { readJWT } from "../../../services/apiUserService";
+import jwtDecode from "../../../routes/jwtDecode";
+import styles from "./Header.module.scss";
 
 const cx = classNames.bind(styles);
 
 const User = ({ icon }) => {
-  const [dataUsers, setDataUsers] = useState();
-  const [cookie, setCookie] = useState();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const [userLogin, setUserLogin] = useState()
 
-  useEffect(() => {
-    // Get localStorage
-    const user = JSON.parse(localStorage.getItem("dataUsers"));
-    setDataUsers(user);
-    // Call api JWT
-    fetchJWT();
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  useEffect(() => { fetchJWT(); }, []);
   const fetchJWT = async () => {
+    let decoded = false
     const resJWT = await readJWT();
-    setCookie(resJWT?.DT?.jwt);
+    if (resJWT?.DT?.jwt) { decoded = await jwtDecode(resJWT?.DT?.jwt) }
+    setUserLogin(decoded)
   };
 
   return (
     <div className={cx("social-category-user")}>
-      {!!dataUsers === true && !!cookie === true ? (
+      {!!userLogin === true ? (
         <div className={cx("social-category-link")}>{icon}</div>
       ) : (
         <Link className={cx("social-category-link")} to={`/${config.routes.login}`}>
@@ -39,7 +33,7 @@ const User = ({ icon }) => {
 
       <div className={cx("subnav-user")}>
         {/* no user */}
-        {(!!dataUsers === false || !!cookie === false || (!!dataUsers === !!cookie) === false) && (
+        {(!!userLogin === false) && (
           <>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.register}`}>
               Tạo tài khoản ngay
@@ -50,11 +44,10 @@ const User = ({ icon }) => {
           </>
         )}
         {/* Customer */}
-        {!!dataUsers === true && dataUsers?.currentRoleName === "Customer" && !!cookie === true && (
+        {!!userLogin === true && userLogin?.groupWithRoles?.name === "Customer" && (
           <>
             <div className={cx("subnav-user-link")}>
-              {dataUsers?.currentDataUsers?.lastName} {dataUsers?.currentDataUsers?.firstName}{" "}
-              {`(${dataUsers?.currentRoleName})`}
+              {userLogin?.user?.lastName}{" "}{userLogin?.user?.firstName}{" "}{`(${userLogin?.groupWithRoles?.name})`}
             </div>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.logout}`}>
               Đăng xuất
@@ -62,11 +55,10 @@ const User = ({ icon }) => {
           </>
         )}
         {/* Dev */}
-        {!!dataUsers === true && dataUsers?.currentRoleName === "Dev" && !!cookie === true && (
+        {!!userLogin === true && userLogin?.groupWithRoles?.name === "Dev" && (
           <>
             <div className={cx("subnav-user-link")}>
-              {dataUsers?.currentDataUsers?.lastName} {dataUsers?.currentDataUsers?.firstName}{" "}
-              {`(${dataUsers?.currentRoleName})`}
+              {userLogin?.user?.lastName}{" "}{userLogin?.user?.firstName}{" "}{`(${userLogin?.groupWithRoles?.name})`}
             </div>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.homeAdmin}`}>
               Quản lý website (limit)
@@ -77,11 +69,10 @@ const User = ({ icon }) => {
           </>
         )}
         {/* Leader */}
-        {!!dataUsers === true && dataUsers?.currentRoleName === "Leader" && !!cookie === true && (
+        {!!userLogin === true && userLogin?.groupWithRoles?.name === "Leader" && (
           <>
             <div className={cx("subnav-user-link")}>
-              {dataUsers?.currentDataUsers?.lastName} {dataUsers?.currentDataUsers?.firstName}{" "}
-              {`(${dataUsers?.currentRoleName})`}
+              {userLogin?.user?.lastName}{" "}{userLogin?.user?.firstName}{" "}{`(${userLogin?.groupWithRoles?.name})`}
             </div>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.homeAdmin}`}>
               Quản lý website

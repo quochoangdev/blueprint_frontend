@@ -53,7 +53,7 @@ const ProductItemBlock = (props) => {
   };
   return (
     <Link to={`/${props.product.slug}`} className={cx("product-item-block")}>
-      <div className={cx("cart")}>
+      {/* <div className={cx("cart")}>
         {!!dataUsers === true && !!cookie === true ? (
           isCheckCart ? (
             <FaCart className={cx("cart-icon-fill")} />
@@ -63,7 +63,7 @@ const ProductItemBlock = (props) => {
         ) : (
           <></>
         )}
-      </div>
+      </div> */}
       <div className={cx("avatar")}>
         <img
           className={cx("img")}

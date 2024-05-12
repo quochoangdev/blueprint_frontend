@@ -1,21 +1,36 @@
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import styles from "./Login.module.scss";
 import { loginUser } from "../../services/apiAdminService";
+
+import styles from "./Login.module.scss";
+import { readCartTotal, readJWT } from "../../services/apiUserService";
+import jwtDecode from "../../routes/jwtDecode";
+import { CountCartContext } from "../../hooks/DataContext";
 
 const cx = classNames.bind(styles);
 
 const Login = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  const [data, setData] = useState({
-    valueLogin: "",
-    password: "",
-  });
+  const navigate = useNavigate()
+  const { setCountCart } = useContext(CountCartContext)
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+  const [data, setData] = useState({ valueLogin: "", password: "", });
+
+  const fetchJWT = async () => {
+    let decoded = false
+    const resJWT = await readJWT();
+    if (resJWT?.DT?.jwt) {
+      decoded = await jwtDecode(resJWT?.DT?.jwt)
+      fetchCartWithId(decoded?.user?.id)
+    }
+  };
+  const fetchCartWithId = async (idUser) => {
+    const fetchCart = await readCartTotal(idUser)
+    setCountCart(fetchCart.DT)
+  }
+
   const isCheckInputs = () => {
     if (!data.valueLogin) {
       toast("Vui lòng nhập email hoặc số điện thoại");
@@ -42,15 +57,17 @@ const Login = () => {
     let isCheck = isCheckInputs();
     if (isCheck === true) {
       let response = await loginUser(data);
-      let currentDataUsers = response?.DT?.dataUsers;
-      let currentRoleName = response?.DT?.groupWithRoles?.name;
-      let resDataUsers = { currentDataUsers, currentRoleName };
+      // let currentDataUsers = response?.DT?.dataUsers;
+      // let currentRoleName = response?.DT?.groupWithRoles?.name;
+      // let resDataUsers = { currentDataUsers, currentRoleName };
+
       // add localStorage user
-      localStorage.setItem("dataUsers", JSON.stringify(resDataUsers));
+      // localStorage.setItem("dataUsers", JSON.stringify(resDataUsers));
 
       if (response && response.EC === 0) {
         toast.success(response.EM);
-        window.location.href = "/";
+        navigate("/")
+        fetchJWT()
       } else {
         toast.error(response.EM);
       }

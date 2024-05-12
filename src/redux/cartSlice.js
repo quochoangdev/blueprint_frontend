@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  _id: "",
+  id: "",
   title: "",
   imageAvt: "",
   colors: "",
-  capacitys: "",
+  capacity: "",
   price: "",
   slug: "",
 };
