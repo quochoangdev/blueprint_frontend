@@ -7,7 +7,7 @@ import { loginUser } from "../../services/apiAdminService";
 
 import styles from "./Login.module.scss";
 import { readCartTotal, readJWT } from "../../services/apiUserService";
-import jwtDecode from "../../routes/jwtDecode";
+import jwtDecode from "../../hooks/jwtDecode";
 import { CountCartContext } from "../../hooks/DataContext";
 
 const cx = classNames.bind(styles);

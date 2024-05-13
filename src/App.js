@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import DefaultLayout from "./layout/DefaultLayout";
 import { publicRoutes } from "./routes/routes";
 import { readCartTotal, readJWT } from "./services/apiUserService";
-import jwtDecode from "./routes/jwtDecode";
+import jwtDecode from "./hooks/jwtDecode";
 import { CountCartContext } from "./hooks/DataContext";
 
 //

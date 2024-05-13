@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import config from "../../../config";
 import { useEffect, useState } from "react";
 import { readJWT } from "../../../services/apiUserService";
-import jwtDecode from "../../../routes/jwtDecode";
+import jwtDecode from "../../../hooks/jwtDecode";
 import styles from "./Header.module.scss";
 
 const cx = classNames.bind(styles);

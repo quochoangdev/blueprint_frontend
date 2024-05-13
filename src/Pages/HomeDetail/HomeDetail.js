@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
 import { createCart, readCartTotal, readJWT, readProductDetail } from "../../services/apiUserService";
 import { FiShoppingCart } from "react-icons/fi";
-import jwtDecode from "../../routes/jwtDecode";
+import jwtDecode from "../../hooks/jwtDecode";
 import { CountCartContext } from "../../hooks/DataContext";
 import config from '../../config'
 

@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoTrash } from "react-icons/go";
 import config from "../../config";
 import { readJWT } from "../../services/apiUserService";
-import jwtDecode from "../../routes/jwtDecode";
+import jwtDecode from "../../hooks/jwtDecode";
 
 const cx = classNames.bind(styles);
 

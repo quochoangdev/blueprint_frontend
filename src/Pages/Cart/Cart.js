@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addCheckout } from "../../redux/cartSlice";
 import { readCart, readJWT } from "../../services/apiUserService";
 import ReactPaginateBlock from "../../layout/components/ReactPaginateBlock/ReactPaginateBlock";
-import jwtDecode from "../../routes/jwtDecode";
+import jwtDecode from "../../hooks/jwtDecode";
 import CartItem from "./CartItem";
 import styles from "./Cart.module.scss";
 import config from "../../config";

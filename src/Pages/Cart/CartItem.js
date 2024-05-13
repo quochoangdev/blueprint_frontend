@@ -7,7 +7,7 @@ import { GoTrash } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { deleteCart, readCartTotal, readJWT } from "../../services/apiUserService";
 import { toast } from "react-toastify";
-import jwtDecode from "../../routes/jwtDecode";
+import jwtDecode from "../../hooks/jwtDecode";
 import { CountCartContext } from "../../hooks/DataContext";
 import config from "../../config";
 import classNames from "classnames/bind";

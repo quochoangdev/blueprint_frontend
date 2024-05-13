@@ -12,7 +12,7 @@ import { readJWT } from "../../../services/apiUserService";
 import MobileSl from "./MobileSl";
 import TabletSl from "./TabletSl";
 import LaptopSl from "./LaptopSl";
-import jwtDecode from "../../../routes/jwtDecode";
+import jwtDecode from "../../../hooks/jwtDecode";
 import { CountCartContext } from "../../../hooks/DataContext";
 
 
