@@ -1,6 +1,7 @@
 const routes = {
   // routes
   home: "/",
+  profile: "profile",
   homeDetail: "/:slug",
   dichVu: "dich-vu",
   baoGia: "bao-gia",

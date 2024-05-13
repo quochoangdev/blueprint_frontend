@@ -1,8 +1,8 @@
 import config from "../config";
 import DefaultLayout from "../layout/DefaultLayout";
+import DefaultLayoutNoContact from "../layout/DefaultLayoutNoContact";
 import HeadlessLayout from "../layout/HeadlessLayout";
 import AdminLayout from "../layout/AdminLayout";
-// import HomeLayout from "../layout/HomeLayout";
 
 // Page
 import Home from "../Pages/Home";
@@ -16,6 +16,7 @@ import CheckOut from "../Pages/CheckOut";
 import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 import Logout from "../Pages/Logout";
+import Profile from "../Pages/Profile";
 
 // Sub page
 import Mobile from "../Pages/Mobile";
@@ -52,6 +53,11 @@ const publicRoutes = [
     layout: DefaultLayout,
   },
   {
+    path: config.routes.profile,
+    component: Profile,
+    layout: DefaultLayoutNoContact,
+  },
+  {
     path: config.routes.dichVu,
     component: DichVu,
     layout: DefaultLayout,
@@ -74,12 +80,12 @@ const publicRoutes = [
   {
     path: config.routes.cart,
     component: Cart,
-    layout: HeadlessLayout,
+    layout: DefaultLayoutNoContact,
   },
   {
     path: config.routes.checkout,
     component: CheckOut,
-    layout: DefaultLayout,
+    layout: DefaultLayoutNoContact,
   },
   {
     path: config.routes.login,

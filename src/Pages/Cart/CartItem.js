@@ -1,19 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import classNames from "classnames/bind";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addCheckout } from "../../redux/cartSlice";
 import styles from "./Cart.module.scss";
 import { GoTrash } from "react-icons/go";
 import { Link } from "react-router-dom";
-import { deleteCart, readCartTotal, readJWT, readProductId } from "../../services/apiUserService";
+import { deleteCart, readCartTotal, readJWT } from "../../services/apiUserService";
 import { toast } from "react-toastify";
 import jwtDecode from "../../routes/jwtDecode";
 import { CountCartContext } from "../../hooks/DataContext";
+import config from "../../config";
+import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
 const CartItem = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userLogin, setUserLogin] = useState()
   const { setCountCart } = useContext(CountCartContext)
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchJWT(); }, []);
   const fetchJWT = async () => {
@@ -25,12 +30,11 @@ const CartItem = (props) => {
     }
     setUserLogin(decoded)
   };
+
   const fetchCartWithId = async (idUser) => {
     const fetchCart = await readCartTotal(idUser)
     setCountCart(fetchCart.DT)
   }
-
-
 
   // handle delete
   const handleDeleteCart = async (id) => {
@@ -46,15 +50,21 @@ const CartItem = (props) => {
     }
   };
 
+  const handleBuy = (e) => {
+    const convertToArray = [props?.product]
+    e.preventDefault(); dispatch(addCheckout(convertToArray));
+    navigate(`/${config.routes.checkout}`)
+  };
+
   const formatNumber = (number) => { return number.toLocaleString("vi-VN"); };
 
   return (
-    <div className={cx("content")}>
-      <div className={cx("content-1")}>
+    <div className={cx("content")} >
+      <Link className={cx("content-1")} to={`/${props?.product?.slug}`}>
         {props?.product && <img src={props?.product?.image} alt="error" />}
-      </div>
+      </Link>
       <div className={cx("content-2")}>
-        <div className={cx("heading")}>{props?.product?.title}</div>
+        <Link className={cx("heading")} to={`/${props?.product?.slug}`}>{props?.product?.title}</Link>
         <div className={cx("address")}>
           Dung lượng: {props?.product?.capacity}
         </div>
@@ -66,7 +76,7 @@ const CartItem = (props) => {
       </div>
       <div className={cx("content-4")}>
         <div className={cx("buy")}>
-          <Link className={cx("buy-btn")} to={`/`}>
+          <Link className={cx("buy-btn")} to={`/${config.routes.checkout}`} onClick={handleBuy}>
             Mua Ngay
           </Link>
         </div>

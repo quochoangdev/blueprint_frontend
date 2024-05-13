@@ -1,7 +1,9 @@
 import classNames from "classnames/bind";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addCheckout } from "../../redux/cartSlice";
 import { PiStarThin } from "react-icons/pi";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { FaCheckCircle } from "react-icons/fa";
@@ -10,12 +12,11 @@ import { TbReplace } from "react-icons/tb";
 import { FaCircleChevronLeft, FaCircleChevronRight, FaGift } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
-import { useDispatch } from "react-redux";
-import { addCartItem } from "../../redux/cartSlice";
 import { createCart, readCartTotal, readJWT, readProductDetail } from "../../services/apiUserService";
 import { FiShoppingCart } from "react-icons/fi";
 import jwtDecode from "../../routes/jwtDecode";
 import { CountCartContext } from "../../hooks/DataContext";
+import config from '../../config'
 
 
 import styles from "./HomeDetail.module.scss";
@@ -110,7 +111,6 @@ const HomeDetail = () => {
   // handle compact
   const handleCompact = () => { setCompact((prev) => !prev); };
 
-  console.log(data)
   // handle buy
   useEffect(() => {
     setDataBuy(() => {
@@ -127,9 +127,11 @@ const HomeDetail = () => {
       };
     });
   }, [data, priceDiscount, selectedCapacity, selectedColor, userLogin?.user?.id]);
+
   const handleBuy = (e) => {
-    console.log(dataBuy)
-    e.preventDefault(); dispatch(addCartItem(dataBuy));
+    const convertToArray = [dataBuy]
+    e.preventDefault(); dispatch(addCheckout(convertToArray));
+    navigate(`/${config.routes.checkout}`)
   };
 
   // handle add cart

@@ -5,30 +5,46 @@ import { IoLocationSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 // import { HiMinus, HiPlus } from "react-icons/hi";
 import { GoTrash } from "react-icons/go";
+import config from "../../config";
+import { readJWT } from "../../services/apiUserService";
+import jwtDecode from "../../routes/jwtDecode";
 
 const cx = classNames.bind(styles);
 
 const CheckOut = () => {
   const navigate = useNavigate();
-  const [infoCustomer, setInfoCustomer] = useState();
-  const [productData, setProductData] = useState();
+  const [dataCheckout, setDataCheckout] = useState();
+  const [userLogin, setUserLogin] = useState()
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const dataCustomer = JSON.parse(localStorage.getItem("dataCustomer"));
-    setInfoCustomer(dataCustomer.infoCustomer);
-    setProductData(dataCustomer.productData);
+    const dataCheckout = JSON.parse(localStorage.getItem("dataCheckout"));
+    console.log(dataCheckout)
+    setDataCheckout(dataCheckout)
   }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchJWT(); }, []);
+  const fetchJWT = async () => {
+    let decoded = false
+    const resJWT = await readJWT();
+    if (resJWT?.DT?.jwt) {
+      decoded = await jwtDecode(resJWT?.DT?.jwt)
+    }
+    setUserLogin(decoded?.user)
+  };
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    console.log(">>>Check infoCustomer", infoCustomer);
-    console.log(">>>Check productData", productData);
   };
 
-  const formatNumber = (number) => {
-    return number.toLocaleString("vi-VN");
-  };
+  const formatNumber = (number) => { return number.toLocaleString("vi-VN"); };
+
+  const totalPrice = () => {
+    return dataCheckout && dataCheckout.reduce((total, product) => {
+      return total + product?.priceDiscount
+    }, 0)
+  }
 
   return (
     <>
@@ -54,10 +70,10 @@ const CheckOut = () => {
             </div>
             <div className={cx("content")}>
               <div className={cx("content-1")}>
-                {infoCustomer?.name} {infoCustomer?.phone}
+                {userLogin?.lastName} {userLogin?.firstName}{" / "}{userLogin?.phone}
               </div>
               <div className={cx("content-2")}>
-                {infoCustomer?.district} {infoCustomer?.city}
+                {userLogin?.address}
               </div>
               <Link className={cx("content-3")}>Thay Đổi</Link>
             </div>
@@ -71,18 +87,20 @@ const CheckOut = () => {
                   <div className={cx("title-2")}>Tên sản phẩm</div>
                 </div>
                 <div className={cx("container")}>
-                  <div className={cx("content")}>
-                    <div className={cx("content-1")}>
-                      <img src={`${productData?.image[0]}`} alt="" />
-                    </div>
-                    <div className={cx("content-2")}>
-                      <div className={cx("heading")}>{productData?.title}</div>
-                      {/* <div className={cx("address")}>Khu vực: Khu vực miền Bắc</div> */}
-                      <div className={cx("color")}>
-                        Diện tích: {productData?.width * productData?.length}m2
+                  {dataCheckout && dataCheckout.map((product, index) => (
+                    <div className={cx("content")} key={index}>
+                      <div className={cx("content-1")}>
+                        <img src={`${product?.image}`} alt="" />
+                      </div>
+                      <div className={cx("content-2")}>
+                        <div className={cx("heading")}>{product?.title}</div>
+                        <div className={cx("address")}>Giá: {product && formatNumber(product?.priceDiscount)}₫</div>
+                        <div className={cx("color")}>
+                          Màu: {product?.color}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -91,23 +109,23 @@ const CheckOut = () => {
                 <div className={cx("total-1")}>
                   <div className={cx("title-1")}>Tổng tiền hàng</div>
                   <div className={cx("text-1")}>
-                    ₫{productData && formatNumber(productData?.price)}
+                    ₫{dataCheckout && formatNumber(totalPrice())}
                   </div>
                 </div>
                 <div className={cx("total-2")}>
                   <div className={cx("title-2")}>Phí vận chuyển</div>
-                  <div className={cx("text-2")}>₫92.200</div>
+                  <div className={cx("text-2")}>₫0</div>
                 </div>
                 <div className={cx("total-3")}>
                   <div className={cx("title-3")}>Tổng thanh toán</div>
                   <div className={cx("text-3")}>
-                    ₫{productData && formatNumber(productData?.price)}
+                    ₫{dataCheckout && formatNumber(totalPrice())}
                   </div>
                 </div>
                 <div className={cx("bl-btn")}>
                   <div className={cx("bl-buy")}>
-                    <Link to={"/"} className={cx("buy")}>
-                      Tiếp tục mua sắm
+                    <Link to={`/${config.routes.cart}`} className={cx("buy")}>
+                      Quay lại giỏ hàng
                     </Link>
                   </div>
                   <button type="submit" className={cx("btn")} onClick={(e) => handleCheckout(e)}>

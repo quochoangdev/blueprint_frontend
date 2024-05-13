@@ -125,7 +125,6 @@
             .inner-left {
                 flex: 2;
 
-
                 .bl-table {
                     width: 100%;
 
@@ -349,6 +348,8 @@
                     }
 
                     .buy:hover {
+                        color     : #fff;
+                        background: #0066CC;
                         box-shadow: 4px 4px 2px 0px #cdcdcd;
                     }
                 }

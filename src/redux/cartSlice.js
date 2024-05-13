@@ -1,24 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: "",
-  title: "",
-  imageAvt: "",
-  colors: "",
-  capacity: "",
-  price: "",
-  slug: "",
+  dataCheckout: {}
 };
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addCartItem: (state, action) => {
-      console.log(action);
+    addCheckout: (state, action) => {
+      state.dataCheckout = action.payload
+      localStorage.setItem("dataCheckout", JSON.stringify(action.payload))
     },
   },
 });
 
-export const { addCartItem } = cartSlice.actions;
+export const { addCheckout } = cartSlice.actions;
 export default cartSlice.reducer;

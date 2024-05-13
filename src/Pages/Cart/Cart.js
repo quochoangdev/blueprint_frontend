@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addCheckout } from "../../redux/cartSlice";
 import { readCart, readJWT } from "../../services/apiUserService";
 import ReactPaginateBlock from "../../layout/components/ReactPaginateBlock/ReactPaginateBlock";
 import jwtDecode from "../../routes/jwtDecode";
 import CartItem from "./CartItem";
 import styles from "./Cart.module.scss";
+import config from "../../config";
 
 const cx = classNames.bind(styles);
 
 const Cart = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [productData, setProductData] = useState();
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [currentLimit, setCurrentLimit] = useState(10);
+    const [currentLimit, setCurrentLimit] = useState(5);
     const [totalPages, setTotalPages] = useState(0);
 
     // Page
@@ -23,7 +28,7 @@ const Cart = () => {
 
     // Call Api
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { fetchJWT(); setCurrentLimit(10); }, [currentPage]);
+    useEffect(() => { fetchJWT(); setCurrentLimit(5); }, [currentPage]);
     const fetchJWT = async () => {
         let decoded = false
         const resJWT = await readJWT();
@@ -37,6 +42,19 @@ const Cart = () => {
         setTotalPages(fetchCart?.DT?.totalPages);
         setProductData(fetchCart?.DT?.carts)
     }
+
+    const totalPrice = () => {
+        return productData && productData.reduce((total, product) => {
+            return total + product?.priceDiscount
+        }, 0)
+    }
+
+    const handleBuy = (e) => {
+        e.preventDefault(); dispatch(addCheckout(productData));
+        navigate(`/${config.routes.checkout}`)
+    };
+
+    const formatNumber = (number) => { return number.toLocaleString("vi-VN"); };
 
     return (
         <div className={cx("wrapper")}>
@@ -53,9 +71,11 @@ const Cart = () => {
                         {productData && productData.map((product, index) => {
                             return (<CartItem key={`cart-${index}`} product={product} fetchProducts={fetchJWT} />);
                         })}
+                        <div className={cx("total-price")}>Tổng tiền: {productData && formatNumber(totalPrice())}₫</div>
                     </div>
                     <div className={cx("bl-buy")}>
                         {totalPages > 0 && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
+                        <Link to={`/${config.routes.checkout}`} className={cx("buy")} onClick={handleBuy}>Mua tất cả</Link>
                         <Link to={"/"} className={cx("buy")}>Tiếp tục mua sắm</Link>
                     </div>
                 </div>
