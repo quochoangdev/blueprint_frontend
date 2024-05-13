@@ -13,7 +13,6 @@ const cx = classNames.bind(styles);
 const CartItem = (props) => {
   const [userLogin, setUserLogin] = useState()
   const { setCountCart } = useContext(CountCartContext)
-  const firstImageColor = Object.keys(props?.product?.image)[0]
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchJWT(); }, []);
@@ -52,7 +51,7 @@ const CartItem = (props) => {
   return (
     <div className={cx("content")}>
       <div className={cx("content-1")}>
-        {props?.product?.image && <img src={props?.product?.image[firstImageColor][0]} alt="error" />}
+        {props?.product && <img src={props?.product?.image} alt="error" />}
       </div>
       <div className={cx("content-2")}>
         <div className={cx("heading")}>{props?.product?.title}</div>
@@ -61,7 +60,10 @@ const CartItem = (props) => {
         </div>
         <div className={cx("color")}>Màu: {props?.product?.color}</div>
       </div>
-      <div className={cx("content-3")}>{props?.product && formatNumber(props?.product?.price)}₫</div>
+      <div className={cx("content-3")}>
+        <div>Giá: {props?.product && formatNumber(props?.product?.price)}₫ - ({props?.product?.percentDiscount}%)</div>
+        <div>Thanh toán: {props?.product && formatNumber(props?.product?.priceDiscount)}₫</div>
+      </div>
       <div className={cx("content-4")}>
         <div className={cx("buy")}>
           <Link className={cx("buy-btn")} to={`/`}>

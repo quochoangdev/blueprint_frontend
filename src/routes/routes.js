@@ -74,7 +74,7 @@ const publicRoutes = [
   {
     path: config.routes.cart,
     component: Cart,
-    layout: DefaultLayout,
+    layout: HeadlessLayout,
   },
   {
     path: config.routes.checkout,

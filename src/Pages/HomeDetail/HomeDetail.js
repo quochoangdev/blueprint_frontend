@@ -110,20 +110,23 @@ const HomeDetail = () => {
   // handle compact
   const handleCompact = () => { setCompact((prev) => !prev); };
 
+  console.log(data)
   // handle buy
   useEffect(() => {
     setDataBuy(() => {
       return {
-        id: data?.id,
         title: data?.title,
         image: selectedColor && data?.image[selectedColor][0],
         color: data && selectedColor,
         capacity: data && selectedCapacity,
-        price: data && priceDiscount,
+        price: data?.price,
+        priceDiscount: data && priceDiscount,
+        percentDiscount: data?.percentDiscount,
         slug: data?.slug,
+        idUser: userLogin?.user?.id
       };
     });
-  }, [data, priceDiscount, selectedCapacity, selectedColor]);
+  }, [data, priceDiscount, selectedCapacity, selectedColor, userLogin?.user?.id]);
   const handleBuy = (e) => {
     console.log(dataBuy)
     e.preventDefault(); dispatch(addCartItem(dataBuy));
@@ -132,8 +135,7 @@ const HomeDetail = () => {
   // handle add cart
   const handleAddCart = async (e) => {
     e.preventDefault();
-    const dataObj = { idUser: userLogin?.user?.id, idProduct: data?.id }
-    const fetchCart = await createCart(dataObj)
+    const fetchCart = await createCart(dataBuy)
     if (fetchCart?.EC === 0) {
       toast.success(fetchCart?.EM);
       fetchJWT()
