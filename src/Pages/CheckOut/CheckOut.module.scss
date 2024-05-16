@@ -86,6 +86,11 @@
                     font-weight: 500;
                 }
 
+                .content-3:hover {
+                    color          : var(--primary);
+                    text-decoration: underline;
+                }
+
                 .content-1 {
                     font-weight : 700;
                     margin-right: 20px;

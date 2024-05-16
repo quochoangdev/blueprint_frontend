@@ -48,6 +48,9 @@ const User = ({ icon }) => {
             <div className={cx("subnav-user-link")}>
               {userLogin?.user?.lastName}{" "}{userLogin?.user?.firstName}{" "}{`(${userLogin?.groupWithRoles?.name})`}
             </div>
+            <Link className={cx("subnav-user-link")} to={`/${config.routes.profile}`}>
+              Thông tin cá nhân
+            </Link>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.logout}`}>
               Đăng xuất
             </Link>

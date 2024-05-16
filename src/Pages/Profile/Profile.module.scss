@@ -1,0 +1,188 @@
+.form-wrapper {
+    min-height: 700px;
+}
+
+.title {
+    font-size: 2.4rem;
+}
+
+.two-row {
+    display        : flex;
+    justify-content: space-between;
+    margin-bottom  : 10px;
+
+    .bl-input {
+        width: 48.5%;
+
+        label {
+            font-size  : 1.6rem;
+            font-weight: 400;
+            color      : #000;
+        }
+
+        input {
+            width    : 100%;
+            font-size: 1.6rem;
+            border   : 1px solid #EBEBEB;
+            padding  : 8px 8px 8px 8px;
+        }
+
+        input:focus-visible {
+            outline: unset;
+        }
+    }
+
+    .bl-select {
+        width: 48.5%;
+
+        label {
+            font-size  : 1.6rem;
+            font-weight: 400;
+            color      : #000;
+        }
+
+        select {
+            width    : 100%;
+            font-size: 1.6rem;
+            border   : 1px solid #EBEBEB;
+            padding  : 8px 8px 8px 8px;
+        }
+
+        select:focus-visible {
+            outline: unset;
+        }
+    }
+}
+
+.bl-one-input {
+    margin-bottom: 10px;
+
+    label {
+        font-size  : 1.6rem;
+        font-weight: 400;
+        color      : #000;
+    }
+
+    input {
+        width    : 100%;
+        font-size: 1.6rem;
+        border   : 1px solid #EBEBEB;
+        padding  : 8px 8px 8px 8px;
+    }
+
+    input:focus-visible {
+        outline: unset;
+    }
+
+    .bl-avatar {
+        display       : flex;
+        flex-direction: column;
+        align-items   : center;
+        padding       : 20px 0;
+
+        .img {
+            width        : 150px;
+            height       : 150px;
+            object-fit   : cover;
+            border-radius: 50%;
+        }
+
+        .icon {
+            width        : 130px;
+            height       : 130px;
+            border-radius: 50%;
+        }
+
+        .bl-file {
+            margin-top: 4px;
+
+            .title {
+                font-size   : 1.6rem;
+                font-weight : 400;
+                color       : #000;
+                margin-right: 5px;
+            }
+
+            .file {
+                color : #F5F5F5;
+                width : 119px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.is-valid {
+    border: 1px solid red !important;
+}
+
+// Btn
+.btn {
+    font-size    : 1.6rem;
+    color        : #fff;
+    width        : 70px;
+    height       : 35px;
+    border-radius: 5px;
+    border       : none;
+    cursor       : pointer;
+}
+
+.secondary {
+    background-color: #6C757D;
+
+    &:hover {
+        background-color: #5c636a;
+    }
+}
+
+.primary {
+    background-color: #0D6EFD;
+
+    &:hover {
+        background-color: #0a58ca;
+    }
+}
+
+// Error icon
+.bl-icon {
+    position: relative;
+
+    .icon {
+        color    : red;
+        right    : 8px;
+        top      : 50%;
+        transform: translateY(-50%);
+        position : absolute;
+    }
+}
+
+.valid-start {
+    color: red;
+}
+
+.confirm {
+    display        : flex;
+    justify-content: center;
+    padding        : 10px;
+
+    .email-letter-register {
+        font-size       : 1.4rem;
+        display         : flex;
+        align-items     : center;
+        color           : #fff;
+        height          : 42px;
+        padding         : 0 15px;
+        font-weight     : 500;
+        border          : 1px solid var(--primary);
+        background-color: var(--primary);
+
+        .email-letter-register-icon {
+            margin-left: 3px;
+            font-size  : 1.7rem;
+        }
+    }
+
+    .email-letter-register:hover {
+        box-shadow: 4px 4px 2px 0px #cdcdcd;
+    }
+}

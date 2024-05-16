@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { HiMinus, HiPlus } from "react-icons/hi";
 import { GoTrash } from "react-icons/go";
 import config from "../../config";
-import { readJWT } from "../../services/apiUserService";
+import { readCities, readDistricts, readJWT } from "../../services/apiUserService";
 import jwtDecode from "../../hooks/jwtDecode";
 
 const cx = classNames.bind(styles);
@@ -15,11 +15,12 @@ const CheckOut = () => {
   const navigate = useNavigate();
   const [dataCheckout, setDataCheckout] = useState();
   const [userLogin, setUserLogin] = useState()
+  const [cities, setCities] = useState()
+  const [districts, setDistricts] = useState()
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const dataCheckout = JSON.parse(localStorage.getItem("dataCheckout"));
-    console.log(dataCheckout)
     setDataCheckout(dataCheckout)
   }, []);
 
@@ -32,10 +33,23 @@ const CheckOut = () => {
       decoded = await jwtDecode(resJWT?.DT?.jwt)
     }
     setUserLogin(decoded?.user)
+
+    if (decoded?.user?.cities) {
+      let city = await readCities(decoded?.user?.cities)
+      if (city?.EC === 0) { setCities(city?.DT?.name) }
+    }
+
+    if (decoded?.user?.districts) {
+      let district = await readDistricts(null, decoded?.user?.districts)
+      if (district?.EC === 0) { setDistricts(district?.DT?.name) }
+    }
+    // setCities(decoded?.user?.cities)
+    // setDistricts(decoded?.user?.districts)
   };
 
   const handleCheckout = (e) => {
     e.preventDefault();
+    console.log(dataCheckout)
   };
 
   const formatNumber = (number) => { return number.toLocaleString("vi-VN"); };
@@ -70,12 +84,12 @@ const CheckOut = () => {
             </div>
             <div className={cx("content")}>
               <div className={cx("content-1")}>
-                {userLogin?.lastName} {userLogin?.firstName}{" / "}{userLogin?.phone}
+                {userLogin?.lastName} {userLogin?.firstName}{userLogin && " / "}{userLogin?.phone}
               </div>
               <div className={cx("content-2")}>
-                {userLogin?.address}
+                {cities && cities}{userLogin && ' - '}{districts && districts}{userLogin && " - "}{userLogin?.address}
               </div>
-              <Link className={cx("content-3")}>Thay Đổi</Link>
+              <Link className={cx("content-3")} to={`/${config.routes.profile}`}>Thay Đổi</Link>
             </div>
           </div>
           <div className={cx("title-product")}>Sản phẩm</div>

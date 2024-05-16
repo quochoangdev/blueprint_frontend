@@ -215,7 +215,7 @@ const ModalEditUser = (props) => {
               <div className={cx("bl-input")}>
                 <label>Address</label>
                 <input
-                  value={data && data?.address}
+                  value={(data && data?.address) || ""}
                   type="text"
                   name="address"
                   onChange={handleOnChange}
