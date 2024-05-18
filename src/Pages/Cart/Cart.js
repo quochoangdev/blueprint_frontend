@@ -57,30 +57,37 @@ const Cart = () => {
     const formatNumber = (number) => { return number.toLocaleString("vi-VN"); };
 
     return (
-        <div className={cx("wrapper")}>
-            <div className={cx("inner-left")}>
-                <div className={cx("bl-table")}>
-                    <div className={cx("title")}>
-                        <div className={cx("title-1")}>Hình ảnh</div>
-                        <div className={cx("title-2")}>Tên sản phẩm</div>
-                        <div className={cx("title-3")}>Giá bán</div>
-                        <div className={cx("title-4")}>Số lượng</div>
-                        <div className={cx("title-5")}></div>
+        <>
+            {productData && productData?.length > 0 ?
+                <div className={cx("wrapper")}>
+                    <div className={cx("inner-left")}>
+                        <div className={cx("bl-table")}>
+                            <div className={cx("title")}>
+                                <div className={cx("title-1")}>Hình ảnh</div>
+                                <div className={cx("title-2")}>Tên sản phẩm</div>
+                                <div className={cx("title-3")}>Giá bán</div>
+                                <div className={cx("title-4")}>Số lượng</div>
+                                <div className={cx("title-5")}></div>
+                            </div>
+                            <div className={cx("container")}>
+                                {productData && productData.map((product, index) => {
+                                    return (<CartItem key={`cart-${index}`} product={product} fetchProducts={fetchJWT} />);
+                                })}
+                                <div className={cx("total-price")}>Tổng tiền: {productData && formatNumber(totalPrice())}₫</div>
+                            </div>
+                            <div className={cx("bl-buy")}>
+                                {totalPages > 0 && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
+                                <Link to={`/${config.routes.checkout}`} className={cx("buy")} onClick={handleBuy}>Mua tất cả</Link>
+                                <Link to={"/"} className={cx("buy")}>Tiếp tục mua sắm</Link>
+                            </div>
+                        </div>
                     </div>
-                    <div className={cx("container")}>
-                        {productData && productData.map((product, index) => {
-                            return (<CartItem key={`cart-${index}`} product={product} fetchProducts={fetchJWT} />);
-                        })}
-                        <div className={cx("total-price")}>Tổng tiền: {productData && formatNumber(totalPrice())}₫</div>
-                    </div>
-                    <div className={cx("bl-buy")}>
-                        {totalPages > 0 && <ReactPaginateBlock handlePageClick={handlePageClick} totalPages={totalPages} />}
-                        <Link to={`/${config.routes.checkout}`} className={cx("buy")} onClick={handleBuy}>Mua tất cả</Link>
-                        <Link to={"/"} className={cx("buy")}>Tiếp tục mua sắm</Link>
-                    </div>
+                </div> :
+                <div className={cx("no-cart")}>
+                    <img src="https://res.cloudinary.com/dqhj1sukr/image/upload/v1716057739/ecommerce/bb5ehztkhkwx51g2s6ez.png" alt="" />
                 </div>
-            </div>
-        </div>
+            }
+        </>
     );
 };
 

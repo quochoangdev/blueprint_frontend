@@ -11,20 +11,19 @@ const cx = classNames.bind(styles);
 const User = ({ icon }) => {
   const [userLogin, setUserLogin] = useState()
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
-
-  useEffect(() => { fetchJWT(); }, []);
+  useEffect(() => { fetchJWT(); window.scrollTo(0, 0); }, []);
   const fetchJWT = async () => {
     let decoded = false
     const resJWT = await readJWT();
     if (resJWT?.DT?.jwt) { decoded = await jwtDecode(resJWT?.DT?.jwt) }
     setUserLogin(decoded)
   };
-
   return (
     <div className={cx("social-category-user")}>
-      {!!userLogin === true ? (
-        <div className={cx("social-category-link")}>{icon}</div>
+      {!!userLogin?.user?.image === true ? (
+        <div className={cx("social-category-link")}>
+          {userLogin ? <img className={cx("image-avatar")} src={userLogin?.user?.image} alt="" /> : { icon }}
+        </div>
       ) : (
         <Link className={cx("social-category-link")} to={`/${config.routes.login}`}>
           {icon}

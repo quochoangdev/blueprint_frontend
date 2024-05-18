@@ -173,6 +173,13 @@
             font-size      : 2.3rem;
             text-decoration: none;
 
+            .image-avatar {
+                width        : 30px;
+                height       : 30px;
+                object-fit   : cover;
+                border-radius: 50%;
+            }
+
             .car-quantity {
                 position        : absolute;
                 display         : flex;

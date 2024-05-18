@@ -220,3 +220,13 @@
         --bs-pagination-font-size: 1.6rem;
     }
 }
+
+// no cart
+.no-cart {
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    width           : 100%;
+    height          : 540px;
+    background-color: #fff;
+}
