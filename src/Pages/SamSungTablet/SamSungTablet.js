@@ -3,36 +3,37 @@ import classNames from "classnames/bind";
 import SliderDefaultLayout from "../../layout/components/SliderDefaultLayout";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
 import { readProductFilter } from "../../services/apiUserService";
-import { Link } from "react-router-dom";
 
-import styles from "./Laptop.module.scss";
+import styles from "./SamSungTablet.module.scss";
 import ReactPaginateBlock from "../../layout/components/ReactPaginateBlock/ReactPaginateBlock";
-import config from "../../config";
 
 const cx = classNames.bind(styles);
-const Laptop = () => {
+const SamSungTablet = () => {
+
   // Pagination
   const [listDataProduct, setListDataProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentLimit, setCurrentLimit] = useState(12);
   const [totalPages, setTotalPages] = useState(0);
 
-  const allCategory = ["Tất cả", "MacBook"];
+  const allVersion = [{ key: "Tất cả", value: "" }, { key: "Galaxy Tab A", value: "tab a" }, { key: "Galaxy Tab S", value: "tab s" }];
 
-  const [selectCategory, setSelectCategory] = useState("Tất cả");
+  const [selectVersion, setSelectVersion] = useState("Tất cả");
+
   const [sort, setSort] = useState(null);
+  const [version, setVersion] = useState(null);
 
   // Page
   const handlePageClick = (event) => {
     setCurrentPage(event.selected + 1);
   };
-  // console.log(version?.toLowerCase())
 
   useEffect(() => {
-    fetchProducts("laptop", null, null, null);
+    fetchProducts("Tablet", "samsung", null, null);
     setCurrentLimit(12);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
+
 
   const fetchProducts = async (categories, brand, version, sort) => {
     let data = await readProductFilter(currentPage, currentLimit, categories, brand, version, sort);
@@ -41,15 +42,16 @@ const Laptop = () => {
   };
 
   // handle click item category
-  const handleClickItemCategory = (category) => {
-    setSelectCategory(category);
-    fetchProducts("laptop", category?.toLowerCase(), null, sort);
+  const handleClickItemCategory = (key, value) => {
+    setSelectVersion(key);
+    setVersion(value)
+    fetchProducts("Tablet", "samsung", value, sort);
   };
 
-  const handleCategorySelect = (e) => {
+  const handleCategorySelect = async (e) => {
     if (e.target.value !== false) {
       setSort(e.target.value);
-      fetchProducts("laptop", selectCategory, null, e.target.value);
+      fetchProducts("Tablet", "samsung", version, e.target.value);
     }
   };
 
@@ -66,15 +68,14 @@ const Laptop = () => {
         <div className={cx("all-category")}>
           <div className={cx("category-left")}>
             <div className={cx("category")}>
-              {allCategory.map((item, index) => {
+              {allVersion.map((item, index) => {
                 return (
-                  <div className={cx("category-item", `${item === selectCategory ? "active" : ""}`)} key={index} onClick={() => handleClickItemCategory(item)}>{item}</div>
+                  <div className={cx("category-item", `${item?.key === selectVersion ? "active" : ""}`)} key={index} onClick={() => handleClickItemCategory(item?.key, item?.value)}>{item?.key}</div>
                 );
               })}
             </div>
           </div>
           <div className={cx("category-right")}>
-            {selectCategory !== "Tất cả" && <Link className={cx("show-link")} to={`/${config.routes.laptop}/${selectCategory.toLocaleLowerCase()}`}>Xem chi tiết {selectCategory}</Link>}
             <select onChange={handleCategorySelect}>
               <option value={false}>Thứ tự hiển thị</option>
               <option value={"title"}>Tên: A đến Z</option>
@@ -94,4 +95,4 @@ const Laptop = () => {
   );
 };
 
-export default Laptop;
+export default SamSungTablet;

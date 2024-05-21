@@ -2,6 +2,7 @@ const routes = {
   // routes
   home: "/",
   profile: "profile",
+  order: "order",
   homeDetail: "/:slug",
   dichVu: "dich-vu",
   baoGia: "bao-gia",
@@ -17,7 +18,10 @@ const routes = {
   iphone: "dien-thoai/iphone",
   samsung: "dien-thoai/samsung",
   tablet: "tablet",
+  ipad: "tablet/ipad",
+  samsungTablet: "tablet/samsung",
   laptop: "laptop",
+  macbook: "laptop/macbook",
   // admin
   homeAdmin: "admin/dashboard",
   userAdmin: "admin/users",

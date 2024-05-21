@@ -67,18 +67,6 @@ const Footer = () => {
                 <a className={cx("list-item")} href="/">
                   Nhà 4 tầng
                 </a>
-                <a className={cx("list-item")} href="/">
-                  Nhà 5 tầng
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Nhà 6 tầng
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Mẫu biệt thự đẹp
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Mẫu khách sạn đẹp
-                </a>
               </div>
             </div>
             {/*  */}
@@ -100,18 +88,6 @@ const Footer = () => {
                 <a className={cx("list-item")} href="/">
                   Bảo hành
                 </a>
-                <a className={cx("list-item")} href="/">
-                  Dịch vụ
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Giải quyết khiếu nại
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Bảo mật thông tin
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Hướng dẫn thanh toán qua VNPAY
-                </a>
               </div>
             </div>
             {/*  */}
@@ -132,9 +108,6 @@ const Footer = () => {
                 </a>
                 <span className={cx("list-item-location")}>
                   Chi nhánh 1: khu vực Hà Nội và các tỉnh phía bắc
-                </span>
-                <span className={cx("list-item-location")}>
-                  Chi nhánh 2: khu vực Hồ Chí Minh và các tỉnh phía nam
                 </span>
                 <a className={cx("list-item")} href="/">
                   Doanh nghiệp:{" "}

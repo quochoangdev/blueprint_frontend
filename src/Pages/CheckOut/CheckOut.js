@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { HiMinus, HiPlus } from "react-icons/hi";
 import { GoTrash } from "react-icons/go";
 import config from "../../config";
-import { deleteCart, readCartTotal, readCities, readDistricts, readJWT } from "../../services/apiUserService";
+import { createCart, createOrderWithUser, deleteCart, readCartTotal, readCities, readDistricts, readJWT, sendMailer, updateCart } from "../../services/apiUserService";
 import jwtDecode from "../../hooks/jwtDecode";
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { toast } from "react-toastify";
@@ -22,15 +22,9 @@ const CheckOut = () => {
   const [cities, setCities] = useState()
   const [districts, setDistricts] = useState()
 
-
-  useEffect(() => {
-    // window.scrollTo(0, 0);
-    const dataCheckout = JSON.parse(localStorage.getItem("dataCheckout"));
-    setDataCheckout(dataCheckout)
-  }, []);
-
+  // useEffect(() => {   // window.scrollTo(0, 0);}, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { fetchJWT(); }, []);
+  useEffect(() => { fetchJWT(); const dataCheckout = JSON.parse(localStorage.getItem("dataCheckout")); setDataCheckout(dataCheckout) }, []);
   const fetchJWT = async () => {
     let decoded = false
     const resJWT = await readJWT();
@@ -49,8 +43,6 @@ const CheckOut = () => {
       let district = await readDistricts(null, decoded?.user?.districts)
       if (district?.EC === 0) { setDistricts(district?.DT?.name) }
     }
-    // setCities(decoded?.user?.cities)
-    // setDistricts(decoded?.user?.districts)
   };
   const fetchCartWithId = async (idUser) => {
     const fetchCart = await readCartTotal(idUser)
@@ -78,12 +70,14 @@ const CheckOut = () => {
   }
 
   // payment delivery
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
     // let currentDataPayment = { ...dataCheckout[0], priceDiscount: dataCheckout[0]?.priceDiscount + dataPayment.ship }
     const value = (+totalPrice() + +dataPayment.ship)
-    console.log(value)
-    console.log(dataCheckout)
+    const fetchSendMailer = await sendMailer({ userLogin, dataCheckout, value })
+    if (fetchSendMailer) {
+      toast.success("Đặt hàng thành công")
+    }
   };
 
   // payment paypal
@@ -96,17 +90,25 @@ const CheckOut = () => {
       }],
     });
   };
+
   const onApprove = (data, actions) => {
     return actions.order.capture().then(async (details) => {
       if (details.status === "COMPLETED") {
-        console.log("Transaction completed by " + details.payer.name.given_name);
-        console.log("Transaction details: ", details);
-        // Handle successful payment here
-        toast.success("Thanh toán thành công");
-        // del cart
-        dataCheckout.map(async (prod, index) => { await deleteCart(userLogin.id, prod.id) })
-        fetchJWT()
-        navigate(`/${config.routes.cart}`)
+        let fetchOrder = await createOrderWithUser(userLogin?.id)
+        if (fetchOrder) {
+          await dataCheckout.map(async (cart, index) => {
+            if (!cart.id) {
+              let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
+              await createCart(currentCart)
+              await fetchJWT()
+            } else {
+              await updateCart(cart.id, fetchOrder?.DT?.id)
+              await fetchJWT()
+            }
+          })
+        }
+        toast.success("Đặt hàng thành công");
+        navigate(`/${config.routes.order}`)
       } else {
         toast.warning("Số dư không đủ");
       }

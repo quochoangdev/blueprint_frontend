@@ -17,11 +17,17 @@ import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 import Logout from "../Pages/Logout";
 import Profile from "../Pages/Profile";
+import Order from "../Pages/Order";
 
 // Sub page
 import Mobile from "../Pages/Mobile";
+import Iphone from "../Pages/Iphone/Iphone";
+import Samsung from "../Pages/Samsung";
 import Tablet from "../Pages/Tablet";
+import Ipad from "../Pages/Ipad";
+import SamSungTablet from "../Pages/SamSungTablet";
 import Laptop from "../Pages/Laptop";
+import MackBook from "../Pages/MacBook";
 
 // Admin Page
 import HomeAdmin from "../PageAdmin/Home";
@@ -36,8 +42,6 @@ import OrderAdmin from "../PageAdmin/Order";
 import SettingAdmin from "../PageAdmin/Settings";
 import SignOutAdmin from "../PageAdmin/SignOut";
 import NoLayout from "../layout/NoLayout";
-import Iphone from "../Pages/Iphone/Iphone";
-import Samsung from "../Pages/Samsung";
 
 // Public routes
 const publicRoutes = [
@@ -55,6 +59,11 @@ const publicRoutes = [
   {
     path: config.routes.profile,
     component: Profile,
+    layout: DefaultLayoutNoContact,
+  },
+  {
+    path: config.routes.order,
+    component: Order,
     layout: DefaultLayoutNoContact,
   },
   {
@@ -124,8 +133,23 @@ const publicRoutes = [
     layout: DefaultLayout,
   },
   {
+    path: config.routes.ipad,
+    component: Ipad,
+    layout: DefaultLayout,
+  },
+  {
+    path: config.routes.samsungTablet,
+    component: SamSungTablet,
+    layout: DefaultLayout,
+  },
+  {
     path: config.routes.laptop,
     component: Laptop,
+    layout: DefaultLayout,
+  },
+  {
+    path: config.routes.macbook,
+    component: MackBook,
     layout: DefaultLayout,
   },
   // Admin

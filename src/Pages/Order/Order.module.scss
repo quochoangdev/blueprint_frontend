@@ -1,0 +1,67 @@
+.bl-logo-checkout {
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    width           : 100%;
+    height          : 100px;
+    background-color: #fff;
+    border-bottom   : 1px solid rgba(0, 0, 0, .09);
+
+    .logo-checkout {
+        display    : flex;
+        align-items: center;
+        font-size  : 2rem;
+        font-weight: 500;
+        color      : var(--primary);
+        width      : var(--with-global);
+
+        .logo {
+            display     : flex;
+            align-items : center;
+            padding-left: 18px;
+
+            img {
+                width       : 40px;
+                display     : block;
+                margin-right: 4px;
+                margin-top  : -15px;
+            }
+        }
+
+        .checkout {
+            padding-left: 15px;
+            margin-left : 15px;
+            border-left : solid 1px var(--primary);
+        }
+    }
+}
+
+.img-avatar {
+    width: 100px;
+}
+
+.order {
+    margin-bottom   : 1rem;
+    padding         : 1rem;
+    border-radius   : 0.5rem;
+    background-color: #f8f9fa; // Màu nền của đơn hàng
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.icon-hover:hover {
+    cursor          : pointer;
+    background-color: #ececec !important;
+}
+
+// no order
+.no-order {
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    width           : 100%;
+    height          : 540px;
+    background-color: #fff;
+}

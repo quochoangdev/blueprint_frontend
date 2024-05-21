@@ -50,6 +50,9 @@ const User = ({ icon }) => {
             <Link className={cx("subnav-user-link")} to={`/${config.routes.profile}`}>
               Thông tin cá nhân
             </Link>
+            <Link className={cx("subnav-user-link")} to={`/${config.routes.order}`}>
+              Quản lý đơn hàng
+            </Link>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.logout}`}>
               Đăng xuất
             </Link>
@@ -77,6 +80,9 @@ const User = ({ icon }) => {
             </div>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.profile}`}>
               Thông tin cá nhân
+            </Link>
+            <Link className={cx("subnav-user-link")} to={`/${config.routes.order}`}>
+              Quản lý đơn hàng
             </Link>
             <Link className={cx("subnav-user-link")} to={`/${config.routes.homeAdmin}`}>
               Quản lý website

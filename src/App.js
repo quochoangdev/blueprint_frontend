@@ -53,7 +53,7 @@ function App() {
             );
           })}
         </Routes>
-        <ToastContainer autoClose={1000} />
+        <ToastContainer autoClose={500} />
       </div>
     </BrowserRouter>
   );

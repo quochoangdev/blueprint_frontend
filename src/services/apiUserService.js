@@ -20,7 +20,7 @@ const readGroupRole = (currentPage, currentLimit) => { return axios.get(`/v1/gro
 const readRole = (currentPage, currentLimit) => { return axios.get(`/v1/role/read`, { params: { page: currentPage, limit: currentLimit, }, }); };
 
 // Read Product
-const readProduct = (currentPage, currentLimit) => { return axios.get(`/v1/product/read`, { params: { page: currentPage, limit: currentLimit }, }); };
+const readProduct = (currentPage, currentLimit,) => { return axios.get(`/v1/product/read`, { params: { page: currentPage, limit: currentLimit }, }); };
 const readProductId = (currentPage, currentLimit, ProductId) => { return axios.get(`/v1/product/read`, { params: { page: currentPage, limit: currentLimit, id: ProductId, }, }); };
 const readProductFilter = (currentPage, currentLimit, categories, brand, version, sort) => { return axios.get(`/v1/product/read`, { params: { page: currentPage, limit: currentLimit, categories, brand, version, sort } }); };
 const readProductSearch = (currentPage, currentLimit, search) => { return axios.get(`/v1/product/read`, { params: { page: currentPage, limit: currentLimit, search } }); };
@@ -42,13 +42,24 @@ const readDistricts = (idCities, idDistricts) => { return axios.get(`/v1/distric
 const createCart = (data) => { return axios.post(`/v1/cart/create`, { data, }); };
 const readCart = (currentPage, currentLimit, idUser) => { return axios.get(`/v1/cart/read`, { params: { page: currentPage, limit: currentLimit, idUser }, }); };
 const readCartTotal = (idUser) => { return axios.get(`/v1/cart/read`, { params: { idUser }, }) };
-const updateCart = (data) => { return axios.put(`/v1/cart/update`, { data, }); };
-const deleteCart = (idUser, idProduct) => { return axios.delete(`/v1/cart/delete`, { data: { idUser, idProduct }, }); };
+const readCartWithOrderId = (idOrder) => { return axios.get(`/v1/order/read-cart`, { params: { idOrder }, }) };
+const updateCart = (idCart, idOrder) => { return axios.put(`/v1/cart/update`, { idCart, idOrder }); };
+const deleteCart = (idUser, idProduct) => { return axios.delete(`/v1/cart/delete`, { data: { idUser, idProduct } }) };
+
+// Read Order
+const createOrderWithUser = (idUser) => { return axios.post(`/v1/order/create`, { idUser }) };
+const readOrder = (currentPage, currentLimit, idUser) => { return axios.get(`/v1/order/read`, { params: { page: currentPage, limit: currentLimit, idUser }, }); };
+const deleteOrder = (id) => { return axios.delete(`/v1/order/delete`, { data: { id } }) };
+
+// Send Mail
+const sendMailer = (data) => { return axios.post(`/v1/send-mail`, { data }) };
 
 export {
     loginUser, logoutUser, registerUser, readJWT,
     readUser, readGroup, readRole, readGroupRole, updateUser,
     readProduct, readProductId, readProductFilter, readProductSearch, readProductDetail,
     readCategory, readBrand, readCities, readDistricts,
-    createCart, readCart, readCartTotal, updateCart, deleteCart
+    createCart, readCart, readCartTotal, updateCart, deleteCart, readCartWithOrderId,
+    createOrderWithUser, readOrder, deleteOrder,
+    sendMailer
 };

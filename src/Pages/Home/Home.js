@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { readProduct } from "../../services/apiUserService";
+import { readProduct, readProductFilter } from "../../services/apiUserService";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import { MdPhoneIphone, MdOutlineTabletMac } from "react-icons/md";
 import { FaLaptop, FaSearch } from "react-icons/fa";
@@ -16,8 +16,10 @@ const cx = classNames.bind(styles);
 const Home = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const [dataMobile, setDataMobile] = useState();
+  const [dataTablet, setDataTablet] = useState();
+  const [dataLaptop, setDataLaptop] = useState();
   const refSlider = useRef();
-  const [dataSearch, setDataSearch] = useState({ type: "", version: "", width: "", length: "", });
+  // const [dataSearch, setDataSearch] = useState({ type: "", version: "", width: "", length: "", });
 
   // feedback
   const handleLeftSlider = () => {
@@ -32,27 +34,28 @@ const Home = () => {
   }, 4000);
 
   // search option
-  const handleOnChange = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setDataSearch((prev) => { return { ...prev, [name]: value, }; });
-  };
-  const handleSubmitSearch = (e) => { e.preventDefault(); };
+  // const handleOnChange = (e) => {
+  //   e.preventDefault();
+  //   const { name, value } = e.target;
+  //   setDataSearch((prev) => { return { ...prev, [name]: value, }; });
+  // };
+  // const handleSubmitSearch = (e) => { e.preventDefault(); };
 
   useEffect(() => { fetchProduct() }, [])
   const fetchProduct = async () => {
-    const response = await readProduct()
-    if (response) {
-      setDataMobile(response?.DT)
-    }
+    let fetchMobile = await readProductFilter(1, 4, "mobile", null, null, null);
+    let fetchTablet = await readProductFilter(1, 4, "tablet", null, null, null);
+    let fetchLaptop = await readProductFilter(1, 4, "Laptop", null, null, null);
+    setDataMobile(fetchMobile?.DT?.products)
+    setDataTablet(fetchTablet?.DT?.products)
+    setDataLaptop(fetchLaptop?.DT?.products)
   }
   return (
     <>
       <SliderHome />
       <div className={cx("video-slice")}>
         <div className={cx("slice-container")}>
-          <form className={cx("search-option")}>
-            {/* L o a i */}
+          {/* <form className={cx("search-option")}>
             <div className={cx("search-item")}>
               <label className={cx("search-title")}>Loại</label>
               <select
@@ -66,7 +69,6 @@ const Home = () => {
                 <option>Điện thoại</option>
               </select>
             </div>
-            {/* version */}
             <div className={cx("search-item")}>
               <label className={cx("search-title")}>Phiên bản</label>
               <select
@@ -79,35 +81,6 @@ const Home = () => {
                 <option>IPhone 11</option>
               </select>
             </div>
-            {/* Chiều rộng */}
-            {/* <div className={cx("search-item")}>
-              <label className={cx("search-title")}>Chiều rộng</label>
-              <select
-                className={cx("search-select")}
-                name="width"
-                onChange={handleOnChange}
-              >
-                <option>Chọn số mét</option>
-                <option>3 mét</option>
-                <option>4 mét</option>
-              </select>
-            </div> */}
-            {/* Chiều dài */}
-            {/* <div className={cx("search-item")}>
-              <label className={cx("search-title")}>Chiều dài</label>
-              <select
-                className={cx("search-select")}
-                name="length"
-                onChange={handleOnChange}
-              >
-                <option>Chọn số mét</option>
-                <option>10 mét</option>
-                <option>15 mét</option>
-                <option>20 mét</option>
-                <option>25 mét</option>
-                <option>30 mét</option>
-              </select>
-            </div> */}
             <button
               type="submit"
               className={cx("search-btn")}
@@ -115,7 +88,7 @@ const Home = () => {
             >
               <FaSearch className={cx("search-btn-icon")} />
             </button>
-          </form>
+          </form> */}
           <div className={cx("select-menu")}>
             {/* Mobile */}
             <Link className={cx("item")} to={config.routes.mobile}>
@@ -148,15 +121,15 @@ const Home = () => {
         btn={true}
         link={config.routes.mobile}
       />}
-      {dataMobile && <HomePageItem
-        data={dataMobile}
+      {dataTablet && <HomePageItem
+        data={dataTablet}
         length={4}
         title={"Tablet"}
         btn={true}
         link={config.routes.tablet}
       />}
-      {dataMobile && <HomePageItem
-        data={dataMobile}
+      {dataLaptop && <HomePageItem
+        data={dataLaptop}
         length={4}
         title={"Laptop"}
         btn={true}
@@ -180,47 +153,31 @@ const Home = () => {
                 "Cảm ơn đội ngũ QuocHoangDev đã hỗ trợ 2 vc có được những mẫu điện thoại như ý. Chúc các anh chị luôn khoẻ mạnh và QuocHoangDev ngày càng phát triển hơn"
               }
               img={
-                "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/411259879_1512266179566114_696488175276542422_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=-JKTBo5n-MkAX_1qmUJ&_nc_ht=scontent.fdad1-1.fna&oh=00_AfB69HmJSrYEpXzA3UuSRUty0qLmEmR17aWCdWRSxHLfmw&oe=65C8FEDE"
+                "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716227277/ecommerce/j76d5npthy5ggoduthfc.jpg"
               }
             />
             <Feedback
               content={
-                "Cảm ơn đội ngũ QuocHoangDev đã hỗ trợ 2 vc có được những mẫu điện thoại như ý. Chúc các anh chị luôn khoẻ mạnh và QuocHoangDev ngày càng phát triển hơn"
+                "Cảm ơn đội ngũ QuocHoangDev đã hỗ trợ 2 vc có được những mẫu Máy tính bản như ý. Chúc các anh chị luôn khoẻ mạnh và QuocHoangDev ngày càng phát triển hơn"
               }
               img={
-                "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/411259879_1512266179566114_696488175276542422_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=-JKTBo5n-MkAX_1qmUJ&_nc_ht=scontent.fdad1-1.fna&oh=00_AfB69HmJSrYEpXzA3UuSRUty0qLmEmR17aWCdWRSxHLfmw&oe=65C8FEDE"
+                "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716227276/ecommerce/eh1lnl1exifqkdppnlec.jpg"
               }
             />
             <Feedback
               content={
-                "Cảm ơn đội ngũ QuocHoangDev đã hỗ trợ 2 vc có được những mẫu điện thoại như ý. Chúc các anh chị luôn khoẻ mạnh và QuocHoangDev ngày càng phát triển hơn"
+                "Cảm ơn đội ngũ QuocHoangDev đã hỗ trợ 2 vc có được những mẫu Laptop như ý. Chúc các anh chị luôn khoẻ mạnh và QuocHoangDev ngày càng phát triển hơn"
               }
               img={
-                "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/411259879_1512266179566114_696488175276542422_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=-JKTBo5n-MkAX_1qmUJ&_nc_ht=scontent.fdad1-1.fna&oh=00_AfB69HmJSrYEpXzA3UuSRUty0qLmEmR17aWCdWRSxHLfmw&oe=65C8FEDE"
+                "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716227276/ecommerce/aksgfw1v7iveqlbdcyf2.jpg"
               }
             />
             <Feedback
               content={
-                "Cảm ơn đội ngũ QuocHoangDev đã hỗ trợ 2 vc có được những mẫu điện thoại như ý. Chúc các anh chị luôn khoẻ mạnh và QuocHoangDev ngày càng phát triển hơn"
+                "Cảm ơn đội ngũ QuocHoangDev đã hỗ trợ 2 vc có được những mẫu Laptop như ý. Chúc các anh chị luôn khoẻ mạnh và QuocHoangDev ngày càng phát triển hơn"
               }
               img={
-                "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/411259879_1512266179566114_696488175276542422_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=-JKTBo5n-MkAX_1qmUJ&_nc_ht=scontent.fdad1-1.fna&oh=00_AfB69HmJSrYEpXzA3UuSRUty0qLmEmR17aWCdWRSxHLfmw&oe=65C8FEDE"
-              }
-            />
-            <Feedback
-              content={
-                "Cảm ơn đội ngũ SBS đã hỗ trợ 2 vc có được thiết kế ngôi nhà như ý. Chúc các anh chị luôn khoẻ mạnh và SBS ngày càng phát triển hơn"
-              }
-              img={
-                "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/411259879_1512266179566114_696488175276542422_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=-JKTBo5n-MkAX_1qmUJ&_nc_ht=scontent.fdad1-1.fna&oh=00_AfB69HmJSrYEpXzA3UuSRUty0qLmEmR17aWCdWRSxHLfmw&oe=65C8FEDE"
-              }
-            />
-            <Feedback
-              content={
-                "Cảm ơn đội ngũ SBS đã hỗ trợ 2 vc có được thiết kế ngôi nhà như ý. Chúc các anh chị luôn khoẻ mạnh và SBS ngày càng phát triển hơn"
-              }
-              img={
-                "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/411259879_1512266179566114_696488175276542422_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=-JKTBo5n-MkAX_1qmUJ&_nc_ht=scontent.fdad1-1.fna&oh=00_AfB69HmJSrYEpXzA3UuSRUty0qLmEmR17aWCdWRSxHLfmw&oe=65C8FEDE"
+                "https://res.cloudinary.com/dqhj1sukr/image/upload/v1716227276/ecommerce/sprrvqqwwfwpwcrqtmn5.jpg"
               }
             />
           </div>

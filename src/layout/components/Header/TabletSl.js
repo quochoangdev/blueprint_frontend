@@ -14,9 +14,8 @@ const TabletSl = ({ name, linkUrl, icon }) => {
       </Link>
       {icon && (
         <div className={cx("menu-category-link-absolute")}>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>IPad</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Samsung</Link>
-          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.tablet}`}>Lenovo</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.ipad}`}>IPad</Link>
+          <Link className={cx("menu-category-link-absolute-a")} to={`/${config.routes.samsungTablet}`}>Samsung</Link>
         </div>
       )}
     </div>

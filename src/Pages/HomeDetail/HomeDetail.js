@@ -128,9 +128,10 @@ const HomeDetail = () => {
     });
   }, [data, priceDiscount, selectedCapacity, selectedColor, userLogin?.user?.id]);
 
-  const handleBuy = (e) => {
+  const handleBuy = async (e) => {
+    e.preventDefault();
     const convertToArray = [dataBuy]
-    e.preventDefault(); dispatch(addCheckout(convertToArray));
+    dispatch(addCheckout(convertToArray));
     navigate(`/${config.routes.checkout}`)
   };
 
