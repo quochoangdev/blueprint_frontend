@@ -6,6 +6,7 @@ import { SiYoutube, SiZalo } from "react-icons/si";
 //
 import styles from "./Footer.module.scss";
 import { Link } from "react-router-dom";
+import config from "../../../config";
 
 const cx = classNames.bind(styles);
 
@@ -17,102 +18,52 @@ const Footer = () => {
           <div className={cx("footer-upper")}>
             <div className={cx("upper-follow-us")}>
               <div className={cx("follow-us-logo")}>
-                <Link className={cx("logo-link")} to="/">
-                  <div className={cx("logo")}>QHDev</div>
-                </Link>
+                <Link className={cx("logo-link")} to="/"><div className={cx("logo")}>QHDev</div></Link>
               </div>
               <div className={cx("topic-block")}>
-                Năm 2020, WanFit trở thành đại lý có tiềm năng. Chúng tôi phát
-                triển chuỗi cửa hàng tiêu chuẩn và WanFit nhằm mang đến trải
-                nghiệm tốt nhất về sản phẩm và dịch vụ của WanFit cho người dùng
+                Năm 2020, QuocHoangDev trở thành đại lý có tiềm năng. Chúng tôi phát
+                triển chuỗi cửa hàng tiêu chuẩn và QuocHoangDev nhằm mang đến trải
+                nghiệm tốt nhất về sản phẩm và dịch vụ của QuocHoangDev cho người dùng
                 Việt Nam.
               </div>
               <div className={cx("social")}>
-                <a
-                  className={cx("social-facebook")}
-                  href="https://www.facebook.com/quochoang.pham.3701"
-                >
-                  <FaFacebookF />
-                </a>
-                <a
-                  className={cx("social-youtube")}
-                  href="https://www.youtube.com/"
-                >
-                  <SiYoutube />
-                </a>
-                <a
-                  className={cx("social-zalo")}
-                  href="https://www.facebook.com/quochoang.pham.3701"
-                >
-                  <SiZalo />
-                </a>
+                <Link className={cx("social-facebook")} to="https://www.facebook.com/quochoang.pham.3701"><FaFacebookF /></Link>
+                <Link className={cx("social-youtube")} to="https://www.youtube.com/"><SiYoutube /></Link>
+                <Link className={cx("social-zalo")} to="https://www.facebook.com/quochoang.pham.3701"><SiZalo /></Link>
               </div>
             </div>
             {/*  */}
             <div className={cx("upper-information")}>
-              <div className={cx("title")}>Dự án</div>
+              <div className={cx("title")}>Danh Mục</div>
               <div className={cx("list")}>
-                <a className={cx("list-item")} href="/">
-                  Nhà cấp 4 đẹp
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Nhà phố đẹp
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Nhà 2 tầng
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Nhà 3 tầng
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Nhà 4 tầng
-                </a>
+                <Link className={cx("list-item")} to={`/${config.routes.mobile}`}>Điện thoại</Link>
+                <Link className={cx("list-item")} to={`/${config.routes.tablet}`}>Tablet</Link>
+                <Link className={cx("list-item")} to={`/${config.routes.laptop}`}>Laptop</Link>
+                <span className={cx("list-item")} >Phản Hồi</span>
+                <span className={cx("list-item")} >Tuyển Dụng</span>
               </div>
             </div>
             {/*  */}
             <div className={cx("upper-customer-service")}>
               <div className={cx("title")}>Chính sách</div>
               <div className={cx("list")}>
-                <a className={cx("list-item")} href="/">
-                  Giao hàng
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Giao hàng (ZaloPay)
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Huỷ giao dịch
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Đổi trả
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Bảo hành
-                </a>
+                <span className={cx("list-item")}>Giao hàng</span>
+                <span className={cx("list-item")}>Giao hàng (ZaloPay)</span>
+                <span className={cx("list-item")}>Huỷ giao dịch</span>
+                <span className={cx("list-item")}>Đổi trả</span>
+                <span className={cx("list-item")}>Bảo hành</span>
               </div>
             </div>
             {/*  */}
             <div className={cx("upper-my-account")}>
               <div className={cx("title")}>Địa chỉ & Liên hệ</div>
               <div className={cx("list")}>
-                <a className={cx("list-item")} href="/">
-                  Tài khoản của tôi
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Đơn đặt hàng
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Hệ thống cửa hàng
-                </a>
-                <a className={cx("list-item")} href="/">
-                  Mua Hàng: 0971955144
-                </a>
-                <span className={cx("list-item-location")}>
-                  Chi nhánh 1: khu vực Hà Nội và các tỉnh phía bắc
-                </span>
-                <a className={cx("list-item")} href="/">
-                  Doanh nghiệp:{" "}
-                  <span className={cx("list-item-tel")}>0971.955.144</span>
-                </a>
+                <Link className={cx("list-item")} to={`/${config.routes.profile}`}>Tài khoản của tôi</Link>
+                <Link className={cx("list-item")} to={`/${config.routes.order}`}>Đơn đặt hàng</Link>
+                <Link className={cx("list-item")} to="/">Hệ thống cửa hàng</Link>
+                <Link className={cx("list-item")} to="tel:0971955144">Mua Hàng: 0971955144</Link>
+                <span className={cx("list-item-location")}>Chi nhánh 1: khu vực Hà Nội và các tỉnh phía bắc</span>
+                <Link className={cx("list-item")} to="tel:0971955144">Doanh nghiệp:{" "}<span className={cx("list-item-tel")}>0971.955.144</span></Link>
               </div>
             </div>
           </div>
@@ -129,16 +80,9 @@ const Footer = () => {
               lienhe@shopdunk.com
             </div>
             <div className={cx("confirm")}>
-              <a
-                className={cx("confirm-link")}
-                href="http://online.gov.vn/(X(1)S(jfktnnku5rui3vjf5pnk4sgc))/Home/WebDetails/34144?AspxAutoDetectCookieSupport=1"
-              >
-                <img
-                  className={cx("confirm-image")}
-                  src="https://shopdunk.com/images/uploaded-source/Trang%20ch%E1%BB%A7/Bocongthuong.png"
-                  alt=""
-                />
-              </a>
+              <Link className={cx("confirm-link")} to="http://online.gov.vn/(X(1)S(jfktnnku5rui3vjf5pnk4sgc))/Home/WebDetails/34144?AspxAutoDetectCookieSupport=1">
+                <img className={cx("confirm-image")} src="https://shopdunk.com/images/uploaded-source/Trang%20ch%E1%BB%A7/Bocongthuong.png" alt="" />
+              </Link>
             </div>
           </div>
         </div>

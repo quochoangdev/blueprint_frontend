@@ -148,11 +148,12 @@ const HomeDetail = () => {
         price: data?.price,
         priceDiscount: data && priceDiscount,
         percentDiscount: data?.percentDiscount,
+        quantity: data && quantity,
         slug: data?.slug,
         idUser: userLogin?.user?.id
       };
     });
-  }, [data, priceDiscount, selectedCapacity, selectedColor, userLogin?.user?.id]);
+  }, [data, priceDiscount, quantity, selectedCapacity, selectedColor, userLogin?.user?.id]);
 
   const handleBuy = async (e) => {
     e.preventDefault();

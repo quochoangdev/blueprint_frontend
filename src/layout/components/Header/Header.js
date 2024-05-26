@@ -72,10 +72,8 @@ const Header = () => {
             linkUrl={config.routes.laptop}
             icon={<MdKeyboardArrowDown />}
           />
-          <HeaderItem name={"Phản hồi"} />
-          <HeaderItem name={"Tuyển dụng"} />
-          {/* <HeaderItem name={"Phản hồi"} linkUrl={"phan-hoi"} />
-          <HeaderItem name={"Tuyển dụng"} linkUrl={"tuyen-dung"} /> */}
+          <HeaderItem name={"Phản hồi"} linkUrl={"phan-hoi"} isLink={false} />
+          <HeaderItem name={"Tuyển dụng"} linkUrl={"tuyen-dung"} isLink={false} />
         </div>
         {/* social */}
         <div className={cx("navbar-item-social")}>
