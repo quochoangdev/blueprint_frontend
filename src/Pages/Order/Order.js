@@ -14,7 +14,7 @@ const Order = () => {
   const [cartData, setCartData] = useState({});
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { fetchJWT() }, []);
+  useEffect(() => { fetchJWT(); window.scrollTo(0, 0); }, []);
   const fetchJWT = async () => {
     let decoded = false
     const resJWT = await readJWT();
@@ -91,6 +91,7 @@ const Order = () => {
                   <th scope="col">Giá</th>
                   <th scope="col">Màu</th>
                   <th scope="col">Dung lượng</th>
+                  <th scope="col">Số lượng</th>
                 </tr>
               </thead>
             </table>
@@ -111,9 +112,10 @@ const Order = () => {
                             <img src={product.image} alt={product.title} width="50" height="50" />
                           </td>
                           <td>{product.title}</td>
-                          <td>{formatNumber(product.price)}</td>
-                          <td>{product.color}</td>
-                          <td>{product.capacity}</td>
+                          <td className="pe-5">{formatNumber(product.price)}</td>
+                          <td className="pe-5">{product.color}</td>
+                          <td className="pe-5">{product.capacity}</td>
+                          <td className="pe-5">{product.quantity}</td>
                         </tr>
                       ))}
                     </tbody>

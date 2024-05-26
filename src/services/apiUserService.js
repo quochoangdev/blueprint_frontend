@@ -39,12 +39,14 @@ const readCities = (idCities) => { return axios.get(`/v1/cities/read`, { params:
 const readDistricts = (idCities, idDistricts) => { return axios.get(`/v1/districts/read`, { params: { idCities, idDistricts } }) };
 
 // Read Cart
+const addCart = (data) => { return axios.post(`/v1/cart/add`, { data, }); };
 const createCart = (data) => { return axios.post(`/v1/cart/create`, { data, }); };
 const readCart = (currentPage, currentLimit, idUser) => { return axios.get(`/v1/cart/read`, { params: { page: currentPage, limit: currentLimit, idUser }, }); };
 const readCartTotal = (idUser) => { return axios.get(`/v1/cart/read`, { params: { idUser }, }) };
 const readCartWithOrderId = (idOrder) => { return axios.get(`/v1/order/read-cart`, { params: { idOrder }, }) };
-const updateCart = (idCart, idOrder) => { return axios.put(`/v1/cart/update`, { idCart, idOrder }); };
 const deleteCart = (idUser, idProduct) => { return axios.delete(`/v1/cart/delete`, { data: { idUser, idProduct } }) };
+
+const updateCart = (idCart, idOrder) => { return axios.put(`/v1/cart/update`, { idCart, idOrder }); };
 
 // Read Order
 const createOrderWithUser = (idUser) => { return axios.post(`/v1/order/create`, { idUser }) };
@@ -53,13 +55,14 @@ const deleteOrder = (id) => { return axios.delete(`/v1/order/delete`, { data: { 
 
 // Send Mail
 const sendMailer = (data) => { return axios.post(`/v1/send-mail`, { data }) };
+const sendMailerContact = (data) => { return axios.post(`/v1/send-mail-contact`, { data }) };
 
 export {
     loginUser, logoutUser, registerUser, readJWT,
     readUser, readGroup, readRole, readGroupRole, updateUser,
     readProduct, readProductId, readProductFilter, readProductSearch, readProductDetail,
     readCategory, readBrand, readCities, readDistricts,
-    createCart, readCart, readCartTotal, updateCart, deleteCart, readCartWithOrderId,
+    addCart, createCart, readCart, readCartTotal, updateCart, deleteCart, readCartWithOrderId,
     createOrderWithUser, readOrder, deleteOrder,
-    sendMailer
+    sendMailer, sendMailerContact
 };

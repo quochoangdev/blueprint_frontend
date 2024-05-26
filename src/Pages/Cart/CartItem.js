@@ -5,11 +5,13 @@ import { addCheckout } from "../../redux/cartSlice";
 import styles from "./Cart.module.scss";
 import { GoTrash } from "react-icons/go";
 import { Link } from "react-router-dom";
-import { deleteCart, readCartTotal, readJWT } from "../../services/apiUserService";
+import { addCart, deleteCart, readCartTotal, readJWT } from "../../services/apiUserService";
 import { toast } from "react-toastify";
 import jwtDecode from "../../hooks/jwtDecode";
 import { CountCartContext } from "../../hooks/DataContext";
 import config from "../../config";
+import { MdAdd } from "react-icons/md";
+import { RiSubtractFill } from "react-icons/ri";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
@@ -19,6 +21,8 @@ const CartItem = (props) => {
   const dispatch = useDispatch();
   const [userLogin, setUserLogin] = useState()
   const { setCountCart } = useContext(CountCartContext)
+  const [quantity, setQuantity] = useState(props?.product?.quantity)
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchJWT(); }, []);
   const fetchJWT = async () => {
@@ -34,6 +38,22 @@ const CartItem = (props) => {
   const fetchCartWithId = async (idUser) => {
     const fetchCart = await readCartTotal(idUser)
     setCountCart(fetchCart.DT)
+  }
+
+  // handle quantity
+  const handleIncrease = async () => {
+    setQuantity(prev => prev + 1)
+    let currentDataBuy = { ...props?.product, quantity: quantity + 1, idUser: userLogin?.user?.id }
+    await addCart(currentDataBuy)
+    await props.fetchProducts()
+  }
+  const handleReduce = async () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1)
+      let currentDataBuy = { ...props?.product, quantity: quantity - 1, idUser: userLogin?.user?.id }
+      await addCart(currentDataBuy)
+      await props.fetchProducts()
+    }
   }
 
   // handle delete
@@ -73,6 +93,15 @@ const CartItem = (props) => {
       <div className={cx("content-3")}>
         <div>Giá: {props?.product && formatNumber(props?.product?.price)}₫ - ({props?.product?.percentDiscount}%)</div>
         <div>Thanh toán: {props?.product && formatNumber(props?.product?.priceDiscount)}₫</div>
+      </div>
+      <div className={cx("content-4")}>
+        <div className={cx("buy")}>
+          <div className="btn-group" role="group" aria-label="Basic example">
+            <button type="button" className="btn btn-primary  fs-3" onClick={handleReduce}><RiSubtractFill /></button>
+            <p className="mb-0 px-4 fs-3 d-flex align-items-center">{quantity}</p>
+            <button type="button" className="btn btn-primary  fs-3" onClick={handleIncrease}><MdAdd /></button>
+          </div>
+        </div>
       </div>
       <div className={cx("content-4")}>
         <div className={cx("buy")}>

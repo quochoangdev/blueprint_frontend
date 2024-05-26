@@ -20,15 +20,16 @@ const Cart = () => {
     const [productData, setProductData] = useState();
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [currentLimit, setCurrentLimit] = useState(5);
+    const [currentLimit, setCurrentLimit] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
+    const [Price, setPrice] = useState(0);
 
     // Page
     const handlePageClick = (event) => { setCurrentPage(event.selected + 1); };
 
     // Call Api
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { fetchJWT(); setCurrentLimit(5); }, [currentPage]);
+    useEffect(() => { fetchJWT(); setCurrentLimit(10); }, [currentPage]);
     const fetchJWT = async () => {
         let decoded = false
         const resJWT = await readJWT();
@@ -45,7 +46,7 @@ const Cart = () => {
 
     const totalPrice = () => {
         return productData && productData.reduce((total, product) => {
-            return total + product?.priceDiscount
+            return total + product?.priceDiscount * product?.quantity
         }, 0)
     }
 
@@ -67,11 +68,12 @@ const Cart = () => {
                                 <div className={cx("title-2")}>Tên sản phẩm</div>
                                 <div className={cx("title-3")}>Giá bán</div>
                                 <div className={cx("title-4")}>Số lượng</div>
+                                <div className={cx("title-4")}>Khác</div>
                                 <div className={cx("title-5")}></div>
                             </div>
                             <div className={cx("container")}>
                                 {productData && productData.map((product, index) => {
-                                    return (<CartItem key={`cart-${index}`} product={product} fetchProducts={fetchJWT} />);
+                                    return (<CartItem key={`cart-${index}`} product={product} totalPrice={totalPrice()} fetchProducts={fetchJWT} />);
                                 })}
                                 <div className={cx("total-price")}>Tổng tiền: {productData && formatNumber(totalPrice())}₫</div>
                             </div>

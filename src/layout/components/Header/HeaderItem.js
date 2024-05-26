@@ -9,10 +9,16 @@ const cx = classNames.bind(styles);
 const HeaderItem = ({ name, linkUrl }) => {
   return (
     <div className={cx("menu-category")}>
-      <Link to={`/${linkUrl}`} className={cx("menu-category-link")}>
-        <span>{name}</span>
-      </Link>
-    </div>
+      {
+        linkUrl ?
+          (<Link to={`/${linkUrl}`} className={cx("menu-category-link")}>
+            <span>{name}</span>
+          </Link>) : (<span className={cx("menu-category-link")}>
+            <span>{name}</span>
+          </span>)
+      }
+
+    </div >
   );
 };
 

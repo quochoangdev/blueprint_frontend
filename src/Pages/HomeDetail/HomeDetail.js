@@ -12,12 +12,13 @@ import { TbReplace } from "react-icons/tb";
 import { FaCircleChevronLeft, FaCircleChevronRight, FaGift } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import HomePageItem from "../../layout/components/HomePageItem/HomePageItem";
-import { createCart, readCartTotal, readJWT, readProductDetail } from "../../services/apiUserService";
+import { addCart, readCartTotal, readJWT, readProductDetail } from "../../services/apiUserService";
 import { FiShoppingCart } from "react-icons/fi";
 import jwtDecode from "../../hooks/jwtDecode";
 import { CountCartContext } from "../../hooks/DataContext";
 import config from '../../config'
-
+import { MdAdd } from "react-icons/md";
+import { RiSubtractFill } from "react-icons/ri";
 
 import styles from "./HomeDetail.module.scss";
 
@@ -36,6 +37,7 @@ const HomeDetail = () => {
   const [selectedCapacity, setSelectedCapacity] = useState(null);
   const [dataBuy, setDataBuy] = useState({});
   const [compact, setCompact] = useState(false);
+  const [quantity, setQuantity] = useState(1)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchJWT(); }, []);
@@ -108,8 +110,32 @@ const HomeDetail = () => {
   const handleOptionClick = useCallback((color) => { handleColors(color); setShowImage(false); }, [handleColors]); // handle color onClick
   useEffect(() => { data && setSelectedColor(data?.color[0]) }, [data]); // set color default
 
+  // handle quantity
+  const handleIncrease = () => { setQuantity(prev => prev + 1) }
+  const handleReduce = () => {
+    if (quantity > 0) setQuantity(prev => prev - 1)
+  }
+
   // handle compact
   const handleCompact = () => { setCompact((prev) => !prev); };
+
+  // handle add cart
+  const handleAddCart = async (e) => {
+    e.preventDefault();
+    if (!userLogin) {
+      toast("Vui lòng đăng nhập")
+    } else {
+      let currentDataBuy = { ...dataBuy, quantity }
+      const fetchCart = await addCart(currentDataBuy)
+      if (fetchCart?.EC === 0) {
+        toast.success(fetchCart?.EM);
+        fetchJWT()
+        setQuantity(1)
+      } else {
+        toast.warning(fetchCart?.EM);
+      }
+    }
+  }
 
   // handle buy
   useEffect(() => {
@@ -130,22 +156,14 @@ const HomeDetail = () => {
 
   const handleBuy = async (e) => {
     e.preventDefault();
-    const convertToArray = [dataBuy]
-    dispatch(addCheckout(convertToArray));
-    navigate(`/${config.routes.checkout}`)
-  };
-
-  // handle add cart
-  const handleAddCart = async (e) => {
-    e.preventDefault();
-    const fetchCart = await createCart(dataBuy)
-    if (fetchCart?.EC === 0) {
-      toast.success(fetchCart?.EM);
-      fetchJWT()
+    if (!userLogin) {
+      toast("Vui lòng đăng nhập")
     } else {
-      toast.warning(fetchCart?.EM);
+      const convertToArray = [dataBuy]
+      dispatch(addCheckout(convertToArray));
+      navigate(`/${config.routes.checkout}`)
     }
-  }
+  };
 
   // handle Installment
   const handleInstallment = (e) => { e.preventDefault(); toast.warning("Chức năng đang được phát triển") };
@@ -321,13 +339,18 @@ const HomeDetail = () => {
               </Link>
             </div>
             <div className={cx("btn-installment")}>
-              <Link className={cx("btn-installment-link")} to="#" onClick={handleAddCart}>
+              {/* <Link className={cx("btn-installment-link")} to="#" onClick={handleAddCart}>
                 <FiShoppingCart className={cx("btn-installment-link-icon")} />
                 Thêm vào giỏ hàng
-              </Link>
+              </Link> */}
+              {/* <!-- Button trigger modal --> */}
+              <button type="button" className={cx("btn-installment-link")} data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <FiShoppingCart className={cx("btn-installment-link-icon")} />
+                Thêm vào giỏ hàng
+              </button>
               <Link className={cx("btn-installment-link")} to="/" onClick={handleInstallment}>
                 <TbReplace className={cx("btn-installment-link-icon")} />
-                Thu cũ đổi mới
+                Thu cũ đổi
               </Link>
             </div>
             <div className={cx("policy")}>
@@ -365,6 +388,29 @@ const HomeDetail = () => {
         <div className={cx("suggest")}>
           <h3 className={cx("title")}>Gợi ý phụ kiện đi kèm</h3>
           <HomePageItem />
+        </div>
+      </div>
+
+      {/* <!-- Modal --> */}
+      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog modal-sm  modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title text-center mt-0 fs-3" id="staticBackdropLabel">Số Lượng</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body d-flex justify-content-center align-items-center">
+              <div className="btn-group d-flex align-items-center" role="group" aria-label="Basic example">
+                <button type="button" className="btn btn-primary  fs-3" onClick={handleReduce}><RiSubtractFill /></button>
+                <p className="mb-0 px-5 fs-3">{quantity}</p>
+                <button type="button" className="btn btn-primary  fs-3" onClick={handleIncrease}><MdAdd /></button>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary fs-4" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary fs-4" data-bs-dismiss="modal" onClick={handleAddCart}>Save</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

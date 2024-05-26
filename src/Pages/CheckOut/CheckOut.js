@@ -53,7 +53,7 @@ const CheckOut = () => {
 
   const totalPrice = () => {
     return dataCheckout && dataCheckout.reduce((total, product) => {
-      return total + product?.priceDiscount
+      return total + product?.priceDiscount * product?.quantity
     }, 0)
   }
 
@@ -75,8 +75,23 @@ const CheckOut = () => {
     // let currentDataPayment = { ...dataCheckout[0], priceDiscount: dataCheckout[0]?.priceDiscount + dataPayment.ship }
     const value = (+totalPrice() + +dataPayment.ship)
     const fetchSendMailer = await sendMailer({ userLogin, dataCheckout, value })
+    console.log(fetchSendMailer);
     if (fetchSendMailer) {
-      toast.success("Đặt hàng thành công")
+      let fetchOrder = await createOrderWithUser(userLogin?.id)
+      if (fetchOrder) {
+        await dataCheckout.map(async (cart, index) => {
+          if (!cart.id) {
+            let currentCart = { ...cart, idOrder: fetchOrder?.DT?.id }
+            await createCart(currentCart)
+            await fetchJWT()
+          } else {
+            await updateCart(cart.id, fetchOrder?.DT?.id)
+            await fetchJWT()
+          }
+        })
+      }
+      toast.success("Đặt hàng thành công");
+      navigate(`/${config.routes.order}`)
     }
   };
 

@@ -60,9 +60,6 @@ const ContactOrder = (props) => {
       localStorage.setItem("dataCustomer", JSON.stringify(newData));
       navigate("/checkout");
     }
-    // console.log(data);
-    // console.log(props.productData);
-    // console.log(newData);
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;

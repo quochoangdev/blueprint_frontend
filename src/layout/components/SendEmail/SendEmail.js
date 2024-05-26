@@ -3,19 +3,28 @@ import { AiOutlineMail } from "react-icons/ai";
 
 //
 import styles from "./SendEmail.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { readJWT, sendMailerContact } from "../../../services/apiUserService";
+import jwtDecode from "../../../hooks/jwtDecode";
 
 const cx = classNames.bind(styles);
 
 const SendEmail = () => {
-  const [data, setData] = useState({
-    name: "",
-    phone: "",
-    product: "",
-    budget: "",
-    message: "",
-  });
+  const [data, setData] = useState({ name: "", phone: "", product: "", budget: "", message: "", });
+  const [userLogin, setUserLogin] = useState()
+
+
+  useEffect(() => { fetchJWT(); }, []);
+  const fetchJWT = async () => {
+    let decoded = false
+    const resJWT = await readJWT();
+    if (resJWT?.DT?.jwt) {
+      decoded = await jwtDecode(resJWT?.DT?.jwt)
+    }
+    setUserLogin(decoded)
+  };
+
   const isCheckInputs = () => {
     if (!data.name) {
       toast("Vui lòng nhập họ và tên");
@@ -26,11 +35,11 @@ const SendEmail = () => {
       return false;
     }
     if (!data.product) {
-      toast("Vui lòng nhập diện tích đất");
+      toast("Vui lòng nhập loại sản phẩm");
       return false;
     }
     if (!data.budget) {
-      toast("Vui lòng chọn ngân sách hiện có");
+      toast("Vui lòng chọn ngân sách");
       return false;
     }
     return true;
@@ -44,11 +53,14 @@ const SendEmail = () => {
       };
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let isCheck = isCheckInputs();
     if (isCheck === true) {
-      console.log(data);
+      let fetchMail = await sendMailerContact(data);
+      if (fetchMail) {
+        toast.success("Đã gửi thông tin thành công");
+      }
     }
   };
   return (

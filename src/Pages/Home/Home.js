@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { readProduct, readProductFilter } from "../../services/apiUserService";
+import { readProductFilter } from "../../services/apiUserService";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import { MdPhoneIphone, MdOutlineTabletMac } from "react-icons/md";
 import { FaLaptop, FaSearch } from "react-icons/fa";
