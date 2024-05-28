@@ -387,8 +387,7 @@ const HomeDetail = () => {
           </div>
         </div>
         <div className={cx("suggest")}>
-          <h3 className={cx("title")}>Gợi ý phụ kiện đi kèm</h3>
-          <HomePageItem />
+          <h3 className={cx("title")}> </h3>
         </div>
       </div>
 
