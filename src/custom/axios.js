@@ -5,13 +5,11 @@ import { toast } from "react-toastify";
 // Set config defaults when creating the instance
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
+  headers: {
+    "Content-Type": "application/json", // Thêm header "Content-Type"
+  },
+  withCredentials: true, // Sử dụng withCredentials
 });
-
-instance.defaults.withCredentials = true;
-// headers: {
-//   "Content-Type": "application/json",
-// },
-// withCredentials: true,
 // Alter defaults after instance has been created
 // instance.defaults.headers.common["Authorization"] = "AUTH_TOKEN 12345";
 
