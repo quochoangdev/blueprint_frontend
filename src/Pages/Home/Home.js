@@ -10,6 +10,7 @@ import Feedback from "./Feedback";
 import config from "../../config";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -45,11 +46,16 @@ const Home = () => {
   const fetchProduct = async () => {
     let fetchMobile = await readProductFilter(1, 4, "mobile", null, null, null);
     let fetchTablet = await readProductFilter(1, 4, "tablet", null, null, null);
-    let fetchLaptop = await readProductFilter(1, 4, "Laptop", null, null, null);
+    // let fetchLaptop = await readProductFilter(1, 4, "Laptop", null, null, null);
+    let fetchLaptop = await axios.get("http://localhost:8000/api/v1/product/read")
+
     setDataMobile(fetchMobile?.DT?.products)
     setDataTablet(fetchTablet?.DT?.products)
-    setDataLaptop(fetchLaptop?.DT?.products)
+    // setDataLaptop(fetchLaptop?.DT?.products)
+    setDataLaptop(fetchLaptop?.data?.DT)
   }
+
+
   return (
     <>
       <SliderHome />
