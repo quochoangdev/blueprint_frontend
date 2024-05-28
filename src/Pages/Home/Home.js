@@ -34,14 +34,6 @@ const Home = () => {
     if (refSlider?.current?.scrollLeft) { refSlider.current.scrollLeft += 400; }
   }, 4000);
 
-  // search option
-  // const handleOnChange = (e) => {
-  //   e.preventDefault();
-  //   const { name, value } = e.target;
-  //   setDataSearch((prev) => { return { ...prev, [name]: value, }; });
-  // };
-  // const handleSubmitSearch = (e) => { e.preventDefault(); };
-
   useEffect(() => { fetchProduct() }, [])
   const fetchProduct = async () => {
     let fetchMobile = await readProductFilter(1, 4, "mobile", null, null, null);
@@ -54,7 +46,6 @@ const Home = () => {
     // setDataLaptop(fetchLaptop?.DT?.products)
     setDataLaptop(fetchLaptop?.data?.DT)
   }
-
 
   return (
     <>
