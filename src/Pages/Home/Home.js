@@ -52,40 +52,6 @@ const Home = () => {
       <SliderHome />
       <div className={cx("video-slice")}>
         <div className={cx("slice-container")}>
-          {/* <form className={cx("search-option")}>
-            <div className={cx("search-item")}>
-              <label className={cx("search-title")}>Loại</label>
-              <select
-                className={cx("search-select")}
-                name="type"
-                onChange={handleOnChange}
-              >
-                <option>-- chọn --</option>
-                <option>Laptop</option>
-                <option>IPad</option>
-                <option>Điện thoại</option>
-              </select>
-            </div>
-            <div className={cx("search-item")}>
-              <label className={cx("search-title")}>Phiên bản</label>
-              <select
-                className={cx("search-select")}
-                name="version"
-                onChange={handleOnChange}
-              >
-                <option>-- chọn --</option>
-                <option>IPhone 10</option>
-                <option>IPhone 11</option>
-              </select>
-            </div>
-            <button
-              type="submit"
-              className={cx("search-btn")}
-              onClick={handleSubmitSearch}
-            >
-              <FaSearch className={cx("search-btn-icon")} />
-            </button>
-          </form> */}
           <div className={cx("select-menu")}>
             {/* Mobile */}
             <Link className={cx("item")} to={config.routes.mobile}>
